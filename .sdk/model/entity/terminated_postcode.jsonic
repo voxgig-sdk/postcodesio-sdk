@@ -1,0 +1,64 @@
+# Entity: terminated_postcode
+
+main: kit: entity: terminated_postcode: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "result"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "terminated_postcode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/terminated_postcodes/{postcode}"
+          parts: [
+            "terminated_postcodes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              postcode: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "scottish_postcode": {
+      "SCOTTISH_POSTCODE00": {
+        "result": [],
+        "status": "s15"
+      },
+      "SCOTTISH_POSTCODE01": {
+        "result": [],
+        "status": "s29"
+      },
+      "SCOTTISH_POSTCODE02": {
+        "result": [],
+        "status": "s3d"
+      }
+    }
+  },
+  "new": {
+    "scottish_postcode": {
+      "scottish_postcode_ref01": {
+        "result": [],
+        "status": "s51"
+      }
+    }
+  }
+}

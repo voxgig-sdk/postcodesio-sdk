@@ -1,0 +1,197 @@
+# Entity: postcode
+
+main: kit: entity: postcode: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "result"
+      req: true
+      type: "`$OBJECT`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "postcode"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/postcodes"
+          parts: [
+            "postcodes"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "postcode"
+                kind: "query"
+                name: "filter"
+                orig: "filter"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 51.50354
+                kind: "query"
+                name: "latitude"
+                orig: "latitude"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                example: 3
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: -0.127695
+                kind: "query"
+                name: "longitude"
+                orig: "longitude"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                example: "SW1A 2AA"
+                kind: "query"
+                name: "query"
+                orig: "query"
+                reqd: false
+                type: "`$ANY`"
+              }
+              {
+                example: 500
+                kind: "query"
+                name: "radius"
+                orig: "radius"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "true"
+                kind: "query"
+                name: "widesearch"
+                orig: "widesearch"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/postcodes"
+          parts: [
+            "postcodes"
+          ]
+          select: {
+            exist: [
+              "filter"
+              "latitude"
+              "limit"
+              "longitude"
+              "query"
+              "radius"
+              "widesearch"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "SW1A 2AA"
+                kind: "param"
+                name: "id"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/postcodes/{postcode}"
+          parts: [
+            "postcodes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              postcode: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            query: [
+              {
+                example: "SW1A"
+                kind: "query"
+                name: "outcode"
+                orig: "outcode"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/random/postcodes"
+          parts: [
+            "random"
+            "postcodes"
+          ]
+          select: {
+            exist: [
+              "outcode"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

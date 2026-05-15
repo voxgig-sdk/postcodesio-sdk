@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "terminated_postcode": {
+      "TERMINATED_POSTCODE00": {
+        "result": [],
+        "status": "s15"
+      },
+      "TERMINATED_POSTCODE01": {
+        "result": [],
+        "status": "s29"
+      },
+      "TERMINATED_POSTCODE02": {
+        "result": [],
+        "status": "s3d"
+      }
+    }
+  },
+  "new": {
+    "terminated_postcode": {
+      "terminated_postcode_ref01": {
+        "result": [],
+        "status": "s51"
+      }
+    }
+  }
+}

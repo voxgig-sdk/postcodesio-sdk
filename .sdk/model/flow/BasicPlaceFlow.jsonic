@@ -1,0 +1,40 @@
+# BasicPlaceFlow
+
+main: kit: flow: BasicPlaceFlow:
+{
+  entity: "place",
+  kind: "basic",
+  name: "BasicPlaceFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "place_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "place_ref01",
+        srcdatavar: "place_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-place_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPlaceFlow"
+}

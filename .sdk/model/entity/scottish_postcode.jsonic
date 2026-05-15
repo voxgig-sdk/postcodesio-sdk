@@ -1,0 +1,65 @@
+# Entity: scottish_postcode
+
+main: kit: entity: scottish_postcode: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "result"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "scottish_postcode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "postcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/scotland/postcodes/{postcode}"
+          parts: [
+            "scotland"
+            "postcodes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              postcode: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

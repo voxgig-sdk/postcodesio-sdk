@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "postcode": {
+      "POSTCODE00": {
+        "result": {},
+        "status": "s15"
+      },
+      "POSTCODE01": {
+        "result": {},
+        "status": "s29"
+      },
+      "POSTCODE02": {
+        "result": {},
+        "status": "s3d"
+      }
+    }
+  },
+  "new": {
+    "postcode": {
+      "postcode_ref01": {
+        "result": {},
+        "status": "s51"
+      }
+    }
+  }
+}

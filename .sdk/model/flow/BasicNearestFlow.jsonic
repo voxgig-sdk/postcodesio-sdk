@@ -1,0 +1,26 @@
+# BasicNearestFlow
+
+main: kit: flow: BasicNearestFlow:
+{
+  entity: "nearest",
+  kind: "basic",
+  name: "BasicNearestFlow",
+  step: [
+    {
+      match: {
+        postcode_id: "postcode01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "nearest_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicNearestFlow"
+}

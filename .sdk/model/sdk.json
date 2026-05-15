@@ -1,0 +1,1218 @@
+{
+  "name": "postcodesio",
+  "origin": "voxgig-sdk",
+  "def": "postcodesio_0.1.0.json",
+  "main": {
+    "kit": {
+      "info": {
+        "contact": {
+          "email": "support@ideal-postcodes.co.uk",
+          "name": "Support",
+          "url": "https://ideal-postcodes.co.uk/support"
+        },
+        "description": "Postcodes.io is a free postcode lookup API and geocoder for the UK.\n\n## Endpoint\n\nAll services can be accessed from the following endpoint.\n\n```\nhttps://api.postcodes.io\n```\n\nThe API accepts GET and POST requests. POST methods use content type `application/json`.\n\n## Responses\n\nEach response comes with an appropriate HTTP Status code (except for JSONP requests). These include 200 for success, 400 for a bad request, 404 for not found and 500 for server error. The HTTP Status code is also included in the response body.\n\n## Authentication\n\nPostcodes.io does not require authentication.\n",
+        "license": {
+          "name": "MIT",
+          "url": "https://opensource.org/licenses/MIT"
+        },
+        "servers": [
+          {
+            "description": "API Server",
+            "url": "https://api.postcodes.io"
+          }
+        ],
+        "termsOfService": "https://postcodes.io/docs/licenses",
+        "title": "API Reference - Postcodes.io",
+        "version": "3.5.1"
+      },
+      "config": {
+        "auth": {
+          "prefix": "Bearer"
+        },
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "nearest": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "result",
+              "req": true,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "nearest",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": "SW1A 2AA",
+                        "kind": "param",
+                        "name": "postcode_id",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/postcodes/{postcode}/nearest",
+                  "parts": [
+                    "postcodes",
+                    "{postcode_id}",
+                    "nearest"
+                  ],
+                  "rename": {
+                    "param": {
+                      "postcode": "postcode_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "postcode_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "postcode"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "outcode": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "result",
+              "req": true,
+              "type": "`$ANY`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "outcode",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": "SW1A",
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "outcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/outcodes/{outcode}",
+                  "parts": [
+                    "outcodes",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "outcode": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "place": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "code",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "country",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "county_unitary",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "county_unitary_type",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "district_borough",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "district_borough_type",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "easting",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "latitude",
+              "req": true,
+              "type": "`$NUMBER`",
+              "active": true
+            },
+            {
+              "name": "local_type",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "longitude",
+              "req": true,
+              "type": "`$NUMBER`",
+              "active": true
+            },
+            {
+              "name": "max_easting",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "max_northing",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "min_easting",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "min_northing",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "name_1",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "name_1_lang",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "name_2",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "name_2_lang",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "northing",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "outcode",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "region",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "result",
+              "req": true,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "place",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/places",
+                  "parts": [
+                    "places"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "code",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/places/{code}",
+                  "parts": [
+                    "places",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "code": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "method": "GET",
+                  "orig": "/random/places",
+                  "parts": [
+                    "random",
+                    "places"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "postcode": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "result",
+              "req": true,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "postcode",
+          "op": {
+            "create": {
+              "name": "create",
+              "points": [
+                {
+                  "method": "POST",
+                  "orig": "/postcodes",
+                  "parts": [
+                    "postcodes"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "query": [
+                      {
+                        "example": "postcode",
+                        "kind": "query",
+                        "name": "filter",
+                        "orig": "filter",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": 51.50354,
+                        "kind": "query",
+                        "name": "latitude",
+                        "orig": "latitude",
+                        "reqd": false,
+                        "type": "`$NUMBER`",
+                        "active": true
+                      },
+                      {
+                        "example": 3,
+                        "kind": "query",
+                        "name": "limit",
+                        "orig": "limit",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "example": -0.127695,
+                        "kind": "query",
+                        "name": "longitude",
+                        "orig": "longitude",
+                        "reqd": false,
+                        "type": "`$NUMBER`",
+                        "active": true
+                      },
+                      {
+                        "example": "SW1A 2AA",
+                        "kind": "query",
+                        "name": "query",
+                        "orig": "query",
+                        "reqd": false,
+                        "type": "`$ANY`",
+                        "active": true
+                      },
+                      {
+                        "example": 500,
+                        "kind": "query",
+                        "name": "radius",
+                        "orig": "radius",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "example": "true",
+                        "kind": "query",
+                        "name": "widesearch",
+                        "orig": "widesearch",
+                        "reqd": false,
+                        "type": "`$BOOLEAN`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/postcodes",
+                  "parts": [
+                    "postcodes"
+                  ],
+                  "select": {
+                    "exist": [
+                      "filter",
+                      "latitude",
+                      "limit",
+                      "longitude",
+                      "query",
+                      "radius",
+                      "widesearch"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": "SW1A 2AA",
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/postcodes/{postcode}",
+                  "parts": [
+                    "postcodes",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "postcode": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                },
+                {
+                  "args": {
+                    "query": [
+                      {
+                        "example": "SW1A",
+                        "kind": "query",
+                        "name": "outcode",
+                        "orig": "outcode",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/random/postcodes",
+                  "parts": [
+                    "random",
+                    "postcodes"
+                  ],
+                  "select": {
+                    "exist": [
+                      "outcode"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "scottish_postcode": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "result",
+              "req": true,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "scottish_postcode",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/scotland/postcodes/{postcode}",
+                  "parts": [
+                    "scotland",
+                    "postcodes",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "postcode": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "terminated_postcode": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "result",
+              "req": true,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "name": "terminated_postcode",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "postcode",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/terminated_postcodes/{postcode}",
+                  "parts": [
+                    "terminated_postcodes",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "postcode": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        }
+      },
+      "feature": {
+        "test": {
+          "name": "test",
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1",
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            }
+          },
+          "target": {
+            "ts": {
+              "deps": {}
+            },
+            "go": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            }
+          }
+        }
+      },
+      "flow": {
+        "BasicNearestFlow": {
+          "entity": "nearest",
+          "kind": "basic",
+          "name": "BasicNearestFlow",
+          "step": [
+            {
+              "match": {
+                "postcode_id": "postcode01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "nearest_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicNearestFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicOutcodeFlow": {
+          "entity": "outcode",
+          "kind": "basic",
+          "name": "BasicOutcodeFlow",
+          "step": [
+            {
+              "input": {
+                "ref": "outcode_ref01",
+                "srcdatavar": "outcode_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "outcode01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-outcode_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicOutcodeFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicPlaceFlow": {
+          "entity": "place",
+          "kind": "basic",
+          "name": "BasicPlaceFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "place_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "place_ref01",
+                "srcdatavar": "place_ref01_data",
+                "suffix": "_dt0"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-place_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicPlaceFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicPostcodeFlow": {
+          "entity": "postcode",
+          "kind": "basic",
+          "name": "BasicPostcodeFlow",
+          "step": [
+            {
+              "input": {
+                "ref": "postcode_ref01"
+              },
+              "op": "create",
+              "active": true,
+              "match": {},
+              "data": {},
+              "spec": [],
+              "valid": []
+            },
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "postcode_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "postcode_ref01",
+                "srcdatavar": "postcode_ref01_data",
+                "suffix": "_dt0"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-postcode_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicPostcodeFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicScottishPostcodeFlow": {
+          "entity": "scottish_postcode",
+          "kind": "basic",
+          "name": "BasicScottishPostcodeFlow",
+          "step": [
+            {
+              "input": {
+                "ref": "scottish_postcode_ref01",
+                "srcdatavar": "scottish_postcode_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "scottish_postcode01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-scottish_postcode_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicScottishPostcodeFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicTerminatedPostcodeFlow": {
+          "entity": "terminated_postcode",
+          "kind": "basic",
+          "name": "BasicTerminatedPostcodeFlow",
+          "step": [
+            {
+              "input": {
+                "ref": "terminated_postcode_ref01",
+                "srcdatavar": "terminated_postcode_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "terminated_postcode01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-terminated_postcode_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicTerminatedPostcodeFlow",
+          "active": true,
+          "param": {}
+        }
+      },
+      "target": {
+        "ts": {
+          "title": "TypeScript",
+          "ext": "ts",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "postcodesio"
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "version": "^17.4.2",
+              "kind": "dev"
+            },
+            "typescript": {
+              "active": true,
+              "version": "^5.9.3",
+              "kind": "dev"
+            },
+            "@types/node": {
+              "active": true,
+              "version": "^25.6.0",
+              "kind": "dev"
+            }
+          },
+          "name": "ts",
+          "active": true
+        },
+        "go": {
+          "title": "Golang",
+          "ext": "go",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "postcodesio"
+          },
+          "srcfeature": false,
+          "deps": {
+            "github.com/voxgig/struct": {
+              "active": true,
+              "version": "v0.0.0",
+              "replace": "./utility/struct",
+              "kind": "prod"
+            }
+          },
+          "name": "go",
+          "active": true
+        },
+        "lua": {
+          "title": "Lua",
+          "ext": "lua",
+          "comment": {
+            "line": "--"
+          },
+          "module": {
+            "name": "postcodesio"
+          },
+          "srcfeature": false,
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "version": "2.5",
+              "kind": "prod"
+            }
+          },
+          "name": "lua",
+          "active": true
+        },
+        "php": {
+          "title": "PHP",
+          "ext": "php",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "postcodesio"
+          },
+          "srcfeature": false,
+          "deps": {},
+          "name": "php",
+          "active": true
+        },
+        "py": {
+          "title": "Python",
+          "ext": "py",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "postcodesio"
+          },
+          "srcfeature": false,
+          "deps": {
+            "requests": {
+              "active": true,
+              "version": "2.33",
+              "kind": "prod"
+            }
+          },
+          "name": "py",
+          "active": true
+        },
+        "rb": {
+          "title": "Ruby",
+          "ext": "rb",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "postcodesio"
+          },
+          "srcfeature": false,
+          "deps": {
+            "voxgig-struct": {
+              "active": true,
+              "version": "0.0.10",
+              "kind": "prod"
+            },
+            "json": {
+              "active": true,
+              "version": "0",
+              "kind": "prod"
+            }
+          },
+          "name": "rb",
+          "active": true
+        }
+      },
+      "option": {}
+    },
+    "def": {
+      "desc": ""
+    },
+    "api": {
+      "guide": {},
+      "entity": {}
+    }
+  },
+  "name__orig": "postcodesio",
+  "Name": "Postcodesio",
+  "name_": "postcodesio",
+  "name-": "postcodesio",
+  "NAME": "POSTCODESIO"
+}

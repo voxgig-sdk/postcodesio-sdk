@@ -1,0 +1,63 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 6
+  metrics: count: path: 10
+  metrics: count: method: 11
+
+  entity: nearest: {
+    path: "/postcodes/{postcode}/nearest": {
+      rename: param: "postcode": *"postcode_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: outcode: {
+    path: "/outcodes/{outcode}": {
+      rename: param: "outcode": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: place: {
+    path: "/places": {
+      op: list: method: *GET
+    }
+    path: "/places/{code}": {
+      rename: param: "code": *"id"
+      op: load: method: *GET
+    }
+    path: "/random/places": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: postcode: {
+    path: "/postcodes": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/postcodes/{postcode}": {
+      rename: param: "postcode": *"id"
+      op: load: method: *GET
+    }
+    path: "/random/postcodes": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: scottish_postcode: {
+    path: "/scotland/postcodes/{postcode}": {
+      rename: param: "postcode": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: terminated_postcode: {
+    path: "/terminated_postcodes/{postcode}": {
+      rename: param: "postcode": *"id"
+      op: load: method: *GET
+    }
+  }
+
+}

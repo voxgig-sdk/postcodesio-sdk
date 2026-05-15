@@ -1,0 +1,29 @@
+{
+  "existing": {
+    "nearest": {
+      "NEAREST00": {
+        "result": [],
+        "status": "s15",
+        "postcode_id": "POSTCODE01"
+      },
+      "NEAREST01": {
+        "result": [],
+        "status": "s29",
+        "postcode_id": "POSTCODE01"
+      },
+      "NEAREST02": {
+        "result": [],
+        "status": "s3d",
+        "postcode_id": "POSTCODE01"
+      }
+    }
+  },
+  "new": {
+    "nearest": {
+      "nearest_ref01": {
+        "result": [],
+        "status": "s51"
+      }
+    }
+  }
+}

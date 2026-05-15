@@ -1,0 +1,32 @@
+# BasicScottishPostcodeFlow
+
+main: kit: flow: BasicScottishPostcodeFlow:
+{
+  entity: "scottish_postcode",
+  kind: "basic",
+  name: "BasicScottishPostcodeFlow",
+  step: [
+    {
+      input: {
+        ref: "scottish_postcode_ref01",
+        srcdatavar: "scottish_postcode_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "scottish_postcode01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-scottish_postcode_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicScottishPostcodeFlow"
+}

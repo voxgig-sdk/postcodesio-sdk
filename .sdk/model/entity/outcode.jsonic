@@ -1,0 +1,65 @@
+# Entity: outcode
+
+main: kit: entity: outcode: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "result"
+      req: true
+      type: "`$ANY`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "outcode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "SW1A"
+                kind: "param"
+                name: "id"
+                orig: "outcode"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/outcodes/{outcode}"
+          parts: [
+            "outcodes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              outcode: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,0 +1,48 @@
+# BasicPostcodeFlow
+
+main: kit: flow: BasicPostcodeFlow:
+{
+  entity: "postcode",
+  kind: "basic",
+  name: "BasicPostcodeFlow",
+  step: [
+    {
+      input: {
+        ref: "postcode_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "postcode_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "postcode_ref01",
+        srcdatavar: "postcode_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-postcode_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPostcodeFlow"
+}
