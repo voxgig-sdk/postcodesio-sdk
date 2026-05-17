@@ -1,10 +1,10 @@
 package voxgigpostcodesiosdk
 
 import (
-	"github.com/voxgig-sdk/postcodesio-sdk/core"
-	"github.com/voxgig-sdk/postcodesio-sdk/entity"
-	"github.com/voxgig-sdk/postcodesio-sdk/feature"
-	_ "github.com/voxgig-sdk/postcodesio-sdk/utility"
+	"github.com/voxgig-sdk/postcodesio-sdk/go/core"
+	"github.com/voxgig-sdk/postcodesio-sdk/go/entity"
+	"github.com/voxgig-sdk/postcodesio-sdk/go/feature"
+	_ "github.com/voxgig-sdk/postcodesio-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

@@ -24,7 +24,8 @@
         "outcode": "sf9",
         "region": "sfa",
         "result": {},
-        "status": "sfc"
+        "status": "sfc",
+        "id": "PLACE00"
       },
       "PLACE01": {
         "code": "s1cc",
@@ -49,7 +50,8 @@
         "outcode": "s1df",
         "region": "s1e0",
         "result": {},
-        "status": "s1e2"
+        "status": "s1e2",
+        "id": "PLACE01"
       },
       "PLACE02": {
         "code": "s2b2",
@@ -74,7 +76,8 @@
         "outcode": "s2c5",
         "region": "s2c6",
         "result": {},
-        "status": "s2c8"
+        "status": "s2c8",
+        "id": "PLACE02"
       }
     }
   },

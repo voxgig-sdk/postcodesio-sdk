@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/postcodesio-sdk/core"
+import "github.com/voxgig-sdk/postcodesio-sdk/go/core"
 
 func init() {
 	core.UtilityRegistrar = registerAll

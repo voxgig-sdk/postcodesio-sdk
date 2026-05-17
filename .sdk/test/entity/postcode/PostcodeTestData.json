@@ -3,15 +3,18 @@
     "postcode": {
       "POSTCODE00": {
         "result": {},
-        "status": "s15"
+        "status": "s15",
+        "id": "POSTCODE00"
       },
       "POSTCODE01": {
         "result": {},
-        "status": "s29"
+        "status": "s29",
+        "id": "POSTCODE01"
       },
       "POSTCODE02": {
         "result": {},
-        "status": "s3d"
+        "status": "s3d",
+        "id": "POSTCODE02"
       }
     }
   },

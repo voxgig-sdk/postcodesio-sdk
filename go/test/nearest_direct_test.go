@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/postcodesio-sdk"
-	"github.com/voxgig-sdk/postcodesio-sdk/core"
+	sdk "github.com/voxgig-sdk/postcodesio-sdk/go"
+	"github.com/voxgig-sdk/postcodesio-sdk/go/core"
 )
 
 func TestNearestDirect(t *testing.T) {

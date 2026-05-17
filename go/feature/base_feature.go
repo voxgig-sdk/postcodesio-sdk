@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/postcodesio-sdk/core"
+	"github.com/voxgig-sdk/postcodesio-sdk/go/core"
 )
 
 type BaseFeature struct {

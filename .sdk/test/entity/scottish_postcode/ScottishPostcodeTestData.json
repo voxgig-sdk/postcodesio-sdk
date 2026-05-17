@@ -3,15 +3,18 @@
     "scottish_postcode": {
       "SCOTTISH_POSTCODE00": {
         "result": [],
-        "status": "s15"
+        "status": "s15",
+        "id": "SCOTTISH_POSTCODE00"
       },
       "SCOTTISH_POSTCODE01": {
         "result": [],
-        "status": "s29"
+        "status": "s29",
+        "id": "SCOTTISH_POSTCODE01"
       },
       "SCOTTISH_POSTCODE02": {
         "result": [],
-        "status": "s3d"
+        "status": "s3d",
+        "id": "SCOTTISH_POSTCODE02"
       }
     }
   },

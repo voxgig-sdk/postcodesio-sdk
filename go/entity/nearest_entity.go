@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/postcodesio-sdk/core"
+	"github.com/voxgig-sdk/postcodesio-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/postcodesio-sdk/go/utility/struct"
 )
 
 type NearestEntity struct {
