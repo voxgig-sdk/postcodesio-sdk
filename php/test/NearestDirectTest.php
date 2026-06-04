@@ -82,14 +82,12 @@ function nearest_direct_setup($mockres)
     $env = Runner::env_override([
         "POSTCODESIO_TEST_NEAREST_ENTID" => [],
         "POSTCODESIO_TEST_LIVE" => "FALSE",
-        "POSTCODESIO_APIKEY" => "NONE",
     ]);
 
     $live = $env["POSTCODESIO_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["POSTCODESIO_APIKEY"],
         ];
         $client = new PostcodesioSDK($merged_opts);
         return [

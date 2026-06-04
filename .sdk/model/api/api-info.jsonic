@@ -42,8 +42,34 @@ Postcodes.io does not require authentication.
       termsOfService: "https://postcodes.io/docs/licenses"
       title: "API Reference - Postcodes.io"
       version: "3.5.1"
+      tagline: "Look up, validate and geocode UK postcodes with administrative and geospatial data, no API key required"
+      homepage: "https://postcodes.io"
+      docs_url: "https://postcodes.io/docs"
+      license_short: "MIT licensed, open source on GitHub"
+      license_md: `- Postcodes.io is released under the MIT licence
+- Source code is open and hosted on GitHub for forking and self-hosting
+- Underlying data is sourced from Ordnance Survey and the Office for National Statistics; consult their respective open data licences for redistribution`
+      about_md: `[Postcodes.io](https://postcodes.io) is a free, open-source UK postcode lookup and geocoder. It is maintained by the team behind the commercial [Ideal Postcodes](https://ideal-postcodes.co.uk) service, but the public API at \`https://api.postcodes.io\` is freely usable with no authentication.
+
+What you can do with the API:
+
+- Validate UK postcodes and look up their full record (latitude/longitude, administrative areas, parliamentary constituency, NHS region, etc.)
+- Reverse-geocode coordinates to find the nearest postcodes
+- Resolve outward codes (the first half of a postcode) to administrative geography
+- Look up places (populated areas / settlements) by code or name
+- Check terminated and Scottish-specific postcode records
+- Pick a random postcode for testing or seeding data
+
+The API is CORS-enabled so it can be called directly from browsers. Data is refreshed from official UK sources (Ordnance Survey, ONS) as updates are released. No API key, OAuth, or registration is required for the public endpoint.`
+      entity_desc: {
+        nearest: "Reverse-geocoding helpers that return the nearest postcodes to a given postcode or coordinate, typically under `/postcodes/{postcode}/nearest` and `/postcodes?lon=&lat=`."
+        outcode: "The outward (first half) part of a UK postcode, resolved to its administrative geography and centroid via `/outcodes/{outcode}`."
+        place: "Populated places / settlements from the OS Open Names dataset, searchable via `/places` and retrievable by code at `/places/{code}`."
+        postcode: "A full UK postcode record with location, administrative areas and codes; looked up at `/postcodes/{postcode}` with bulk and validation variants."
+        scottish_postcode: "Scottish-specific postcode data including the Scottish Parliamentary Constituency, exposed via `/scotland/postcodes/{postcode}`."
+        terminated_postcode: "Records for postcodes that have been retired by Royal Mail, available at `/terminated_postcodes/{postcode}`."
+      }
+      auth: false
     }
   }
-}
-
 }

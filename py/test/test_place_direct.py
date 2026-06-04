@@ -109,14 +109,12 @@ def _place_direct_setup(mockres):
     env = runner.env_override({
         "POSTCODESIO_TEST_PLACE_ENTID": {},
         "POSTCODESIO_TEST_LIVE": "FALSE",
-        "POSTCODESIO_APIKEY": "NONE",
     })
 
     live = env.get("POSTCODESIO_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("POSTCODESIO_APIKEY"),
         }
         client = PostcodesioSDK(merged_opts)
         return {
