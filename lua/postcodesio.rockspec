@@ -8,12 +8,14 @@ source = {
   dir = "postcodesio-sdk/lua"
 }
 description = {
-  summary = "Postcodesio SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the API Reference - Postcodes.io public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/postcodesio-sdk",
+  issues_url = "https://github.com/voxgig-sdk/postcodesio-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "postcodesio" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

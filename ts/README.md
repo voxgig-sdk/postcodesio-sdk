@@ -10,7 +10,7 @@ The TypeScript SDK for the Postcodesio API — a type-safe, entity-oriented clie
 
 ## Install
 ```bash
-npm install postcodesio
+npm install @voxgig-sdk/postcodesio
 ```
 ## Tutorial: your first API call
 

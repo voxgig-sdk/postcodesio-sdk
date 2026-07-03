@@ -10,7 +10,7 @@ The PHP SDK for the Postcodesio API — an entity-oriented client using PHP conv
 
 ## Install
 ```bash
-composer require voxgig/postcodesio-sdk
+composer require voxgig-sdk/postcodesio
 ```
 
 

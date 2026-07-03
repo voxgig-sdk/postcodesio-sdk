@@ -10,7 +10,7 @@ The Lua SDK for the Postcodesio API — an entity-oriented client using Lua conv
 
 ## Install
 ```bash
-luarocks install postcodesio-sdk
+luarocks install voxgig-sdk-postcodesio
 ```
 
 If the module is not yet published, add the source directory to

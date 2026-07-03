@@ -10,7 +10,7 @@ The Python SDK for the Postcodesio API — an entity-oriented client following P
 
 ## Install
 ```bash
-pip install postcodesio-sdk
+pip install voxgig-sdk-postcodesio
 ```
 
 Or install from source:

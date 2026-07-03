@@ -10,13 +10,13 @@ The Ruby SDK for the Postcodesio API — an entity-oriented client using idiomat
 
 ## Install
 ```bash
-gem install postcodesio-sdk
+gem install voxgig-sdk-postcodesio
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "postcodesio-sdk"
+gem "voxgig-sdk-postcodesio"
 ```
 
 Then run:
