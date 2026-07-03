@@ -118,12 +118,14 @@ func nearestDirectSetup(mockres any) *nearestDirectSetupResult {
 	env := envOverride(map[string]any{
 		"POSTCODESIO_TEST_NEAREST_ENTID": map[string]any{},
 		"POSTCODESIO_TEST_LIVE":    "FALSE",
+		"POSTCODESIO_APIKEY":       "NONE",
 	})
 
 	live := env["POSTCODESIO_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["POSTCODESIO_APIKEY"],
 		}
 		client := sdk.NewPostcodesioSDK(mergedOpts)
 

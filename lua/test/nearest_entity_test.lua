@@ -94,6 +94,7 @@ function nearest_basic_setup(extra)
     ["POSTCODESIO_TEST_NEAREST_ENTID"] = idmap,
     ["POSTCODESIO_TEST_LIVE"] = "FALSE",
     ["POSTCODESIO_TEST_EXPLAIN"] = "FALSE",
+    ["POSTCODESIO_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -105,6 +106,7 @@ function nearest_basic_setup(extra)
   if env["POSTCODESIO_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["POSTCODESIO_APIKEY"],
       },
       extra or {},
     })

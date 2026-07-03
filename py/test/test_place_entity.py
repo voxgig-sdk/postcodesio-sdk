@@ -98,6 +98,7 @@ def _place_basic_setup(extra):
         "POSTCODESIO_TEST_PLACE_ENTID": idmap,
         "POSTCODESIO_TEST_LIVE": "FALSE",
         "POSTCODESIO_TEST_EXPLAIN": "FALSE",
+        "POSTCODESIO_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -108,6 +109,7 @@ def _place_basic_setup(extra):
     if env.get("POSTCODESIO_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("POSTCODESIO_APIKEY"),
             },
             extra or {},
         ])

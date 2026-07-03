@@ -1,23 +1,8 @@
 # Postcodesio SDK
 
-Look up, validate and geocode UK postcodes with administrative and geospatial data, no API key required
+API Reference - Postcodes.io client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About API Reference - Postcodes.io
-
-[Postcodes.io](https://postcodes.io) is a free, open-source UK postcode lookup and geocoder. It is maintained by the team behind the commercial [Ideal Postcodes](https://ideal-postcodes.co.uk) service, but the public API at `https://api.postcodes.io` is freely usable with no authentication.
-
-What you can do with the API:
-
-- Validate UK postcodes and look up their full record (latitude/longitude, administrative areas, parliamentary constituency, NHS region, etc.)
-- Reverse-geocode coordinates to find the nearest postcodes
-- Resolve outward codes (the first half of a postcode) to administrative geography
-- Look up places (populated areas / settlements) by code or name
-- Check terminated and Scottish-specific postcode records
-- Pick a random postcode for testing or seeding data
-
-The API is CORS-enabled so it can be called directly from browsers. Data is refreshed from official UK sources (Ordnance Survey, ONS) as updates are released. No API key, OAuth, or registration is required for the public endpoint.
 
 ## Try it
 
@@ -51,29 +36,31 @@ gem install postcodesio-sdk
 luarocks install postcodesio-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { PostcodesioSDK } from 'postcodesio'
 
-const client = new PostcodesioSDK({})
+const client = new PostcodesioSDK({
+  apikey: process.env.POSTCODESIO_APIKEY,
+})
 
 // List all nearests
 const nearests = await client.Nearest().list()
+console.log(nearests.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -103,12 +90,12 @@ The API exposes 6 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Nearest** | Reverse-geocoding helpers that return the nearest postcodes to a given postcode or coordinate, typically under `/postcodes/{postcode}/nearest` and `/postcodes?lon=&lat=`. | `/postcodes/{postcode}/nearest` |
-| **Outcode** | The outward (first half) part of a UK postcode, resolved to its administrative geography and centroid via `/outcodes/{outcode}`. | `/outcodes/{outcode}` |
-| **Place** | Populated places / settlements from the OS Open Names dataset, searchable via `/places` and retrievable by code at `/places/{code}`. | `/places` |
-| **Postcode** | A full UK postcode record with location, administrative areas and codes; looked up at `/postcodes/{postcode}` with bulk and validation variants. | `/postcodes` |
-| **ScottishPostcode** | Scottish-specific postcode data including the Scottish Parliamentary Constituency, exposed via `/scotland/postcodes/{postcode}`. | `/scotland/postcodes/{postcode}` |
-| **TerminatedPostcode** | Records for postcodes that have been retired by Royal Mail, available at `/terminated_postcodes/{postcode}`. | `/terminated_postcodes/{postcode}` |
+| **Nearest** |  | `/postcodes/{postcode}/nearest` |
+| **Outcode** |  | `/outcodes/{outcode}` |
+| **Place** |  | `/places` |
+| **Postcode** |  | `/postcodes` |
+| **ScottishPostcode** |  | `/scotland/postcodes/{postcode}` |
+| **TerminatedPostcode** |  | `/terminated_postcodes/{postcode}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -118,12 +105,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from postcodesio_sdk import PostcodesioSDK
 
-client = PostcodesioSDK({})
+client = PostcodesioSDK({
+    "apikey": os.environ.get("POSTCODESIO_APIKEY"),
+})
 
 # List all nearests
-nearests, err = client.Nearest(None).list(None, None)
+nearests, err = client.Nearest().list()
+print(nearests)
 ```
 
 ### PHP
@@ -132,10 +123,13 @@ nearests, err = client.Nearest(None).list(None, None)
 <?php
 require_once 'postcodesio_sdk.php';
 
-$client = new PostcodesioSDK([]);
+$client = new PostcodesioSDK([
+    "apikey" => getenv("POSTCODESIO_APIKEY"),
+]);
 
 // List all nearests
-[$nearests, $err] = $client->Nearest(null)->list(null, null);
+[$nearests, $err] = $client->Nearest()->list();
+print_r($nearests);
 ```
 
 ### Golang
@@ -143,10 +137,13 @@ $client = new PostcodesioSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/postcodesio-sdk/go"
 
-client := sdk.NewPostcodesioSDK(map[string]any{})
+client := sdk.NewPostcodesioSDK(map[string]any{
+    "apikey": os.Getenv("POSTCODESIO_APIKEY"),
+})
 
 // List all nearests
 nearests, err := client.Nearest(nil).List(nil, nil)
+fmt.Println(nearests)
 ```
 
 ### Ruby
@@ -154,10 +151,13 @@ nearests, err := client.Nearest(nil).List(nil, nil)
 ```ruby
 require_relative "Postcodesio_sdk"
 
-client = PostcodesioSDK.new({})
+client = PostcodesioSDK.new({
+  "apikey" => ENV["POSTCODESIO_APIKEY"],
+})
 
 # List all nearests
-nearests, err = client.Nearest(nil).list(nil, nil)
+nearests, err = client.Nearest().list
+puts nearests
 ```
 
 ### Lua
@@ -165,10 +165,13 @@ nearests, err = client.Nearest(nil).list(nil, nil)
 ```lua
 local sdk = require("postcodesio_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("POSTCODESIO_APIKEY"),
+})
 
 -- List all nearests
-local nearests, err = client:Nearest(nil):list(nil, nil)
+local nearests, err = client:Nearest():list()
+print(nearests)
 ```
 
 ## Unit testing in offline mode
@@ -187,25 +190,21 @@ const result = await client.Nearest().load({ id: 'test01' })
 ### Python
 
 ```python
-client = PostcodesioSDK.test(None, None)
-result, err = client.Nearest(None).load(
-    {"id": "test01"}, None
-)
+client = PostcodesioSDK.test()
+result, err = client.Nearest().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = PostcodesioSDK::test(null, null);
-[$result, $err] = $client->Nearest(null)->load(
-    ["id" => "test01"], null
-);
+$client = PostcodesioSDK::test();
+[$result, $err] = $client->Nearest()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Nearest(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -214,19 +213,15 @@ result, err := client.Nearest(nil).Load(
 ### Ruby
 
 ```ruby
-client = PostcodesioSDK.test(nil, nil)
-result, err = client.Nearest(nil).load(
-  { "id" => "test01" }, nil
-)
+client = PostcodesioSDK.test
+result, err = client.Nearest().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Nearest(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Nearest():load({ id = "test01" })
 ```
 
 ## How it works
@@ -330,15 +325,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the API Reference - Postcodes.io
-
-- Upstream: [https://postcodes.io](https://postcodes.io)
-- API docs: [https://postcodes.io/docs](https://postcodes.io/docs)
-
-- Postcodes.io is released under the MIT licence
-- Source code is open and hosted on GitHub for forking and self-hosting
-- Underlying data is sourced from Ordnance Survey and the Office for National Statistics; consult their respective open data licences for redistribution
 
 ---
 

@@ -114,6 +114,7 @@ function basicSetup(extra?: any) {
     'POSTCODESIO_TEST_NEAREST_ENTID': idmap,
     'POSTCODESIO_TEST_LIVE': 'FALSE',
     'POSTCODESIO_TEST_EXPLAIN': 'FALSE',
+    'POSTCODESIO_APIKEY': 'NONE',
   })
 
   idmap = env['POSTCODESIO_TEST_NEAREST_ENTID']
@@ -123,6 +124,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new PostcodesioSDK(merge([
       {
+        apikey: env.POSTCODESIO_APIKEY,
       },
       extra
     ]))

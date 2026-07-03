@@ -70,12 +70,14 @@ function outcode_direct_setup(mockres)
   local env = runner.env_override({
     ["POSTCODESIO_TEST_OUTCODE_ENTID"] = {},
     ["POSTCODESIO_TEST_LIVE"] = "FALSE",
+    ["POSTCODESIO_APIKEY"] = "NONE",
   })
 
   local live = env["POSTCODESIO_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["POSTCODESIO_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

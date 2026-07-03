@@ -71,12 +71,14 @@ def scottish_postcode_direct_setup(mockres)
   env = Runner.env_override({
     "POSTCODESIO_TEST_SCOTTISH_POSTCODE_ENTID" => {},
     "POSTCODESIO_TEST_LIVE" => "FALSE",
+    "POSTCODESIO_APIKEY" => "NONE",
   })
 
   live = env["POSTCODESIO_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["POSTCODESIO_APIKEY"],
     }
     client = PostcodesioSDK.new(merged_opts)
     return {
