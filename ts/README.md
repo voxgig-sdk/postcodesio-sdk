@@ -28,15 +28,15 @@ import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
 const client = new PostcodesioSDK()
 ```
 
-### 2. List nearests
+### 2. List nearest records
+
+`list()` resolves to an array of Nearest objects — iterate it directly:
 
 ```ts
-const result = await client.nearest.list()
+const nearests = await client.Nearest().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const nearest of nearests) {
+  console.log(nearest)
 }
 ```
 
@@ -54,6 +54,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -82,9 +85,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = PostcodesioSDK.test()
 
-const result = await client.nearest.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const nearest = await client.Nearest().load({ id: 'test01' })
+// nearest is a bare entity populated with mock response data
+console.log(nearest)
 ```
 
 You can also use the instance method:
@@ -99,7 +102,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.nearest
+const entity = client.Nearest()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -178,7 +181,7 @@ new PostcodesioSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Nearest(data?)` | `NearestEntity` | Create a Nearest entity instance. |
-| `Outcode(data?)` | `OutcodeEntity` | Create a Outcode entity instance. |
+| `Outcode(data?)` | `OutcodeEntity` | Create an Outcode entity instance. |
 | `Place(data?)` | `PlaceEntity` | Create a Place entity instance. |
 | `Postcode(data?)` | `PostcodeEntity` | Create a Postcode entity instance. |
 | `ScottishPostcode(data?)` | `ScottishPostcodeEntity` | Create a ScottishPostcode entity instance. |
@@ -199,29 +202,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): PostcodesioSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -347,7 +351,7 @@ API path: `/terminated_postcodes/{postcode}`
 
 ### Nearest
 
-Create an instance: `const nearest = client.nearest`
+Create an instance: `const nearest = client.Nearest()`
 
 #### Operations
 
@@ -365,13 +369,13 @@ Create an instance: `const nearest = client.nearest`
 #### Example: List
 
 ```ts
-const nearests = await client.nearest.list()
+const nearests = await client.Nearest().list()
 ```
 
 
 ### Outcode
 
-Create an instance: `const outcode = client.outcode`
+Create an instance: `const outcode = client.Outcode()`
 
 #### Operations
 
@@ -389,13 +393,13 @@ Create an instance: `const outcode = client.outcode`
 #### Example: Load
 
 ```ts
-const outcode = await client.outcode.load({ id: 'outcode_id' })
+const outcode = await client.Outcode().load({ id: 'outcode_id' })
 ```
 
 
 ### Place
 
-Create an instance: `const place = client.place`
+Create an instance: `const place = client.Place()`
 
 #### Operations
 
@@ -435,19 +439,19 @@ Create an instance: `const place = client.place`
 #### Example: Load
 
 ```ts
-const place = await client.place.load({ id: 'place_id' })
+const place = await client.Place().load({ id: 'place_id' })
 ```
 
 #### Example: List
 
 ```ts
-const places = await client.place.list()
+const places = await client.Place().list()
 ```
 
 
 ### Postcode
 
-Create an instance: `const postcode = client.postcode`
+Create an instance: `const postcode = client.Postcode()`
 
 #### Operations
 
@@ -467,19 +471,19 @@ Create an instance: `const postcode = client.postcode`
 #### Example: Load
 
 ```ts
-const postcode = await client.postcode.load({ id: 'postcode_id' })
+const postcode = await client.Postcode().load({ id: 'postcode_id' })
 ```
 
 #### Example: List
 
 ```ts
-const postcodes = await client.postcode.list()
+const postcodes = await client.Postcode().list()
 ```
 
 #### Example: Create
 
 ```ts
-const postcode = await client.postcode.create({
+const postcode = await client.Postcode().create({
   result: /* `$OBJECT` */,
   status: /* `$INTEGER` */,
 })
@@ -488,7 +492,7 @@ const postcode = await client.postcode.create({
 
 ### ScottishPostcode
 
-Create an instance: `const scottish_postcode = client.scottish_postcode`
+Create an instance: `const scottish_postcode = client.ScottishPostcode()`
 
 #### Operations
 
@@ -506,13 +510,13 @@ Create an instance: `const scottish_postcode = client.scottish_postcode`
 #### Example: Load
 
 ```ts
-const scottish_postcode = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
+const scottish_postcode = await client.ScottishPostcode().load({ id: 'scottish_postcode_id' })
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `const terminated_postcode = client.terminated_postcode`
+Create an instance: `const terminated_postcode = client.TerminatedPostcode()`
 
 #### Operations
 
@@ -530,7 +534,7 @@ Create an instance: `const terminated_postcode = client.terminated_postcode`
 #### Example: Load
 
 ```ts
-const terminated_postcode = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
+const terminated_postcode = await client.TerminatedPostcode().load({ id: 'terminated_postcode_id' })
 ```
 
 
@@ -601,7 +605,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const nearest = client.nearest
+const nearest = client.Nearest()
 await nearest.load({ id: "example_id" })
 
 // nearest.data() now returns the loaded nearest data

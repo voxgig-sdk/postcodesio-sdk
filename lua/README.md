@@ -31,17 +31,17 @@ local sdk = require("postcodesio_sdk")
 local client = sdk.new()
 ```
 
-### 2. List nearests
+### 2. List nearest records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:nearest():list()
+local nearests, err = client:Nearest():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(nearests) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -88,8 +88,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:nearest():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Nearest():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -168,7 +168,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Nearest` | `(data) -> NearestEntity` | Create a Nearest entity instance. |
-| `Outcode` | `(data) -> OutcodeEntity` | Create a Outcode entity instance. |
+| `Outcode` | `(data) -> OutcodeEntity` | Create an Outcode entity instance. |
 | `Place` | `(data) -> PlaceEntity` | Create a Place entity instance. |
 | `Postcode` | `(data) -> PostcodeEntity` | Create a Postcode entity instance. |
 | `ScottishPostcode` | `(data) -> ScottishPostcodeEntity` | Create a ScottishPostcode entity instance. |
@@ -194,17 +194,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local nearest, err = client:Nearest():load({ id = "example_id" })
+    if err then error(err) end
+    -- nearest is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -302,7 +307,7 @@ API path: `/terminated_postcodes/{postcode}`
 
 ### Nearest
 
-Create an instance: `const nearest = client.nearest`
+Create an instance: `local nearest = client:Nearest(nil)`
 
 #### Operations
 
@@ -319,14 +324,14 @@ Create an instance: `const nearest = client.nearest`
 
 #### Example: List
 
-```ts
-const nearests = await client.nearest.list()
+```lua
+local nearests, err = client:Nearest():list()
 ```
 
 
 ### Outcode
 
-Create an instance: `const outcode = client.outcode`
+Create an instance: `local outcode = client:Outcode(nil)`
 
 #### Operations
 
@@ -343,14 +348,14 @@ Create an instance: `const outcode = client.outcode`
 
 #### Example: Load
 
-```ts
-const outcode = await client.outcode.load({ id: 'outcode_id' })
+```lua
+local outcode, err = client:Outcode():load({ id = "outcode_id" })
 ```
 
 
 ### Place
 
-Create an instance: `const place = client.place`
+Create an instance: `local place = client:Place(nil)`
 
 #### Operations
 
@@ -389,20 +394,20 @@ Create an instance: `const place = client.place`
 
 #### Example: Load
 
-```ts
-const place = await client.place.load({ id: 'place_id' })
+```lua
+local place, err = client:Place():load({ id = "place_id" })
 ```
 
 #### Example: List
 
-```ts
-const places = await client.place.list()
+```lua
+local places, err = client:Place():list()
 ```
 
 
 ### Postcode
 
-Create an instance: `const postcode = client.postcode`
+Create an instance: `local postcode = client:Postcode(nil)`
 
 #### Operations
 
@@ -421,29 +426,29 @@ Create an instance: `const postcode = client.postcode`
 
 #### Example: Load
 
-```ts
-const postcode = await client.postcode.load({ id: 'postcode_id' })
+```lua
+local postcode, err = client:Postcode():load({ id = "postcode_id" })
 ```
 
 #### Example: List
 
-```ts
-const postcodes = await client.postcode.list()
+```lua
+local postcodes, err = client:Postcode():list()
 ```
 
 #### Example: Create
 
-```ts
-const postcode = await client.postcode.create({
-  result: /* `$OBJECT` */,
-  status: /* `$INTEGER` */,
+```lua
+local postcode, err = client:Postcode():create({
+  result = nil, -- `$OBJECT`
+  status = nil, -- `$INTEGER`
 })
 ```
 
 
 ### ScottishPostcode
 
-Create an instance: `const scottish_postcode = client.scottish_postcode`
+Create an instance: `local scottish_postcode = client:ScottishPostcode(nil)`
 
 #### Operations
 
@@ -460,14 +465,14 @@ Create an instance: `const scottish_postcode = client.scottish_postcode`
 
 #### Example: Load
 
-```ts
-const scottish_postcode = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
+```lua
+local scottish_postcode, err = client:ScottishPostcode():load({ id = "scottish_postcode_id" })
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `const terminated_postcode = client.terminated_postcode`
+Create an instance: `local terminated_postcode = client:TerminatedPostcode(nil)`
 
 #### Operations
 
@@ -484,8 +489,8 @@ Create an instance: `const terminated_postcode = client.terminated_postcode`
 
 #### Example: Load
 
-```ts
-const terminated_postcode = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
+```lua
+local terminated_postcode, err = client:TerminatedPostcode():load({ id = "terminated_postcode_id" })
 ```
 
 
@@ -560,7 +565,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local nearest = client:nearest()
+local nearest = client:Nearest()
 nearest:load({ id = "example_id" })
 
 -- nearest:data_get() now returns the loaded nearest data

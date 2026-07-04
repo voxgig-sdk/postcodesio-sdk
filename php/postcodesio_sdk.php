@@ -233,10 +233,10 @@ class PostcodesioSDK
 
     private $_nearest = null;
 
-    // Idiomatic facade: $client->nearest()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Nearest() (PHP method
-    // names are case-insensitive).
-    public function nearest($data = null)
+    // Canonical facade: $client->Nearest()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->nearest()
+    // resolves here too.
+    public function Nearest($data = null)
     {
         require_once __DIR__ . '/entity/nearest_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class PostcodesioSDK
 
     private $_outcode = null;
 
-    // Idiomatic facade: $client->outcode()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Outcode() (PHP method
-    // names are case-insensitive).
-    public function outcode($data = null)
+    // Canonical facade: $client->Outcode()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->outcode()
+    // resolves here too.
+    public function Outcode($data = null)
     {
         require_once __DIR__ . '/entity/outcode_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class PostcodesioSDK
 
     private $_place = null;
 
-    // Idiomatic facade: $client->place()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Place() (PHP method
-    // names are case-insensitive).
-    public function place($data = null)
+    // Canonical facade: $client->Place()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->place()
+    // resolves here too.
+    public function Place($data = null)
     {
         require_once __DIR__ . '/entity/place_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class PostcodesioSDK
 
     private $_postcode = null;
 
-    // Idiomatic facade: $client->postcode()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Postcode() (PHP method
-    // names are case-insensitive).
-    public function postcode($data = null)
+    // Canonical facade: $client->Postcode()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->postcode()
+    // resolves here too.
+    public function Postcode($data = null)
     {
         require_once __DIR__ . '/entity/postcode_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class PostcodesioSDK
 
     private $_scottish_postcode = null;
 
-    // Idiomatic facade: $client->scottish_postcode()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias ScottishPostcode() (PHP method
-    // names are case-insensitive).
-    public function scottish_postcode($data = null)
+    // Canonical facade: $client->ScottishPostcode()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->scottish_postcode()
+    // resolves here too.
+    public function ScottishPostcode($data = null)
     {
         require_once __DIR__ . '/entity/scottish_postcode_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class PostcodesioSDK
 
     private $_terminated_postcode = null;
 
-    // Idiomatic facade: $client->terminated_postcode()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias TerminatedPostcode() (PHP method
-    // names are case-insensitive).
-    public function terminated_postcode($data = null)
+    // Canonical facade: $client->TerminatedPostcode()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->terminated_postcode()
+    // resolves here too.
+    public function TerminatedPostcode($data = null)
     {
         require_once __DIR__ . '/entity/terminated_postcode_entity.php';
         if ($data === null) {

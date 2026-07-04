@@ -220,105 +220,45 @@ class PostcodesioSDK:
         }
 
 
-    @property
-    def nearest(self):
-        """Idiomatic facade: client.nearest.list() / client.nearest.load({"id": ...})."""
-        from entity.nearest_entity import NearestEntity
-        cached = getattr(self, "_nearest", None)
-        if cached is None:
-            cached = NearestEntity(self, None)
-            self._nearest = cached
-        return cached
-
-    def Nearest(self, data=None):
-        # Deprecated: use client.nearest instead.
+    def Nearest(self, data=None) -> "NearestEntity":
+        """Entity factory: client.Nearest().list({}) / client.Nearest().load({"id": ...})."""
         from entity.nearest_entity import NearestEntity
         return NearestEntity(self, data)
 
 
-    @property
-    def outcode(self):
-        """Idiomatic facade: client.outcode.list() / client.outcode.load({"id": ...})."""
-        from entity.outcode_entity import OutcodeEntity
-        cached = getattr(self, "_outcode", None)
-        if cached is None:
-            cached = OutcodeEntity(self, None)
-            self._outcode = cached
-        return cached
-
-    def Outcode(self, data=None):
-        # Deprecated: use client.outcode instead.
+    def Outcode(self, data=None) -> "OutcodeEntity":
+        """Entity factory: client.Outcode().list({}) / client.Outcode().load({"id": ...})."""
         from entity.outcode_entity import OutcodeEntity
         return OutcodeEntity(self, data)
 
 
-    @property
-    def place(self):
-        """Idiomatic facade: client.place.list() / client.place.load({"id": ...})."""
-        from entity.place_entity import PlaceEntity
-        cached = getattr(self, "_place", None)
-        if cached is None:
-            cached = PlaceEntity(self, None)
-            self._place = cached
-        return cached
-
-    def Place(self, data=None):
-        # Deprecated: use client.place instead.
+    def Place(self, data=None) -> "PlaceEntity":
+        """Entity factory: client.Place().list({}) / client.Place().load({"id": ...})."""
         from entity.place_entity import PlaceEntity
         return PlaceEntity(self, data)
 
 
-    @property
-    def postcode(self):
-        """Idiomatic facade: client.postcode.list() / client.postcode.load({"id": ...})."""
-        from entity.postcode_entity import PostcodeEntity
-        cached = getattr(self, "_postcode", None)
-        if cached is None:
-            cached = PostcodeEntity(self, None)
-            self._postcode = cached
-        return cached
-
-    def Postcode(self, data=None):
-        # Deprecated: use client.postcode instead.
+    def Postcode(self, data=None) -> "PostcodeEntity":
+        """Entity factory: client.Postcode().list({}) / client.Postcode().load({"id": ...})."""
         from entity.postcode_entity import PostcodeEntity
         return PostcodeEntity(self, data)
 
 
-    @property
-    def scottish_postcode(self):
-        """Idiomatic facade: client.scottish_postcode.list() / client.scottish_postcode.load({"id": ...})."""
-        from entity.scottish_postcode_entity import ScottishPostcodeEntity
-        cached = getattr(self, "_scottish_postcode", None)
-        if cached is None:
-            cached = ScottishPostcodeEntity(self, None)
-            self._scottish_postcode = cached
-        return cached
-
-    def ScottishPostcode(self, data=None):
-        # Deprecated: use client.scottish_postcode instead.
+    def ScottishPostcode(self, data=None) -> "ScottishPostcodeEntity":
+        """Entity factory: client.ScottishPostcode().list({}) / client.ScottishPostcode().load({"id": ...})."""
         from entity.scottish_postcode_entity import ScottishPostcodeEntity
         return ScottishPostcodeEntity(self, data)
 
 
-    @property
-    def terminated_postcode(self):
-        """Idiomatic facade: client.terminated_postcode.list() / client.terminated_postcode.load({"id": ...})."""
-        from entity.terminated_postcode_entity import TerminatedPostcodeEntity
-        cached = getattr(self, "_terminated_postcode", None)
-        if cached is None:
-            cached = TerminatedPostcodeEntity(self, None)
-            self._terminated_postcode = cached
-        return cached
-
-    def TerminatedPostcode(self, data=None):
-        # Deprecated: use client.terminated_postcode instead.
+    def TerminatedPostcode(self, data=None) -> "TerminatedPostcodeEntity":
+        """Entity factory: client.TerminatedPostcode().list({}) / client.TerminatedPostcode().load({"id": ...})."""
         from entity.terminated_postcode_entity import TerminatedPostcodeEntity
         return TerminatedPostcodeEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "PostcodesioSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -338,3 +278,14 @@ class PostcodesioSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.nearest_entity import NearestEntity
+    from entity.outcode_entity import OutcodeEntity
+    from entity.place_entity import PlaceEntity
+    from entity.postcode_entity import PostcodeEntity
+    from entity.scottish_postcode_entity import ScottishPostcodeEntity
+    from entity.terminated_postcode_entity import TerminatedPostcodeEntity

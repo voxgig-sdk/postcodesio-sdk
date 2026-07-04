@@ -30,37 +30,33 @@ go mod edit -replace github.com/voxgig-sdk/postcodesio-sdk/go=../postcodesio-sdk
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/postcodesio-sdk/go"
-    "github.com/voxgig-sdk/postcodesio-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 2. List nearests
-
-```go
-    result, err := client.Nearest(nil).List(nil, nil)
+    // List nearest records — the value is the array of records itself.
+    nearests, err := client.Nearest(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range nearests.([]any) {
+        fmt.Println(item)
     }
+}
 ```
 
 
@@ -110,10 +106,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Nearest(nil).Load(
+nearest, err := client.Nearest(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(nearest) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -191,7 +190,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `Nearest` | `(data map[string]any) PostcodesioEntity` | Create a Nearest entity instance. |
-| `Outcode` | `(data map[string]any) PostcodesioEntity` | Create a Outcode entity instance. |
+| `Outcode` | `(data map[string]any) PostcodesioEntity` | Create an Outcode entity instance. |
 | `Place` | `(data map[string]any) PostcodesioEntity` | Create a Place entity instance. |
 | `Postcode` | `(data map[string]any) PostcodesioEntity` | Create a Postcode entity instance. |
 | `ScottishPostcode` | `(data map[string]any) PostcodesioEntity` | Create a ScottishPostcode entity instance. |
@@ -215,17 +214,24 @@ All entities implement the `PostcodesioEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    nearest, err := client.Nearest(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // nearest is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -341,7 +347,11 @@ Create an instance: `nearest := client.Nearest(nil)`
 #### Example: List
 
 ```go
-results, err := client.Nearest(nil).List(nil, nil)
+nearests, err := client.Nearest(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(nearests) // the array of records
 ```
 
 
@@ -365,7 +375,11 @@ Create an instance: `outcode := client.Outcode(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Outcode(nil).Load(map[string]any{"id": "outcode_id"}, nil)
+outcode, err := client.Outcode(nil).Load(map[string]any{"id": "outcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(outcode) // the loaded record
 ```
 
 
@@ -411,13 +425,21 @@ Create an instance: `place := client.Place(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Place(nil).Load(map[string]any{"id": "place_id"}, nil)
+place, err := client.Place(nil).Load(map[string]any{"id": "place_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(place) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Place(nil).List(nil, nil)
+places, err := client.Place(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(places) // the array of records
 ```
 
 
@@ -443,13 +465,21 @@ Create an instance: `postcode := client.Postcode(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Postcode(nil).Load(map[string]any{"id": "postcode_id"}, nil)
+postcode, err := client.Postcode(nil).Load(map[string]any{"id": "postcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(postcode) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Postcode(nil).List(nil, nil)
+postcodes, err := client.Postcode(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(postcodes) // the array of records
 ```
 
 #### Example: Create
@@ -482,7 +512,11 @@ Create an instance: `scottish_postcode := client.ScottishPostcode(nil)`
 #### Example: Load
 
 ```go
-result, err := client.ScottishPostcode(nil).Load(map[string]any{"id": "scottish_postcode_id"}, nil)
+scottish_postcode, err := client.ScottishPostcode(nil).Load(map[string]any{"id": "scottish_postcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(scottish_postcode) // the loaded record
 ```
 
 
@@ -506,7 +540,11 @@ Create an instance: `terminated_postcode := client.TerminatedPostcode(nil)`
 #### Example: Load
 
 ```go
-result, err := client.TerminatedPostcode(nil).Load(map[string]any{"id": "terminated_postcode_id"}, nil)
+terminated_postcode, err := client.TerminatedPostcode(nil).Load(map[string]any{"id": "terminated_postcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(terminated_postcode) // the loaded record
 ```
 
 

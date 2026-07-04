@@ -4,37 +4,37 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Nearest:
+class Nearest(TypedDict):
     result: list
     status: int
 
 
-@dataclass
-class NearestListMatch:
+class NearestListMatch(TypedDict):
     postcode_id: str
 
 
-@dataclass
-class Outcode:
+class Outcode(TypedDict):
     result: Any
     status: int
 
 
-@dataclass
-class OutcodeLoadMatch:
+class OutcodeLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class Place:
+class PlaceRequired(TypedDict):
     code: str
     country: str
     county_unitary: str
@@ -57,82 +57,74 @@ class Place:
     region: str
     result: dict
     status: int
-    district_borough_type: Optional[str] = None
 
 
-@dataclass
-class PlaceLoadMatch:
+class Place(PlaceRequired, total=False):
+    district_borough_type: str
+
+
+class PlaceLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class PlaceListMatch:
-    code: Optional[str] = None
-    country: Optional[str] = None
-    county_unitary: Optional[str] = None
-    county_unitary_type: Optional[str] = None
-    district_borough: Optional[str] = None
-    district_borough_type: Optional[str] = None
-    easting: Optional[int] = None
-    latitude: Optional[float] = None
-    local_type: Optional[str] = None
-    longitude: Optional[float] = None
-    max_easting: Optional[int] = None
-    max_northing: Optional[int] = None
-    min_easting: Optional[int] = None
-    min_northing: Optional[int] = None
-    name_1: Optional[str] = None
-    name_1_lang: Optional[str] = None
-    name_2: Optional[str] = None
-    name_2_lang: Optional[str] = None
-    northing: Optional[int] = None
-    outcode: Optional[str] = None
-    region: Optional[str] = None
-    result: Optional[dict] = None
-    status: Optional[int] = None
-
-
-@dataclass
-class Postcode:
+class PlaceListMatch(TypedDict, total=False):
+    code: str
+    country: str
+    county_unitary: str
+    county_unitary_type: str
+    district_borough: str
+    district_borough_type: str
+    easting: int
+    latitude: float
+    local_type: str
+    longitude: float
+    max_easting: int
+    max_northing: int
+    min_easting: int
+    min_northing: int
+    name_1: str
+    name_1_lang: str
+    name_2: str
+    name_2_lang: str
+    northing: int
+    outcode: str
+    region: str
     result: dict
     status: int
 
 
-@dataclass
-class PostcodeLoadMatch:
+class Postcode(TypedDict):
+    result: dict
+    status: int
+
+
+class PostcodeLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class PostcodeListMatch:
-    result: Optional[dict] = None
-    status: Optional[int] = None
+class PostcodeListMatch(TypedDict, total=False):
+    result: dict
+    status: int
 
 
-@dataclass
-class PostcodeCreateData:
-    result: Optional[dict] = None
-    status: Optional[int] = None
+class PostcodeCreateData(TypedDict, total=False):
+    result: dict
+    status: int
 
 
-@dataclass
-class ScottishPostcode:
+class ScottishPostcode(TypedDict):
     result: list
     status: int
 
 
-@dataclass
-class ScottishPostcodeLoadMatch:
+class ScottishPostcodeLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class TerminatedPostcode:
+class TerminatedPostcode(TypedDict):
     result: list
     status: int
 
 
-@dataclass
-class TerminatedPostcodeLoadMatch:
+class TerminatedPostcodeLoadMatch(TypedDict):
     id: str
-

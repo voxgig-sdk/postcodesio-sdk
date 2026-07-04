@@ -100,7 +100,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## NearestEntity
 
 ```python
-nearest = client.nearest
+nearest = client.Nearest()
 ```
 
 ### Fields
@@ -117,7 +117,9 @@ nearest = client.nearest
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.nearest.list({})
+results = client.Nearest().list({})
+for nearest in results:
+    print(nearest)
 ```
 
 ### Common Methods
@@ -152,7 +154,7 @@ Return the entity name.
 ## OutcodeEntity
 
 ```python
-outcode = client.outcode
+outcode = client.Outcode()
 ```
 
 ### Fields
@@ -169,7 +171,7 @@ outcode = client.outcode
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.outcode.load({"id": "outcode_id"})
+result = client.Outcode().load({"id": "outcode_id"})
 ```
 
 ### Common Methods
@@ -204,7 +206,7 @@ Return the entity name.
 ## PlaceEntity
 
 ```python
-place = client.place
+place = client.Place()
 ```
 
 ### Fields
@@ -242,7 +244,9 @@ place = client.place
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.place.list({})
+results = client.Place().list({})
+for place in results:
+    print(place)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -250,7 +254,7 @@ results = client.place.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.place.load({"id": "place_id"})
+result = client.Place().load({"id": "place_id"})
 ```
 
 ### Common Methods
@@ -285,7 +289,7 @@ Return the entity name.
 ## PostcodeEntity
 
 ```python
-postcode = client.postcode
+postcode = client.Postcode()
 ```
 
 ### Fields
@@ -302,9 +306,9 @@ postcode = client.postcode
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.postcode.create({
-    "result": # `$OBJECT`,
-    "status": # `$INTEGER`,
+result = client.Postcode().create({
+    "result": ...,  # `$OBJECT`
+    "status": ...,  # `$INTEGER`
 })
 ```
 
@@ -313,7 +317,9 @@ result = client.postcode.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.postcode.list({})
+results = client.Postcode().list({})
+for postcode in results:
+    print(postcode)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -321,7 +327,7 @@ results = client.postcode.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.postcode.load({"id": "postcode_id"})
+result = client.Postcode().load({"id": "postcode_id"})
 ```
 
 ### Common Methods
@@ -356,7 +362,7 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```python
-scottish_postcode = client.scottish_postcode
+scottish_postcode = client.ScottishPostcode()
 ```
 
 ### Fields
@@ -373,7 +379,7 @@ scottish_postcode = client.scottish_postcode
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.scottish_postcode.load({"id": "scottish_postcode_id"})
+result = client.ScottishPostcode().load({"id": "scottish_postcode_id"})
 ```
 
 ### Common Methods
@@ -408,7 +414,7 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```python
-terminated_postcode = client.terminated_postcode
+terminated_postcode = client.TerminatedPostcode()
 ```
 
 ### Fields
@@ -425,7 +431,7 @@ terminated_postcode = client.terminated_postcode
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.terminated_postcode.load({"id": "terminated_postcode_id"})
+result = client.TerminatedPostcode().load({"id": "terminated_postcode_id"})
 ```
 
 ### Common Methods

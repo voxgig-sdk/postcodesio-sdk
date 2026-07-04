@@ -105,7 +105,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## NearestEntity
 
 ```php
-$nearest = $client->nearest();
+$nearest = $client->Nearest();
 ```
 
 ### Fields
@@ -122,7 +122,7 @@ $nearest = $client->nearest();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->nearest()->list([]);
+$results = $client->Nearest()->list([]);
 ```
 
 ### Common Methods
@@ -158,7 +158,7 @@ Return the entity name.
 ## OutcodeEntity
 
 ```php
-$outcode = $client->outcode();
+$outcode = $client->Outcode();
 ```
 
 ### Fields
@@ -175,7 +175,7 @@ $outcode = $client->outcode();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->outcode()->load(["id" => "outcode_id"]);
+$result = $client->Outcode()->load(["id" => "outcode_id"]);
 ```
 
 ### Common Methods
@@ -211,7 +211,7 @@ Return the entity name.
 ## PlaceEntity
 
 ```php
-$place = $client->place();
+$place = $client->Place();
 ```
 
 ### Fields
@@ -249,7 +249,7 @@ $place = $client->place();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->place()->list([]);
+$results = $client->Place()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -257,7 +257,7 @@ $results = $client->place()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->place()->load(["id" => "place_id"]);
+$result = $client->Place()->load(["id" => "place_id"]);
 ```
 
 ### Common Methods
@@ -293,7 +293,7 @@ Return the entity name.
 ## PostcodeEntity
 
 ```php
-$postcode = $client->postcode();
+$postcode = $client->Postcode();
 ```
 
 ### Fields
@@ -310,7 +310,7 @@ $postcode = $client->postcode();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->postcode()->create([
+$result = $client->Postcode()->create([
   "result" => /* `$OBJECT` */,
   "status" => /* `$INTEGER` */,
 ]);
@@ -321,7 +321,7 @@ $result = $client->postcode()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->postcode()->list([]);
+$results = $client->Postcode()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -329,7 +329,7 @@ $results = $client->postcode()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->postcode()->load(["id" => "postcode_id"]);
+$result = $client->Postcode()->load(["id" => "postcode_id"]);
 ```
 
 ### Common Methods
@@ -365,7 +365,7 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```php
-$scottish_postcode = $client->scottish_postcode();
+$scottish_postcode = $client->ScottishPostcode();
 ```
 
 ### Fields
@@ -382,7 +382,7 @@ $scottish_postcode = $client->scottish_postcode();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->scottish_postcode()->load(["id" => "scottish_postcode_id"]);
+$result = $client->ScottishPostcode()->load(["id" => "scottish_postcode_id"]);
 ```
 
 ### Common Methods
@@ -418,7 +418,7 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```php
-$terminated_postcode = $client->terminated_postcode();
+$terminated_postcode = $client->TerminatedPostcode();
 ```
 
 ### Fields
@@ -435,7 +435,7 @@ $terminated_postcode = $client->terminated_postcode();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->terminated_postcode()->load(["id" => "terminated_postcode_id"]);
+$result = $client->TerminatedPostcode()->load(["id" => "terminated_postcode_id"]);
 ```
 
 ### Common Methods

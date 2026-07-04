@@ -106,7 +106,7 @@ same parameters as `direct()`. Raises on error.
 ## NearestEntity
 
 ```ruby
-nearest = client.nearest
+nearest = client.Nearest
 ```
 
 ### Fields
@@ -123,7 +123,7 @@ nearest = client.nearest
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.nearest.list(nil)
+results = client.Nearest.list(nil)
 ```
 
 ### Common Methods
@@ -159,7 +159,7 @@ Return the entity name.
 ## OutcodeEntity
 
 ```ruby
-outcode = client.outcode
+outcode = client.Outcode
 ```
 
 ### Fields
@@ -176,7 +176,7 @@ outcode = client.outcode
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.outcode.load({ "id" => "outcode_id" })
+result = client.Outcode.load({ "id" => "outcode_id" })
 ```
 
 ### Common Methods
@@ -212,7 +212,7 @@ Return the entity name.
 ## PlaceEntity
 
 ```ruby
-place = client.place
+place = client.Place
 ```
 
 ### Fields
@@ -250,7 +250,7 @@ place = client.place
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.place.list(nil)
+results = client.Place.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -258,7 +258,7 @@ results = client.place.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.place.load({ "id" => "place_id" })
+result = client.Place.load({ "id" => "place_id" })
 ```
 
 ### Common Methods
@@ -294,7 +294,7 @@ Return the entity name.
 ## PostcodeEntity
 
 ```ruby
-postcode = client.postcode
+postcode = client.Postcode
 ```
 
 ### Fields
@@ -311,7 +311,7 @@ postcode = client.postcode
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.postcode.create({
+result = client.Postcode.create({
   "result" => # `$OBJECT`,
   "status" => # `$INTEGER`,
 })
@@ -322,7 +322,7 @@ result = client.postcode.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.postcode.list(nil)
+results = client.Postcode.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -330,7 +330,7 @@ results = client.postcode.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.postcode.load({ "id" => "postcode_id" })
+result = client.Postcode.load({ "id" => "postcode_id" })
 ```
 
 ### Common Methods
@@ -366,7 +366,7 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```ruby
-scottish_postcode = client.scottish_postcode
+scottish_postcode = client.ScottishPostcode
 ```
 
 ### Fields
@@ -383,7 +383,7 @@ scottish_postcode = client.scottish_postcode
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.scottish_postcode.load({ "id" => "scottish_postcode_id" })
+result = client.ScottishPostcode.load({ "id" => "scottish_postcode_id" })
 ```
 
 ### Common Methods
@@ -419,7 +419,7 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```ruby
-terminated_postcode = client.terminated_postcode
+terminated_postcode = client.TerminatedPostcode
 ```
 
 ### Fields
@@ -436,7 +436,7 @@ terminated_postcode = client.terminated_postcode
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.terminated_postcode.load({ "id" => "terminated_postcode_id" })
+result = client.TerminatedPostcode.load({ "id" => "terminated_postcode_id" })
 ```
 
 ### Common Methods

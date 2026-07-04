@@ -208,78 +208,42 @@ class PostcodesioSDK
   end
 
 
-  # Idiomatic facade: client.nearest.list / client.nearest.load({ "id" => ... })
-  def nearest
-    require_relative 'entity/nearest_entity'
-    @nearest ||= NearestEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.nearest instead.
+  # Canonical facade: client.Nearest.list / client.Nearest.load({ "id" => ... })
   def Nearest(data = nil)
     require_relative 'entity/nearest_entity'
     NearestEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.outcode.list / client.outcode.load({ "id" => ... })
-  def outcode
-    require_relative 'entity/outcode_entity'
-    @outcode ||= OutcodeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.outcode instead.
+  # Canonical facade: client.Outcode.list / client.Outcode.load({ "id" => ... })
   def Outcode(data = nil)
     require_relative 'entity/outcode_entity'
     OutcodeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.place.list / client.place.load({ "id" => ... })
-  def place
-    require_relative 'entity/place_entity'
-    @place ||= PlaceEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.place instead.
+  # Canonical facade: client.Place.list / client.Place.load({ "id" => ... })
   def Place(data = nil)
     require_relative 'entity/place_entity'
     PlaceEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.postcode.list / client.postcode.load({ "id" => ... })
-  def postcode
-    require_relative 'entity/postcode_entity'
-    @postcode ||= PostcodeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.postcode instead.
+  # Canonical facade: client.Postcode.list / client.Postcode.load({ "id" => ... })
   def Postcode(data = nil)
     require_relative 'entity/postcode_entity'
     PostcodeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.scottish_postcode.list / client.scottish_postcode.load({ "id" => ... })
-  def scottish_postcode
-    require_relative 'entity/scottish_postcode_entity'
-    @scottish_postcode ||= ScottishPostcodeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.scottish_postcode instead.
+  # Canonical facade: client.ScottishPostcode.list / client.ScottishPostcode.load({ "id" => ... })
   def ScottishPostcode(data = nil)
     require_relative 'entity/scottish_postcode_entity'
     ScottishPostcodeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.terminated_postcode.list / client.terminated_postcode.load({ "id" => ... })
-  def terminated_postcode
-    require_relative 'entity/terminated_postcode_entity'
-    @terminated_postcode ||= TerminatedPostcodeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.terminated_postcode instead.
+  # Canonical facade: client.TerminatedPostcode.list / client.TerminatedPostcode.load({ "id" => ... })
   def TerminatedPostcode(data = nil)
     require_relative 'entity/terminated_postcode_entity'
     TerminatedPostcodeEntity.new(self, data)

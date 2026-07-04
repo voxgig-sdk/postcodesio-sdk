@@ -29,18 +29,16 @@ require_once 'postcodesio_sdk.php';
 $client = new PostcodesioSDK();
 ```
 
-### 2. List nearests
+### 2. List nearest records
 
 ```php
 try {
-    $result = $client->nearest()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Nearest records — iterate directly.
+    $nearests = $client->Nearest()->list();
+    foreach ($nearests as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = PostcodesioSDK::test();
+$client = PostcodesioSDK::test([
+    "entity" => ["nearest" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->nearest()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$nearest = $client->Nearest()->load(["id" => "test01"]);
+print_r($nearest);
 ```
 
 ### Use a custom fetch function
@@ -172,7 +174,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Nearest` | `($data): NearestEntity` | Create a Nearest entity instance. |
-| `Outcode` | `($data): OutcodeEntity` | Create a Outcode entity instance. |
+| `Outcode` | `($data): OutcodeEntity` | Create an Outcode entity instance. |
 | `Place` | `($data): PlaceEntity` | Create a Place entity instance. |
 | `Postcode` | `($data): PostcodeEntity` | Create a Postcode entity instance. |
 | `ScottishPostcode` | `($data): ScottishPostcodeEntity` | Create a ScottishPostcode entity instance. |
@@ -310,7 +312,7 @@ API path: `/terminated_postcodes/{postcode}`
 
 ### Nearest
 
-Create an instance: `const nearest = client.nearest`
+Create an instance: `$nearest = $client->Nearest();`
 
 #### Operations
 
@@ -327,14 +329,15 @@ Create an instance: `const nearest = client.nearest`
 
 #### Example: List
 
-```ts
-const nearests = await client.nearest.list()
+```php
+// list() returns an array of Nearest records (throws on error).
+$nearests = $client->Nearest()->list();
 ```
 
 
 ### Outcode
 
-Create an instance: `const outcode = client.outcode`
+Create an instance: `$outcode = $client->Outcode();`
 
 #### Operations
 
@@ -351,14 +354,15 @@ Create an instance: `const outcode = client.outcode`
 
 #### Example: Load
 
-```ts
-const outcode = await client.outcode.load({ id: 'outcode_id' })
+```php
+// load() returns the bare Outcode record (throws on error).
+$outcode = $client->Outcode()->load(["id" => "outcode_id"]);
 ```
 
 
 ### Place
 
-Create an instance: `const place = client.place`
+Create an instance: `$place = $client->Place();`
 
 #### Operations
 
@@ -397,20 +401,22 @@ Create an instance: `const place = client.place`
 
 #### Example: Load
 
-```ts
-const place = await client.place.load({ id: 'place_id' })
+```php
+// load() returns the bare Place record (throws on error).
+$place = $client->Place()->load(["id" => "place_id"]);
 ```
 
 #### Example: List
 
-```ts
-const places = await client.place.list()
+```php
+// list() returns an array of Place records (throws on error).
+$places = $client->Place()->list();
 ```
 
 
 ### Postcode
 
-Create an instance: `const postcode = client.postcode`
+Create an instance: `$postcode = $client->Postcode();`
 
 #### Operations
 
@@ -429,29 +435,31 @@ Create an instance: `const postcode = client.postcode`
 
 #### Example: Load
 
-```ts
-const postcode = await client.postcode.load({ id: 'postcode_id' })
+```php
+// load() returns the bare Postcode record (throws on error).
+$postcode = $client->Postcode()->load(["id" => "postcode_id"]);
 ```
 
 #### Example: List
 
-```ts
-const postcodes = await client.postcode.list()
+```php
+// list() returns an array of Postcode records (throws on error).
+$postcodes = $client->Postcode()->list();
 ```
 
 #### Example: Create
 
-```ts
-const postcode = await client.postcode.create({
-  result: /* `$OBJECT` */,
-  status: /* `$INTEGER` */,
-})
+```php
+$postcode = $client->Postcode()->create([
+    "result" => null, // `$OBJECT`
+    "status" => null, // `$INTEGER`
+]);
 ```
 
 
 ### ScottishPostcode
 
-Create an instance: `const scottish_postcode = client.scottish_postcode`
+Create an instance: `$scottish_postcode = $client->ScottishPostcode();`
 
 #### Operations
 
@@ -468,14 +476,15 @@ Create an instance: `const scottish_postcode = client.scottish_postcode`
 
 #### Example: Load
 
-```ts
-const scottish_postcode = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
+```php
+// load() returns the bare ScottishPostcode record (throws on error).
+$scottish_postcode = $client->ScottishPostcode()->load(["id" => "scottish_postcode_id"]);
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `const terminated_postcode = client.terminated_postcode`
+Create an instance: `$terminated_postcode = $client->TerminatedPostcode();`
 
 #### Operations
 
@@ -492,8 +501,9 @@ Create an instance: `const terminated_postcode = client.terminated_postcode`
 
 #### Example: Load
 
-```ts
-const terminated_postcode = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
+```php
+// load() returns the bare TerminatedPostcode record (throws on error).
+$terminated_postcode = $client->TerminatedPostcode()->load(["id" => "terminated_postcode_id"]);
 ```
 
 
@@ -568,7 +578,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$nearest = $client->nearest();
+$nearest = $client->Nearest();
 $nearest->load(["id" => "example_id"]);
 
 // $nearest->dataGet() now returns the loaded nearest data

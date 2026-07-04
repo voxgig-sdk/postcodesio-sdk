@@ -103,7 +103,7 @@ same parameters as `direct()`.
 ## NearestEntity
 
 ```lua
-local nearest = client:nearest(nil)
+local nearest = client:Nearest(nil)
 ```
 
 ### Fields
@@ -120,7 +120,7 @@ local nearest = client:nearest(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:nearest():list()
+local results, err = client:Nearest():list()
 ```
 
 ### Common Methods
@@ -156,7 +156,7 @@ Return the entity name.
 ## OutcodeEntity
 
 ```lua
-local outcode = client:outcode(nil)
+local outcode = client:Outcode(nil)
 ```
 
 ### Fields
@@ -173,7 +173,7 @@ local outcode = client:outcode(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:outcode():load({ id = "outcode_id" })
+local result, err = client:Outcode():load({ id = "outcode_id" })
 ```
 
 ### Common Methods
@@ -209,7 +209,7 @@ Return the entity name.
 ## PlaceEntity
 
 ```lua
-local place = client:place(nil)
+local place = client:Place(nil)
 ```
 
 ### Fields
@@ -247,7 +247,7 @@ local place = client:place(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:place():list()
+local results, err = client:Place():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -255,7 +255,7 @@ local results, err = client:place():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:place():load({ id = "place_id" })
+local result, err = client:Place():load({ id = "place_id" })
 ```
 
 ### Common Methods
@@ -291,7 +291,7 @@ Return the entity name.
 ## PostcodeEntity
 
 ```lua
-local postcode = client:postcode(nil)
+local postcode = client:Postcode(nil)
 ```
 
 ### Fields
@@ -308,7 +308,7 @@ local postcode = client:postcode(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:postcode():create({
+local result, err = client:Postcode():create({
   result = --[[ `$OBJECT` ]],
   status = --[[ `$INTEGER` ]],
 })
@@ -319,7 +319,7 @@ local result, err = client:postcode():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:postcode():list()
+local results, err = client:Postcode():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -327,7 +327,7 @@ local results, err = client:postcode():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:postcode():load({ id = "postcode_id" })
+local result, err = client:Postcode():load({ id = "postcode_id" })
 ```
 
 ### Common Methods
@@ -363,7 +363,7 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```lua
-local scottish_postcode = client:scottish_postcode(nil)
+local scottish_postcode = client:ScottishPostcode(nil)
 ```
 
 ### Fields
@@ -380,7 +380,7 @@ local scottish_postcode = client:scottish_postcode(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:scottish_postcode():load({ id = "scottish_postcode_id" })
+local result, err = client:ScottishPostcode():load({ id = "scottish_postcode_id" })
 ```
 
 ### Common Methods
@@ -416,7 +416,7 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```lua
-local terminated_postcode = client:terminated_postcode(nil)
+local terminated_postcode = client:TerminatedPostcode(nil)
 ```
 
 ### Fields
@@ -433,7 +433,7 @@ local terminated_postcode = client:terminated_postcode(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:terminated_postcode():load({ id = "terminated_postcode_id" })
+local result, err = client:TerminatedPostcode():load({ id = "terminated_postcode_id" })
 ```
 
 ### Common Methods

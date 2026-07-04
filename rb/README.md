@@ -28,16 +28,14 @@ require_relative "Postcodesio_sdk"
 client = PostcodesioSDK.new
 ```
 
-### 2. List nearests
+### 2. List nearest records
 
 ```ruby
 begin
-  result = client.nearest.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Nearest records — iterate directly.
+  nearests = client.Nearest.list
+  nearests.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = PostcodesioSDK.test
+client = PostcodesioSDK.test({
+  "entity" => { "nearest" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.nearest.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+nearest = client.Nearest.load({ "id" => "test01" })
+puts nearest
 ```
 
 ### Use a custom fetch function
@@ -168,7 +170,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Nearest` | `(data) -> NearestEntity` | Create a Nearest entity instance. |
-| `Outcode` | `(data) -> OutcodeEntity` | Create a Outcode entity instance. |
+| `Outcode` | `(data) -> OutcodeEntity` | Create an Outcode entity instance. |
 | `Place` | `(data) -> PlaceEntity` | Create a Place entity instance. |
 | `Postcode` | `(data) -> PostcodeEntity` | Create a Postcode entity instance. |
 | `ScottishPostcode` | `(data) -> ScottishPostcodeEntity` | Create a ScottishPostcode entity instance. |
@@ -305,7 +307,7 @@ API path: `/terminated_postcodes/{postcode}`
 
 ### Nearest
 
-Create an instance: `const nearest = client.nearest`
+Create an instance: `nearest = client.Nearest`
 
 #### Operations
 
@@ -322,14 +324,15 @@ Create an instance: `const nearest = client.nearest`
 
 #### Example: List
 
-```ts
-const nearests = await client.nearest.list()
+```ruby
+# list returns an Array of Nearest records (raises on error).
+nearests = client.Nearest.list
 ```
 
 
 ### Outcode
 
-Create an instance: `const outcode = client.outcode`
+Create an instance: `outcode = client.Outcode`
 
 #### Operations
 
@@ -346,14 +349,15 @@ Create an instance: `const outcode = client.outcode`
 
 #### Example: Load
 
-```ts
-const outcode = await client.outcode.load({ id: 'outcode_id' })
+```ruby
+# load returns the bare Outcode record (raises on error).
+outcode = client.Outcode.load({ "id" => "outcode_id" })
 ```
 
 
 ### Place
 
-Create an instance: `const place = client.place`
+Create an instance: `place = client.Place`
 
 #### Operations
 
@@ -392,20 +396,22 @@ Create an instance: `const place = client.place`
 
 #### Example: Load
 
-```ts
-const place = await client.place.load({ id: 'place_id' })
+```ruby
+# load returns the bare Place record (raises on error).
+place = client.Place.load({ "id" => "place_id" })
 ```
 
 #### Example: List
 
-```ts
-const places = await client.place.list()
+```ruby
+# list returns an Array of Place records (raises on error).
+places = client.Place.list
 ```
 
 
 ### Postcode
 
-Create an instance: `const postcode = client.postcode`
+Create an instance: `postcode = client.Postcode`
 
 #### Operations
 
@@ -424,29 +430,31 @@ Create an instance: `const postcode = client.postcode`
 
 #### Example: Load
 
-```ts
-const postcode = await client.postcode.load({ id: 'postcode_id' })
+```ruby
+# load returns the bare Postcode record (raises on error).
+postcode = client.Postcode.load({ "id" => "postcode_id" })
 ```
 
 #### Example: List
 
-```ts
-const postcodes = await client.postcode.list()
+```ruby
+# list returns an Array of Postcode records (raises on error).
+postcodes = client.Postcode.list
 ```
 
 #### Example: Create
 
-```ts
-const postcode = await client.postcode.create({
-  result: /* `$OBJECT` */,
-  status: /* `$INTEGER` */,
+```ruby
+postcode = client.Postcode.create({
+  "result" => nil, # `$OBJECT`
+  "status" => nil, # `$INTEGER`
 })
 ```
 
 
 ### ScottishPostcode
 
-Create an instance: `const scottish_postcode = client.scottish_postcode`
+Create an instance: `scottish_postcode = client.ScottishPostcode`
 
 #### Operations
 
@@ -463,14 +471,15 @@ Create an instance: `const scottish_postcode = client.scottish_postcode`
 
 #### Example: Load
 
-```ts
-const scottish_postcode = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
+```ruby
+# load returns the bare ScottishPostcode record (raises on error).
+scottish_postcode = client.ScottishPostcode.load({ "id" => "scottish_postcode_id" })
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `const terminated_postcode = client.terminated_postcode`
+Create an instance: `terminated_postcode = client.TerminatedPostcode`
 
 #### Operations
 
@@ -487,8 +496,9 @@ Create an instance: `const terminated_postcode = client.terminated_postcode`
 
 #### Example: Load
 
-```ts
-const terminated_postcode = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
+```ruby
+# load returns the bare TerminatedPostcode record (raises on error).
+terminated_postcode = client.TerminatedPostcode.load({ "id" => "terminated_postcode_id" })
 ```
 
 
@@ -563,7 +573,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-nearest = client.nearest
+nearest = client.Nearest
 nearest.load({ "id" => "example_id" })
 
 # nearest.data_get now returns the loaded nearest data

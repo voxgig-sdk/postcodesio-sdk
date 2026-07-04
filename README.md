@@ -26,9 +26,11 @@ import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
 
 const client = new PostcodesioSDK()
 
-// List all nearests
-const nearests = await client.nearest.list()
-console.log(nearests.data)
+// List all nearests (returns Nearest[])
+const nearests = await client.Nearest().list()
+for (const nearest of nearests) {
+  console.log(nearest)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -88,9 +90,10 @@ from postcodesio_sdk import PostcodesioSDK
 
 client = PostcodesioSDK()
 
-# List all nearests
-nearests = client.nearest.list()
-print(nearests)
+# List all nearests (returns a list, raises on error)
+nearests = client.Nearest().list({})
+for nearest in nearests:
+    print(nearest)
 ```
 
 ### PHP
@@ -101,8 +104,8 @@ require_once 'postcodesio_sdk.php';
 
 $client = new PostcodesioSDK();
 
-// List all nearests (throws on error)
-$nearests = $client->nearest()->list();
+// List all nearests (returns an array; throws on error)
+$nearests = $client->Nearest()->list();
 print_r($nearests);
 ```
 
@@ -125,8 +128,8 @@ require_relative "Postcodesio_sdk"
 
 client = PostcodesioSDK.new
 
-# List all nearests
-nearests = client.nearest.list
+# List all nearests (returns an Array; raises on error)
+nearests = client.Nearest.list
 puts nearests
 ```
 
@@ -138,7 +141,7 @@ local sdk = require("postcodesio_sdk")
 local client = sdk.new()
 
 -- List all nearests
-local nearests, err = client:nearest():list()
+local nearests, err = client:Nearest():list()
 print(nearests)
 ```
 
@@ -151,22 +154,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = PostcodesioSDK.test()
-const result = await client.nearest.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const nearest = await client.Nearest().load({ id: 'test01' })
+// nearest is a bare Nearest populated with mock data
+console.log(nearest)
 ```
 
 ### Python
 
 ```python
 client = PostcodesioSDK.test()
-result = client.nearest.load({"id": "test01"})
+nearest = client.Nearest().load({"id": "test01"})
+print(nearest)
 ```
 
 ### PHP
 
 ```php
-$client = PostcodesioSDK::test();
-$result = $client->nearest()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = PostcodesioSDK::test([
+    "entity" => ["nearest" => ["test01" => ["id" => "test01"]]],
+]);
+$nearest = $client->Nearest()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -181,15 +189,18 @@ result, err := client.Nearest(nil).Load(
 ### Ruby
 
 ```ruby
-client = PostcodesioSDK.test
-result = client.nearest.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = PostcodesioSDK.test({
+  "entity" => { "nearest" => { "test01" => { "id" => "test01" } } },
+})
+nearest = client.Nearest.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:nearest():load({ id = "test01" })
+local result, err = client:Nearest():load({ id = "test01" })
 ```
 
 ## How it works
@@ -237,6 +248,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 
