@@ -45,6 +45,7 @@ class PostcodeEntity
     end
   end
 
+  # @return [Postcode, Hash] the current Postcode data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class PostcodeEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Postcode fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Postcode.
+  #
+  # @param reqmatch [PostcodeLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Postcode, Hash] the loaded Postcode; raises PostcodesioError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class PostcodeEntity
 
 
   
+  # List Postcode items matching the given filter.
+  #
+  # @param reqmatch [PostcodeListMatch, Hash, nil] match filter (any subset of Postcode fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Postcode>, Array] the matching Postcode items; raises PostcodesioError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -106,6 +118,11 @@ class PostcodeEntity
 
 
   
+  # Create a new Postcode.
+  #
+  # @param reqdata [PostcodeCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Postcode, Hash] the created Postcode; raises PostcodesioError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

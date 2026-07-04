@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Place,
+  PlaceLoadMatch,
+  PlaceListMatch,
+} from '../PostcodesioTypes'
 
 // TODO: needs Entity superclass
-class PlaceEntity extends PostcodesioEntityBase {
+class PlaceEntity extends PostcodesioEntityBase<Place> {
 
   constructor(client: PostcodesioSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class PlaceEntity extends PostcodesioEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: PlaceLoadMatch, ctrl?: Control): Promise<Place> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class PlaceEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Place> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PlaceListMatch, ctrl?: Control): Promise<Place[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class PlaceEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Place[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

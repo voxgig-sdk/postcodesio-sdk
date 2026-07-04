@@ -44,16 +44,13 @@ class TestPostcodeEntity:
         postcode_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.postcode"), "postcode_ref01"))
 
-        postcode_ref01_data_result, err = postcode_ref01_ent.create(postcode_ref01_data, None)
-        assert err is None
-        postcode_ref01_data = helpers.to_map(postcode_ref01_data_result)
+        postcode_ref01_data = helpers.to_map(postcode_ref01_ent.create(postcode_ref01_data, None))
         assert postcode_ref01_data is not None
 
         # LIST
         postcode_ref01_match = {}
 
-        postcode_ref01_list_result, err = postcode_ref01_ent.list(postcode_ref01_match, None)
-        assert err is None
+        postcode_ref01_list_result = postcode_ref01_ent.list(postcode_ref01_match, None)
         assert isinstance(postcode_ref01_list_result, list)
 
         found_item = vs.select(
@@ -63,8 +60,7 @@ class TestPostcodeEntity:
 
         # LOAD
         postcode_ref01_match_dt0 = {}
-        postcode_ref01_data_dt0_loaded, err = postcode_ref01_ent.load(postcode_ref01_match_dt0, None)
-        assert err is None
+        postcode_ref01_data_dt0_loaded = postcode_ref01_ent.load(postcode_ref01_match_dt0, None)
         assert postcode_ref01_data_dt0_loaded is not None
 
 
@@ -105,7 +101,6 @@ def _postcode_basic_setup(extra):
         "POSTCODESIO_TEST_POSTCODE_ENTID": idmap,
         "POSTCODESIO_TEST_LIVE": "FALSE",
         "POSTCODESIO_TEST_EXPLAIN": "FALSE",
-        "POSTCODESIO_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -116,7 +111,6 @@ def _postcode_basic_setup(extra):
     if env.get("POSTCODESIO_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("POSTCODESIO_APIKEY"),
             },
             extra or {},
         ])

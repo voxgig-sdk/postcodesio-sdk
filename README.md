@@ -10,26 +10,24 @@ This is an unofficial SDK for the API Reference - Postcodes.io public API, gener
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/postcodesio` | `npm install @voxgig-sdk/postcodesio` |
-| Python | `voxgig-sdk-postcodesio` | `pip install voxgig-sdk-postcodesio` |
-| PHP | `voxgig-sdk/postcodesio` | `composer require voxgig-sdk/postcodesio` |
-| Golang | `github.com/voxgig-sdk/postcodesio-sdk/go` | `go get github.com/voxgig-sdk/postcodesio-sdk/go` |
-| Ruby | `voxgig-sdk-postcodesio` | `gem install voxgig-sdk-postcodesio` |
-| Lua | `voxgig-sdk-postcodesio` | `luarocks install voxgig-sdk-postcodesio` |
+| TypeScript | `@voxgig-sdk/postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
+| Python | `voxgig-sdk-postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
+| PHP | `voxgig-sdk/postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/postcodesio-sdk/go` | `go get github.com/voxgig-sdk/postcodesio-sdk/go@latest` |
+| Ruby | `voxgig-sdk-postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
+| Lua | `voxgig-sdk-postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { PostcodesioSDK } from 'postcodesio'
+import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
 
-const client = new PostcodesioSDK({
-  apikey: process.env.POSTCODESIO_APIKEY,
-})
+const client = new PostcodesioSDK()
 
 // List all nearests
-const nearests = await client.Nearest().list()
+const nearests = await client.nearest.list()
 console.log(nearests.data)
 ```
 
@@ -71,12 +69,12 @@ The API exposes 6 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Nearest** |  | `/postcodes/{postcode}/nearest` |
-| **Outcode** |  | `/outcodes/{outcode}` |
-| **Place** |  | `/places` |
-| **Postcode** |  | `/postcodes` |
-| **ScottishPostcode** |  | `/scotland/postcodes/{postcode}` |
-| **TerminatedPostcode** |  | `/terminated_postcodes/{postcode}` |
+| **Nearest** | The Nearest entity (list). | `/postcodes/{postcode}/nearest` |
+| **Outcode** | The Outcode entity (load). | `/outcodes/{outcode}` |
+| **Place** | The Place entity (list, load). | `/places` |
+| **Postcode** | The Postcode entity (create, list, load). | `/postcodes` |
+| **ScottishPostcode** | The ScottishPostcode entity (load). | `/scotland/postcodes/{postcode}` |
+| **TerminatedPostcode** | The TerminatedPostcode entity (load). | `/terminated_postcodes/{postcode}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -86,15 +84,12 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
-import os
 from postcodesio_sdk import PostcodesioSDK
 
-client = PostcodesioSDK({
-    "apikey": os.environ.get("POSTCODESIO_APIKEY"),
-})
+client = PostcodesioSDK()
 
 # List all nearests
-nearests, err = client.Nearest().list()
+nearests = client.nearest.list()
 print(nearests)
 ```
 
@@ -104,12 +99,10 @@ print(nearests)
 <?php
 require_once 'postcodesio_sdk.php';
 
-$client = new PostcodesioSDK([
-    "apikey" => getenv("POSTCODESIO_APIKEY"),
-]);
+$client = new PostcodesioSDK();
 
-// List all nearests
-[$nearests, $err] = $client->Nearest()->list();
+// List all nearests (throws on error)
+$nearests = $client->nearest()->list();
 print_r($nearests);
 ```
 
@@ -118,9 +111,7 @@ print_r($nearests);
 ```go
 import sdk "github.com/voxgig-sdk/postcodesio-sdk/go"
 
-client := sdk.NewPostcodesioSDK(map[string]any{
-    "apikey": os.Getenv("POSTCODESIO_APIKEY"),
-})
+client := sdk.New()
 
 // List all nearests
 nearests, err := client.Nearest(nil).List(nil, nil)
@@ -132,12 +123,10 @@ fmt.Println(nearests)
 ```ruby
 require_relative "Postcodesio_sdk"
 
-client = PostcodesioSDK.new({
-  "apikey" => ENV["POSTCODESIO_APIKEY"],
-})
+client = PostcodesioSDK.new
 
 # List all nearests
-nearests, err = client.Nearest().list
+nearests = client.nearest.list
 puts nearests
 ```
 
@@ -146,12 +135,10 @@ puts nearests
 ```lua
 local sdk = require("postcodesio_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("POSTCODESIO_APIKEY"),
-})
+local client = sdk.new()
 
 -- List all nearests
-local nearests, err = client:Nearest():list()
+local nearests, err = client:nearest():list()
 print(nearests)
 ```
 
@@ -164,7 +151,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = PostcodesioSDK.test()
-const result = await client.Nearest().load({ id: 'test01' })
+const result = await client.nearest.load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 
@@ -172,14 +159,14 @@ const result = await client.Nearest().load({ id: 'test01' })
 
 ```python
 client = PostcodesioSDK.test()
-result, err = client.Nearest().load({"id": "test01"})
+result = client.nearest.load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
 $client = PostcodesioSDK::test();
-[$result, $err] = $client->Nearest()->load(["id" => "test01"]);
+$result = $client->nearest()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -195,14 +182,14 @@ result, err := client.Nearest(nil).Load(
 
 ```ruby
 client = PostcodesioSDK.test
-result, err = client.Nearest().load({ "id" => "test01" })
+result = client.nearest.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Nearest():load({ id = "test01" })
+local result, err = client:nearest():load({ id = "test01" })
 ```
 
 ## How it works
@@ -255,7 +242,7 @@ console.log(result.data)
 
 **Python:**
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
@@ -264,7 +251,7 @@ result, err = client.direct({
 
 **PHP:**
 ```php
-[$result, $err] = $client->direct([
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
@@ -282,7 +269,7 @@ result, err := client.Direct(map[string]any{
 
 **Ruby:**
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },

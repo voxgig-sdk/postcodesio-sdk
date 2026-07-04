@@ -9,9 +9,10 @@ The PHP SDK for the Postcodesio API — an entity-oriented client using PHP conv
 
 
 ## Install
-```bash
-composer require voxgig-sdk/postcodesio
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/postcodesio-sdk/releases](https://github.com/voxgig-sdk/postcodesio-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,22 +26,22 @@ loading a specific record.
 <?php
 require_once 'postcodesio_sdk.php';
 
-$client = new PostcodesioSDK([
-    "apikey" => getenv("POSTCODESIO_APIKEY"),
-]);
+$client = new PostcodesioSDK();
 ```
 
 ### 2. List nearests
 
 ```php
-[$result, $err] = $client->Nearest()->list();
-if ($err) { throw new \Exception($err); }
-
-if (is_array($result)) {
-    foreach ($result as $item) {
-        $d = $item->data_get();
-        echo $d["id"] . " " . $d["name"] . "\n";
+try {
+    $result = $client->nearest()->list();
+    if (is_array($result)) {
+        foreach ($result as $item) {
+            $d = $item->data_get();
+            echo $d["id"] . " " . $d["name"] . "\n";
+        }
     }
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
 }
 ```
 
@@ -52,28 +53,31 @@ if (is_array($result)) {
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -87,7 +91,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = PostcodesioSDK::test();
 
-[$result, $err] = $client->Postcodesio()->load(["id" => "test01"]);
+$result = $client->nearest()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -122,7 +126,6 @@ Create a `.env.local` file at the project root:
 
 ```
 POSTCODESIO_TEST_LIVE=TRUE
-POSTCODESIO_APIKEY=<your-key>
 ```
 
 Then run:
@@ -145,7 +148,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -196,8 +198,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -304,7 +310,7 @@ API path: `/terminated_postcodes/{postcode}`
 
 ### Nearest
 
-Create an instance: `const nearest = client.Nearest()`
+Create an instance: `const nearest = client.nearest`
 
 #### Operations
 
@@ -322,13 +328,13 @@ Create an instance: `const nearest = client.Nearest()`
 #### Example: List
 
 ```ts
-const nearests = await client.Nearest().list()
+const nearests = await client.nearest.list()
 ```
 
 
 ### Outcode
 
-Create an instance: `const outcode = client.Outcode()`
+Create an instance: `const outcode = client.outcode`
 
 #### Operations
 
@@ -346,13 +352,13 @@ Create an instance: `const outcode = client.Outcode()`
 #### Example: Load
 
 ```ts
-const outcode = await client.Outcode().load({ id: 'outcode_id' })
+const outcode = await client.outcode.load({ id: 'outcode_id' })
 ```
 
 
 ### Place
 
-Create an instance: `const place = client.Place()`
+Create an instance: `const place = client.place`
 
 #### Operations
 
@@ -392,19 +398,19 @@ Create an instance: `const place = client.Place()`
 #### Example: Load
 
 ```ts
-const place = await client.Place().load({ id: 'place_id' })
+const place = await client.place.load({ id: 'place_id' })
 ```
 
 #### Example: List
 
 ```ts
-const places = await client.Place().list()
+const places = await client.place.list()
 ```
 
 
 ### Postcode
 
-Create an instance: `const postcode = client.Postcode()`
+Create an instance: `const postcode = client.postcode`
 
 #### Operations
 
@@ -424,19 +430,19 @@ Create an instance: `const postcode = client.Postcode()`
 #### Example: Load
 
 ```ts
-const postcode = await client.Postcode().load({ id: 'postcode_id' })
+const postcode = await client.postcode.load({ id: 'postcode_id' })
 ```
 
 #### Example: List
 
 ```ts
-const postcodes = await client.Postcode().list()
+const postcodes = await client.postcode.list()
 ```
 
 #### Example: Create
 
 ```ts
-const postcode = await client.Postcode().create({
+const postcode = await client.postcode.create({
   result: /* `$OBJECT` */,
   status: /* `$INTEGER` */,
 })
@@ -445,7 +451,7 @@ const postcode = await client.Postcode().create({
 
 ### ScottishPostcode
 
-Create an instance: `const scottish_postcode = client.ScottishPostcode()`
+Create an instance: `const scottish_postcode = client.scottish_postcode`
 
 #### Operations
 
@@ -463,13 +469,13 @@ Create an instance: `const scottish_postcode = client.ScottishPostcode()`
 #### Example: Load
 
 ```ts
-const scottish_postcode = await client.ScottishPostcode().load({ id: 'scottish_postcode_id' })
+const scottish_postcode = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `const terminated_postcode = client.TerminatedPostcode()`
+Create an instance: `const terminated_postcode = client.terminated_postcode`
 
 #### Operations
 
@@ -487,7 +493,7 @@ Create an instance: `const terminated_postcode = client.TerminatedPostcode()`
 #### Example: Load
 
 ```ts
-const terminated_postcode = await client.TerminatedPostcode().load({ id: 'terminated_postcode_id' })
+const terminated_postcode = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
 ```
 
 
@@ -562,11 +568,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$nearest = $client->nearest();
+$nearest->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $nearest->dataGet() now returns the loaded nearest data
+// $nearest->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -85,6 +85,27 @@ func (e *OutcodeEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Outcode; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *OutcodeEntity) DataTyped(data ...Outcode) Outcode {
+	if len(data) > 0 {
+		return typedFrom[Outcode](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Outcode](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Outcode (all fields
+// optional at the wire level).
+func (e *OutcodeEntity) MatchTyped(match ...Outcode) Outcode {
+	if len(match) > 0 {
+		return typedFrom[Outcode](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Outcode](e.Match())
+}
+
 
 func (e *OutcodeEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *OutcodeEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any,
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// OutcodeLoadMatch and returns an Outcode. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *OutcodeEntity) LoadTyped(reqmatch OutcodeLoadMatch, ctrl map[string]any) (Outcode, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Outcode{}, err
+	}
+	return typedFrom[Outcode](res), nil
 }
 
 

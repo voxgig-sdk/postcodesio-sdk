@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  ScottishPostcode,
+  ScottishPostcodeLoadMatch,
+} from '../PostcodesioTypes'
 
 // TODO: needs Entity superclass
-class ScottishPostcodeEntity extends PostcodesioEntityBase {
+class ScottishPostcodeEntity extends PostcodesioEntityBase<ScottishPostcode> {
 
   constructor(client: PostcodesioSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class ScottishPostcodeEntity extends PostcodesioEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: ScottishPostcodeLoadMatch, ctrl?: Control): Promise<ScottishPostcode> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class ScottishPostcodeEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ScottishPostcode> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

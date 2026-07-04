@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `Hash` | SDK configuration options. |
-| `options["apikey"]` | `String` | API key for authentication. |
 | `options["base"]` | `String` | Base URL for API requests. |
 | `options["prefix"]` | `String` | URL prefix appended after base. |
 | `options["suffix"]` | `String` | URL suffix appended after path. |
@@ -74,9 +73,11 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs = {}) -> Hash, err`
+#### `direct(fetchargs = {}) -> Hash`
 
-Make a direct HTTP request to any API endpoint.
+Make a direct HTTP request to any API endpoint. Returns a result hash
+(`{ "ok" => ..., "status" => ..., "data" => ..., "err" => ... }`); it
+does not raise — inspect `result["ok"]`.
 
 **Parameters:**
 
@@ -90,14 +91,14 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs["body"]` | `any` | Request body (hashes are JSON-serialized). |
 | `fetchargs["ctrl"]` | `Hash` | Control options (e.g. `{ "explain" => true }`). |
 
-**Returns:** `Hash, err`
+**Returns:** `Hash`
 
-#### `prepare(fetchargs = {}) -> Hash, err`
+#### `prepare(fetchargs = {}) -> Hash`
 
 Prepare a fetch definition without sending the request. Accepts the
-same parameters as `direct()`.
+same parameters as `direct()`. Raises on error.
 
-**Returns:** `Hash, err`
+**Returns:** `Hash` (the fetch definition; raises on error)
 
 
 ---
@@ -105,7 +106,7 @@ same parameters as `direct()`.
 ## NearestEntity
 
 ```ruby
-nearest = client.Nearest
+nearest = client.nearest
 ```
 
 ### Fields
@@ -117,12 +118,12 @@ nearest = client.Nearest
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Nearest.list(nil)
+results = client.nearest.list(nil)
 ```
 
 ### Common Methods
@@ -158,7 +159,7 @@ Return the entity name.
 ## OutcodeEntity
 
 ```ruby
-outcode = client.Outcode
+outcode = client.outcode
 ```
 
 ### Fields
@@ -170,12 +171,12 @@ outcode = client.Outcode
 
 ### Operations
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Outcode.load({ "id" => "outcode_id" })
+result = client.outcode.load({ "id" => "outcode_id" })
 ```
 
 ### Common Methods
@@ -211,7 +212,7 @@ Return the entity name.
 ## PlaceEntity
 
 ```ruby
-place = client.Place
+place = client.place
 ```
 
 ### Fields
@@ -244,20 +245,20 @@ place = client.Place
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Place.list(nil)
+results = client.place.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Place.load({ "id" => "place_id" })
+result = client.place.load({ "id" => "place_id" })
 ```
 
 ### Common Methods
@@ -293,7 +294,7 @@ Return the entity name.
 ## PostcodeEntity
 
 ```ruby
-postcode = client.Postcode
+postcode = client.postcode
 ```
 
 ### Fields
@@ -305,31 +306,31 @@ postcode = client.Postcode
 
 ### Operations
 
-#### `create(reqdata, ctrl = nil) -> result, err`
+#### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Raises on error.
 
 ```ruby
-result, err = client.Postcode.create({
+result = client.postcode.create({
   "result" => # `$OBJECT`,
   "status" => # `$INTEGER`,
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Postcode.list(nil)
+results = client.postcode.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Postcode.load({ "id" => "postcode_id" })
+result = client.postcode.load({ "id" => "postcode_id" })
 ```
 
 ### Common Methods
@@ -365,7 +366,7 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```ruby
-scottish_postcode = client.ScottishPostcode
+scottish_postcode = client.scottish_postcode
 ```
 
 ### Fields
@@ -377,12 +378,12 @@ scottish_postcode = client.ScottishPostcode
 
 ### Operations
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.ScottishPostcode.load({ "id" => "scottish_postcode_id" })
+result = client.scottish_postcode.load({ "id" => "scottish_postcode_id" })
 ```
 
 ### Common Methods
@@ -418,7 +419,7 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```ruby
-terminated_postcode = client.TerminatedPostcode
+terminated_postcode = client.terminated_postcode
 ```
 
 ### Fields
@@ -430,12 +431,12 @@ terminated_postcode = client.TerminatedPostcode
 
 ### Operations
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.TerminatedPostcode.load({ "id" => "terminated_postcode_id" })
+result = client.terminated_postcode.load({ "id" => "terminated_postcode_id" })
 ```
 
 ### Common Methods

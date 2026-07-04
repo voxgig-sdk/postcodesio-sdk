@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Outcode,
+  OutcodeLoadMatch,
+} from '../PostcodesioTypes'
 
 // TODO: needs Entity superclass
-class OutcodeEntity extends PostcodesioEntityBase {
+class OutcodeEntity extends PostcodesioEntityBase<Outcode> {
 
   constructor(client: PostcodesioSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class OutcodeEntity extends PostcodesioEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: OutcodeLoadMatch, ctrl?: Control): Promise<Outcode> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class OutcodeEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Outcode> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

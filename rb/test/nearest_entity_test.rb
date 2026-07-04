@@ -45,8 +45,7 @@ class NearestEntityTest < Minitest::Test
       "postcode_id" => setup[:idmap]["postcode01"],
     }
 
-    nearest_ref01_list_result, err = nearest_ref01_ent.list(nearest_ref01_match, nil)
-    assert_nil err
+    nearest_ref01_list_result = nearest_ref01_ent.list(nearest_ref01_match, nil)
     assert nearest_ref01_list_result.is_a?(Array)
 
   end
@@ -85,7 +84,6 @@ def nearest_basic_setup(extra)
     "POSTCODESIO_TEST_NEAREST_ENTID" => idmap,
     "POSTCODESIO_TEST_LIVE" => "FALSE",
     "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-    "POSTCODESIO_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -97,7 +95,6 @@ def nearest_basic_setup(extra)
   if env["POSTCODESIO_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["POSTCODESIO_APIKEY"],
       },
       extra || {},
     ])

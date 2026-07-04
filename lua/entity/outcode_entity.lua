@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch OutcodeLoadMatch
+---@param ctrl? table
+---@return Outcode
+---@return string? err
 function OutcodeEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

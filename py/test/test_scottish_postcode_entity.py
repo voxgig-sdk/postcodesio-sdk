@@ -49,8 +49,7 @@ class TestScottishPostcodeEntity:
         # LOAD
         scottish_postcode_ref01_ent = client.ScottishPostcode(None)
         scottish_postcode_ref01_match_dt0 = {}
-        scottish_postcode_ref01_data_dt0_loaded, err = scottish_postcode_ref01_ent.load(scottish_postcode_ref01_match_dt0, None)
-        assert err is None
+        scottish_postcode_ref01_data_dt0_loaded = scottish_postcode_ref01_ent.load(scottish_postcode_ref01_match_dt0, None)
         assert scottish_postcode_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _scottish_postcode_basic_setup(extra):
         "POSTCODESIO_TEST_SCOTTISH_POSTCODE_ENTID": idmap,
         "POSTCODESIO_TEST_LIVE": "FALSE",
         "POSTCODESIO_TEST_EXPLAIN": "FALSE",
-        "POSTCODESIO_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _scottish_postcode_basic_setup(extra):
     if env.get("POSTCODESIO_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("POSTCODESIO_APIKEY"),
             },
             extra or {},
         ])

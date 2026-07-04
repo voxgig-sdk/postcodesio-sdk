@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch ScottishPostcodeLoadMatch
+---@param ctrl? table
+---@return ScottishPostcode
+---@return string? err
 function ScottishPostcodeEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

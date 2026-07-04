@@ -49,8 +49,7 @@ class TestOutcodeEntity:
         # LOAD
         outcode_ref01_ent = client.Outcode(None)
         outcode_ref01_match_dt0 = {}
-        outcode_ref01_data_dt0_loaded, err = outcode_ref01_ent.load(outcode_ref01_match_dt0, None)
-        assert err is None
+        outcode_ref01_data_dt0_loaded = outcode_ref01_ent.load(outcode_ref01_match_dt0, None)
         assert outcode_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _outcode_basic_setup(extra):
         "POSTCODESIO_TEST_OUTCODE_ENTID": idmap,
         "POSTCODESIO_TEST_LIVE": "FALSE",
         "POSTCODESIO_TEST_EXPLAIN": "FALSE",
-        "POSTCODESIO_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _outcode_basic_setup(extra):
     if env.get("POSTCODESIO_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("POSTCODESIO_APIKEY"),
             },
             extra or {},
         ])

@@ -194,14 +194,12 @@ func placeDirectSetup(mockres any) *placeDirectSetupResult {
 	env := envOverride(map[string]any{
 		"POSTCODESIO_TEST_PLACE_ENTID": map[string]any{},
 		"POSTCODESIO_TEST_LIVE":    "FALSE",
-		"POSTCODESIO_APIKEY":       "NONE",
 	})
 
 	live := env["POSTCODESIO_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["POSTCODESIO_APIKEY"],
 		}
 		client := sdk.NewPostcodesioSDK(mergedOpts)
 

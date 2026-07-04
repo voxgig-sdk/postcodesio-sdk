@@ -45,6 +45,7 @@ class TerminatedPostcodeEntity
     end
   end
 
+  # @return [TerminatedPostcode, Hash] the current TerminatedPostcode data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class TerminatedPostcodeEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of TerminatedPostcode fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single TerminatedPostcode.
+  #
+  # @param reqmatch [TerminatedPostcodeLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [TerminatedPostcode, Hash] the loaded TerminatedPostcode; raises PostcodesioError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

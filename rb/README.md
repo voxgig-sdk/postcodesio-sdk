@@ -9,21 +9,10 @@ The Ruby SDK for the Postcodesio API — an entity-oriented client using idiomat
 
 
 ## Install
-```bash
-gem install voxgig-sdk-postcodesio
-```
+This package is not yet published to RubyGems. Install it from the
+GitHub release tag (`rb/vX.Y.Z`):
 
-Or add to your `Gemfile`:
-
-```ruby
-gem "voxgig-sdk-postcodesio"
-```
-
-Then run:
-
-```bash
-bundle install
-```
+- Releases: [https://github.com/voxgig-sdk/postcodesio-sdk/releases](https://github.com/voxgig-sdk/postcodesio-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -36,22 +25,22 @@ loading a specific record.
 ```ruby
 require_relative "Postcodesio_sdk"
 
-client = PostcodesioSDK.new({
-  "apikey" => ENV["POSTCODESIO_APIKEY"],
-})
+client = PostcodesioSDK.new
 ```
 
 ### 2. List nearests
 
 ```ruby
-result, err = client.Nearest().list
-raise err if err
-
-if result.is_a?(Array)
-  result.each do |item|
-    d = item.data_get
-    puts "#{d["id"]} #{d["name"]}"
+begin
+  result = client.nearest.list
+  if result.is_a?(Array)
+    result.each do |item|
+      d = item.data_get
+      puts "#{d["id"]} #{d["name"]}"
+    end
   end
+rescue => err
+  warn "list failed: #{err}"
 end
 ```
 
@@ -63,32 +52,35 @@ end
 For endpoints not covered by entity methods:
 
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },
 })
-raise err if err
 
 if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
+else
+  warn result["err"]
 end
 ```
 
 ### Prepare a request without sending it
 
 ```ruby
-fetchdef, err = client.prepare({
-  "path" => "/api/resource/{id}",
-  "method" => "DELETE",
-  "params" => { "id" => "example" },
-})
-raise err if err
-
-puts fetchdef["url"]
-puts fetchdef["method"]
-puts fetchdef["headers"]
+begin
+  fetchdef = client.prepare({
+    "path" => "/api/resource/{id}",
+    "method" => "DELETE",
+    "params" => { "id" => "example" },
+  })
+  puts fetchdef["url"]
+  puts fetchdef["method"]
+  puts fetchdef["headers"]
+rescue => err
+  warn "prepare failed: #{err}"
+end
 ```
 
 ### Use test mode
@@ -98,7 +90,7 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = PostcodesioSDK.test
 
-result, err = client.Postcodesio().load({ "id" => "test01" })
+result = client.nearest.load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -130,7 +122,6 @@ Create a `.env.local` file at the project root:
 
 ```
 POSTCODESIO_TEST_LIVE=TRUE
-POSTCODESIO_APIKEY=<your-key>
 ```
 
 Then run:
@@ -153,7 +144,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |
@@ -175,8 +165,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | --- | --- | --- |
 | `options_map` | `() -> Hash` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> [Hash, err]` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> [Hash, err]` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Nearest` | `(data) -> NearestEntity` | Create a Nearest entity instance. |
 | `Outcode` | `(data) -> OutcodeEntity` | Create a Outcode entity instance. |
 | `Place` | `(data) -> PlaceEntity` | Create a Place entity instance. |
@@ -190,11 +180,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> [any, err]` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> [any, err]` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> [any, err]` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> [any, err]` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> [any, err]` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -204,8 +194,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[any, err]`. The first value is a
-`Hash` with these keys:
+Entity operations return the result data directly. On failure they
+raise a `PostcodesioError` (a `StandardError` subclass), so wrap
+calls in `begin`/`rescue` where you need to handle errors.
+
+The `direct` escape hatch is the exception: it never raises and instead
+returns a result `Hash` with these keys:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -213,8 +207,7 @@ Entity operations return `[any, err]`. The first value is a
 | `status` | `Integer` | HTTP status code. |
 | `headers` | `Hash` | Response headers. |
 | `data` | `any` | Parsed JSON response body. |
-
-On error, `ok` is `false` and `err` contains the error value.
+| `err` | `Error` | Present when `ok` is `false`. |
 
 ### Entities
 
@@ -312,7 +305,7 @@ API path: `/terminated_postcodes/{postcode}`
 
 ### Nearest
 
-Create an instance: `const nearest = client.Nearest()`
+Create an instance: `const nearest = client.nearest`
 
 #### Operations
 
@@ -330,13 +323,13 @@ Create an instance: `const nearest = client.Nearest()`
 #### Example: List
 
 ```ts
-const nearests = await client.Nearest().list()
+const nearests = await client.nearest.list()
 ```
 
 
 ### Outcode
 
-Create an instance: `const outcode = client.Outcode()`
+Create an instance: `const outcode = client.outcode`
 
 #### Operations
 
@@ -354,13 +347,13 @@ Create an instance: `const outcode = client.Outcode()`
 #### Example: Load
 
 ```ts
-const outcode = await client.Outcode().load({ id: 'outcode_id' })
+const outcode = await client.outcode.load({ id: 'outcode_id' })
 ```
 
 
 ### Place
 
-Create an instance: `const place = client.Place()`
+Create an instance: `const place = client.place`
 
 #### Operations
 
@@ -400,19 +393,19 @@ Create an instance: `const place = client.Place()`
 #### Example: Load
 
 ```ts
-const place = await client.Place().load({ id: 'place_id' })
+const place = await client.place.load({ id: 'place_id' })
 ```
 
 #### Example: List
 
 ```ts
-const places = await client.Place().list()
+const places = await client.place.list()
 ```
 
 
 ### Postcode
 
-Create an instance: `const postcode = client.Postcode()`
+Create an instance: `const postcode = client.postcode`
 
 #### Operations
 
@@ -432,19 +425,19 @@ Create an instance: `const postcode = client.Postcode()`
 #### Example: Load
 
 ```ts
-const postcode = await client.Postcode().load({ id: 'postcode_id' })
+const postcode = await client.postcode.load({ id: 'postcode_id' })
 ```
 
 #### Example: List
 
 ```ts
-const postcodes = await client.Postcode().list()
+const postcodes = await client.postcode.list()
 ```
 
 #### Example: Create
 
 ```ts
-const postcode = await client.Postcode().create({
+const postcode = await client.postcode.create({
   result: /* `$OBJECT` */,
   status: /* `$INTEGER` */,
 })
@@ -453,7 +446,7 @@ const postcode = await client.Postcode().create({
 
 ### ScottishPostcode
 
-Create an instance: `const scottish_postcode = client.ScottishPostcode()`
+Create an instance: `const scottish_postcode = client.scottish_postcode`
 
 #### Operations
 
@@ -471,13 +464,13 @@ Create an instance: `const scottish_postcode = client.ScottishPostcode()`
 #### Example: Load
 
 ```ts
-const scottish_postcode = await client.ScottishPostcode().load({ id: 'scottish_postcode_id' })
+const scottish_postcode = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `const terminated_postcode = client.TerminatedPostcode()`
+Create an instance: `const terminated_postcode = client.terminated_postcode`
 
 #### Operations
 
@@ -495,7 +488,7 @@ Create an instance: `const terminated_postcode = client.TerminatedPostcode()`
 #### Example: Load
 
 ```ts
-const terminated_postcode = await client.TerminatedPostcode().load({ id: 'terminated_postcode_id' })
+const terminated_postcode = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
 ```
 
 
@@ -570,11 +563,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-moon = client.Moon
-moon.load({ "planet_id" => "earth", "id" => "luna" })
+nearest = client.nearest
+nearest.load({ "id" => "example_id" })
 
-# moon.data_get now returns the loaded moon data
-# moon.match_get returns the last match criteria
+# nearest.data_get now returns the loaded nearest data
+# nearest.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

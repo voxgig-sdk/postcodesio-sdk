@@ -42,8 +42,7 @@ class TerminatedPostcodeEntityTest < Minitest::Test
     # LOAD
     terminated_postcode_ref01_ent = client.TerminatedPostcode(nil)
     terminated_postcode_ref01_match_dt0 = {}
-    terminated_postcode_ref01_data_dt0_loaded, err = terminated_postcode_ref01_ent.load(terminated_postcode_ref01_match_dt0, nil)
-    assert_nil err
+    terminated_postcode_ref01_data_dt0_loaded = terminated_postcode_ref01_ent.load(terminated_postcode_ref01_match_dt0, nil)
     assert !terminated_postcode_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def terminated_postcode_basic_setup(extra)
     "POSTCODESIO_TEST_TERMINATED_POSTCODE_ENTID" => idmap,
     "POSTCODESIO_TEST_LIVE" => "FALSE",
     "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-    "POSTCODESIO_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def terminated_postcode_basic_setup(extra)
   if env["POSTCODESIO_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["POSTCODESIO_APIKEY"],
       },
       extra || {},
     ])

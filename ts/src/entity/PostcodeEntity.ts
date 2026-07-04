@@ -14,9 +14,15 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Postcode,
+  PostcodeLoadMatch,
+  PostcodeListMatch,
+  PostcodeCreateData,
+} from '../PostcodesioTypes'
 
 // TODO: needs Entity superclass
-class PostcodeEntity extends PostcodesioEntityBase {
+class PostcodeEntity extends PostcodesioEntityBase<Postcode> {
 
   constructor(client: PostcodesioSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +38,7 @@ class PostcodeEntity extends PostcodesioEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: PostcodeLoadMatch, ctrl?: Control): Promise<Postcode> {
 
     const utility = this._utility
 
@@ -136,14 +142,16 @@ class PostcodeEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Postcode> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PostcodeListMatch, ctrl?: Control): Promise<Postcode[]> {
 
     const utility = this._utility
 
@@ -243,14 +251,16 @@ class PostcodeEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Postcode[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: PostcodeCreateData, ctrl?: Control): Promise<Postcode> {
 
     const utility = this._utility
     const {
@@ -349,7 +359,9 @@ class PostcodeEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Postcode> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

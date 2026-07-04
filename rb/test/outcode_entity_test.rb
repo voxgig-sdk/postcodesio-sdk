@@ -42,8 +42,7 @@ class OutcodeEntityTest < Minitest::Test
     # LOAD
     outcode_ref01_ent = client.Outcode(nil)
     outcode_ref01_match_dt0 = {}
-    outcode_ref01_data_dt0_loaded, err = outcode_ref01_ent.load(outcode_ref01_match_dt0, nil)
-    assert_nil err
+    outcode_ref01_data_dt0_loaded = outcode_ref01_ent.load(outcode_ref01_match_dt0, nil)
     assert !outcode_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def outcode_basic_setup(extra)
     "POSTCODESIO_TEST_OUTCODE_ENTID" => idmap,
     "POSTCODESIO_TEST_LIVE" => "FALSE",
     "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-    "POSTCODESIO_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def outcode_basic_setup(extra)
   if env["POSTCODESIO_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["POSTCODESIO_APIKEY"],
       },
       extra || {},
     ])

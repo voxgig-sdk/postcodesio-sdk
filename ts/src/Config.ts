@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.postcodes.io',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -105,7 +101,8 @@ class Config {
                     "name": "postcode_id",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -178,7 +175,8 @@ class Config {
                     "name": "id",
                     "orig": "outcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -414,7 +412,8 @@ class Config {
                     "name": "id",
                     "orig": "code",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -618,7 +617,8 @@ class Config {
                     "name": "id",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -717,7 +717,8 @@ class Config {
                     "name": "id",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -785,7 +786,8 @@ class Config {
                     "name": "id",
                     "orig": "postcode",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

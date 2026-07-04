@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch PostcodeLoadMatch
+---@param ctrl? table
+---@return Postcode
+---@return string? err
 function PostcodeEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch PostcodeListMatch
+---@param ctrl? table
+---@return Postcode[]
+---@return string? err
 function PostcodeEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata PostcodeCreateData
+---@param ctrl? table
+---@return Postcode
+---@return string? err
 function PostcodeEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -85,6 +85,27 @@ func (e *PostcodeEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Postcode; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *PostcodeEntity) DataTyped(data ...Postcode) Postcode {
+	if len(data) > 0 {
+		return typedFrom[Postcode](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Postcode](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Postcode (all fields
+// optional at the wire level).
+func (e *PostcodeEntity) MatchTyped(match ...Postcode) Postcode {
+	if len(match) > 0 {
+		return typedFrom[Postcode](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Postcode](e.Match())
+}
+
 
 func (e *PostcodeEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *PostcodeEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// PostcodeLoadMatch and returns an Postcode. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *PostcodeEntity) LoadTyped(reqmatch PostcodeLoadMatch, ctrl map[string]any) (Postcode, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Postcode{}, err
+	}
+	return typedFrom[Postcode](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *PostcodeEntity) List(reqmatch map[string]any, ctrl map[string]any) (any
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// PostcodeListMatch and returns []Postcode. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *PostcodeEntity) ListTyped(reqmatch PostcodeListMatch, ctrl map[string]any) ([]Postcode, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Postcode](res), nil
 }
 
 
@@ -156,6 +199,17 @@ func (e *PostcodeEntity) Create(reqdata map[string]any, ctrl map[string]any) (an
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// PostcodeCreateData and returns an Postcode. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *PostcodeEntity) CreateTyped(reqdata PostcodeCreateData, ctrl map[string]any) (Postcode, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Postcode{}, err
+	}
+	return typedFrom[Postcode](res), nil
 }
 
 

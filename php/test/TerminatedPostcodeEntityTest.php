@@ -49,8 +49,7 @@ class TerminatedPostcodeEntityTest extends TestCase
         // LOAD
         $terminated_postcode_ref01_ent = $client->TerminatedPostcode(null);
         $terminated_postcode_ref01_match_dt0 = [];
-        [$terminated_postcode_ref01_data_dt0_loaded, $err] = $terminated_postcode_ref01_ent->load($terminated_postcode_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $terminated_postcode_ref01_data_dt0_loaded = $terminated_postcode_ref01_ent->load($terminated_postcode_ref01_match_dt0, null);
         $this->assertNotNull($terminated_postcode_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function terminated_postcode_basic_setup($extra)
         "POSTCODESIO_TEST_TERMINATED_POSTCODE_ENTID" => $idmap,
         "POSTCODESIO_TEST_LIVE" => "FALSE",
         "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-        "POSTCODESIO_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function terminated_postcode_basic_setup($extra)
     if ($env["POSTCODESIO_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["POSTCODESIO_APIKEY"],
             ],
             $extra ?? [],
         ]);

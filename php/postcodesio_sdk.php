@@ -103,7 +103,7 @@ class PostcodesioSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class PostcodesioSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class PostcodesioSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,59 +216,125 @@ class PostcodesioSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Nearest($data = null)
+    private $_nearest = null;
+
+    // Idiomatic facade: $client->nearest()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Nearest() (PHP method
+    // names are case-insensitive).
+    public function nearest($data = null)
     {
         require_once __DIR__ . '/entity/nearest_entity.php';
+        if ($data === null) {
+            if ($this->_nearest === null) {
+                $this->_nearest = new NearestEntity($this, null);
+            }
+            return $this->_nearest;
+        }
         return new NearestEntity($this, $data);
     }
 
 
-    public function Outcode($data = null)
+    private $_outcode = null;
+
+    // Idiomatic facade: $client->outcode()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Outcode() (PHP method
+    // names are case-insensitive).
+    public function outcode($data = null)
     {
         require_once __DIR__ . '/entity/outcode_entity.php';
+        if ($data === null) {
+            if ($this->_outcode === null) {
+                $this->_outcode = new OutcodeEntity($this, null);
+            }
+            return $this->_outcode;
+        }
         return new OutcodeEntity($this, $data);
     }
 
 
-    public function Place($data = null)
+    private $_place = null;
+
+    // Idiomatic facade: $client->place()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Place() (PHP method
+    // names are case-insensitive).
+    public function place($data = null)
     {
         require_once __DIR__ . '/entity/place_entity.php';
+        if ($data === null) {
+            if ($this->_place === null) {
+                $this->_place = new PlaceEntity($this, null);
+            }
+            return $this->_place;
+        }
         return new PlaceEntity($this, $data);
     }
 
 
-    public function Postcode($data = null)
+    private $_postcode = null;
+
+    // Idiomatic facade: $client->postcode()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Postcode() (PHP method
+    // names are case-insensitive).
+    public function postcode($data = null)
     {
         require_once __DIR__ . '/entity/postcode_entity.php';
+        if ($data === null) {
+            if ($this->_postcode === null) {
+                $this->_postcode = new PostcodeEntity($this, null);
+            }
+            return $this->_postcode;
+        }
         return new PostcodeEntity($this, $data);
     }
 
 
-    public function ScottishPostcode($data = null)
+    private $_scottish_postcode = null;
+
+    // Idiomatic facade: $client->scottish_postcode()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias ScottishPostcode() (PHP method
+    // names are case-insensitive).
+    public function scottish_postcode($data = null)
     {
         require_once __DIR__ . '/entity/scottish_postcode_entity.php';
+        if ($data === null) {
+            if ($this->_scottish_postcode === null) {
+                $this->_scottish_postcode = new ScottishPostcodeEntity($this, null);
+            }
+            return $this->_scottish_postcode;
+        }
         return new ScottishPostcodeEntity($this, $data);
     }
 
 
-    public function TerminatedPostcode($data = null)
+    private $_terminated_postcode = null;
+
+    // Idiomatic facade: $client->terminated_postcode()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias TerminatedPostcode() (PHP method
+    // names are case-insensitive).
+    public function terminated_postcode($data = null)
     {
         require_once __DIR__ . '/entity/terminated_postcode_entity.php';
+        if ($data === null) {
+            if ($this->_terminated_postcode === null) {
+                $this->_terminated_postcode = new TerminatedPostcodeEntity($this, null);
+            }
+            return $this->_terminated_postcode;
+        }
         return new TerminatedPostcodeEntity($this, $data);
     }
 

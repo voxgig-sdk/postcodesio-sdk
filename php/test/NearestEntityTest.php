@@ -52,8 +52,7 @@ class NearestEntityTest extends TestCase
             "postcode_id" => $setup["idmap"]["postcode01"],
         ];
 
-        [$nearest_ref01_list_result, $err] = $nearest_ref01_ent->list($nearest_ref01_match, null);
-        $this->assertNull($err);
+        $nearest_ref01_list_result = $nearest_ref01_ent->list($nearest_ref01_match, null);
         $this->assertIsArray($nearest_ref01_list_result);
 
     }
@@ -88,7 +87,6 @@ function nearest_basic_setup($extra)
         "POSTCODESIO_TEST_NEAREST_ENTID" => $idmap,
         "POSTCODESIO_TEST_LIVE" => "FALSE",
         "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-        "POSTCODESIO_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -100,7 +98,6 @@ function nearest_basic_setup($extra)
     if ($env["POSTCODESIO_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["POSTCODESIO_APIKEY"],
             ],
             $extra ?? [],
         ]);

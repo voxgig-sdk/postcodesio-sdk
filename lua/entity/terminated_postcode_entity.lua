@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch TerminatedPostcodeLoadMatch
+---@param ctrl? table
+---@return TerminatedPostcode
+---@return string? err
 function TerminatedPostcodeEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

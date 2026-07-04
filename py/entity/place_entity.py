@@ -1,7 +1,14 @@
 # Postcodesio SDK Place entity
 
+from __future__ import annotations
+
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
+from postcodesio_types import (
+    Place,
+    PlaceLoadMatch,
+    PlaceListMatch,
+)
 
 
 class PlaceEntity:
@@ -44,7 +51,7 @@ class PlaceEntity:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self):
+    def data_get(self) -> Place:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -53,12 +60,12 @@ class PlaceEntity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self):
+    def match_get(self) -> Place:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
     
-    def load(self, reqmatch, ctrl=None):
+    def load(self, reqmatch: PlaceLoadMatch, ctrl=None) -> Place:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "load",
@@ -80,7 +87,7 @@ class PlaceEntity:
 
 
     
-    def list(self, reqmatch, ctrl=None):
+    def list(self, reqmatch: PlaceListMatch, ctrl=None) -> list[Place]:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "list",

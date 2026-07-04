@@ -45,6 +45,7 @@ class ScottishPostcodeEntity
     end
   end
 
+  # @return [ScottishPostcode, Hash] the current ScottishPostcode data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class ScottishPostcodeEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of ScottishPostcode fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single ScottishPostcode.
+  #
+  # @param reqmatch [ScottishPostcodeLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [ScottishPostcode, Hash] the loaded ScottishPostcode; raises PostcodesioError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

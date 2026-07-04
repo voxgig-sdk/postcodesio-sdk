@@ -245,31 +245,49 @@ func (sdk *PostcodesioSDK) Direct(fetchargs map[string]any) (map[string]any, err
 }
 
 
+// Nearest returns a Nearest entity bound to this client.
+// Idiomatic usage: client.Nearest(nil).List(nil, nil) or
+// client.Nearest(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PostcodesioSDK) Nearest(data map[string]any) PostcodesioEntity {
 	return NewNearestEntityFunc(sdk, data)
 }
 
 
+// Outcode returns a Outcode entity bound to this client.
+// Idiomatic usage: client.Outcode(nil).List(nil, nil) or
+// client.Outcode(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PostcodesioSDK) Outcode(data map[string]any) PostcodesioEntity {
 	return NewOutcodeEntityFunc(sdk, data)
 }
 
 
+// Place returns a Place entity bound to this client.
+// Idiomatic usage: client.Place(nil).List(nil, nil) or
+// client.Place(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PostcodesioSDK) Place(data map[string]any) PostcodesioEntity {
 	return NewPlaceEntityFunc(sdk, data)
 }
 
 
+// Postcode returns a Postcode entity bound to this client.
+// Idiomatic usage: client.Postcode(nil).List(nil, nil) or
+// client.Postcode(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PostcodesioSDK) Postcode(data map[string]any) PostcodesioEntity {
 	return NewPostcodeEntityFunc(sdk, data)
 }
 
 
+// ScottishPostcode returns a ScottishPostcode entity bound to this client.
+// Idiomatic usage: client.ScottishPostcode(nil).List(nil, nil) or
+// client.ScottishPostcode(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PostcodesioSDK) ScottishPostcode(data map[string]any) PostcodesioEntity {
 	return NewScottishPostcodeEntityFunc(sdk, data)
 }
 
 
+// TerminatedPostcode returns a TerminatedPostcode entity bound to this client.
+// Idiomatic usage: client.TerminatedPostcode(nil).List(nil, nil) or
+// client.TerminatedPostcode(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PostcodesioSDK) TerminatedPostcode(data map[string]any) PostcodesioEntity {
 	return NewTerminatedPostcodeEntityFunc(sdk, data)
 }

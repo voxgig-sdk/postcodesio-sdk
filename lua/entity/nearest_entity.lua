@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch NearestListMatch
+---@param ctrl? table
+---@return Nearest[]
+---@return string? err
 function NearestEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -117,7 +117,6 @@ func terminated_postcodeBasicSetup(extra map[string]any) *entityTestSetup {
 		"POSTCODESIO_TEST_TERMINATED_POSTCODE_ENTID": idmap,
 		"POSTCODESIO_TEST_LIVE":      "FALSE",
 		"POSTCODESIO_TEST_EXPLAIN":   "FALSE",
-		"POSTCODESIO_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["POSTCODESIO_TEST_TERMINATED_POSTCODE_ENTID"])
@@ -128,7 +127,6 @@ func terminated_postcodeBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["POSTCODESIO_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["POSTCODESIO_APIKEY"],
 			},
 			extra,
 		})

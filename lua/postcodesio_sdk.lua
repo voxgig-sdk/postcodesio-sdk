@@ -244,36 +244,114 @@ end
 
 
 
+-- Idiomatic facade: client:nearest():list() / client:nearest():load({ id = ... })
+function PostcodesioSDK:nearest(data)
+  local EntityMod = require("entity.nearest_entity")
+  if data == nil then
+    if self._nearest == nil then
+      self._nearest = EntityMod.new(self, nil)
+    end
+    return self._nearest
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:nearest() instead.
 function PostcodesioSDK:Nearest(data)
   local EntityMod = require("entity.nearest_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:outcode():list() / client:outcode():load({ id = ... })
+function PostcodesioSDK:outcode(data)
+  local EntityMod = require("entity.outcode_entity")
+  if data == nil then
+    if self._outcode == nil then
+      self._outcode = EntityMod.new(self, nil)
+    end
+    return self._outcode
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:outcode() instead.
 function PostcodesioSDK:Outcode(data)
   local EntityMod = require("entity.outcode_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:place():list() / client:place():load({ id = ... })
+function PostcodesioSDK:place(data)
+  local EntityMod = require("entity.place_entity")
+  if data == nil then
+    if self._place == nil then
+      self._place = EntityMod.new(self, nil)
+    end
+    return self._place
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:place() instead.
 function PostcodesioSDK:Place(data)
   local EntityMod = require("entity.place_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:postcode():list() / client:postcode():load({ id = ... })
+function PostcodesioSDK:postcode(data)
+  local EntityMod = require("entity.postcode_entity")
+  if data == nil then
+    if self._postcode == nil then
+      self._postcode = EntityMod.new(self, nil)
+    end
+    return self._postcode
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:postcode() instead.
 function PostcodesioSDK:Postcode(data)
   local EntityMod = require("entity.postcode_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:scottish_postcode():list() / client:scottish_postcode():load({ id = ... })
+function PostcodesioSDK:scottish_postcode(data)
+  local EntityMod = require("entity.scottish_postcode_entity")
+  if data == nil then
+    if self._scottish_postcode == nil then
+      self._scottish_postcode = EntityMod.new(self, nil)
+    end
+    return self._scottish_postcode
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:scottish_postcode() instead.
 function PostcodesioSDK:ScottishPostcode(data)
   local EntityMod = require("entity.scottish_postcode_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:terminated_postcode():list() / client:terminated_postcode():load({ id = ... })
+function PostcodesioSDK:terminated_postcode(data)
+  local EntityMod = require("entity.terminated_postcode_entity")
+  if data == nil then
+    if self._terminated_postcode == nil then
+      self._terminated_postcode = EntityMod.new(self, nil)
+    end
+    return self._terminated_postcode
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:terminated_postcode() instead.
 function PostcodesioSDK:TerminatedPostcode(data)
   local EntityMod = require("entity.terminated_postcode_entity")
   return EntityMod.new(self, data)

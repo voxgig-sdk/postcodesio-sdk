@@ -43,14 +43,12 @@ class PlaceEntityTest < Minitest::Test
     place_ref01_ent = client.Place(nil)
     place_ref01_match = {}
 
-    place_ref01_list_result, err = place_ref01_ent.list(place_ref01_match, nil)
-    assert_nil err
+    place_ref01_list_result = place_ref01_ent.list(place_ref01_match, nil)
     assert place_ref01_list_result.is_a?(Array)
 
     # LOAD
     place_ref01_match_dt0 = {}
-    place_ref01_data_dt0_loaded, err = place_ref01_ent.load(place_ref01_match_dt0, nil)
-    assert_nil err
+    place_ref01_data_dt0_loaded = place_ref01_ent.load(place_ref01_match_dt0, nil)
     assert !place_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def place_basic_setup(extra)
     "POSTCODESIO_TEST_PLACE_ENTID" => idmap,
     "POSTCODESIO_TEST_LIVE" => "FALSE",
     "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-    "POSTCODESIO_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def place_basic_setup(extra)
   if env["POSTCODESIO_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["POSTCODESIO_APIKEY"],
       },
       extra || {},
     ])

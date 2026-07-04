@@ -7,6 +7,8 @@ import { PostcodeEntity } from './entity/PostcodeEntity'
 import { ScottishPostcodeEntity } from './entity/ScottishPostcodeEntity'
 import { TerminatedPostcodeEntity } from './entity/TerminatedPostcodeEntity'
 
+export type * from './PostcodesioTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -207,36 +209,84 @@ class PostcodesioSDK {
 
 
 
+  _nearest?: NearestEntity
+
+  // Idiomatic facade: `client.nearest.list()` / `client.nearest.load({ id })`.
+  get nearest(): NearestEntity {
+    return (this._nearest ??= new NearestEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.nearest` instead. */
   Nearest(data?: any) {
     const self = this
     return new NearestEntity(self,data)
   }
 
 
+  _outcode?: OutcodeEntity
+
+  // Idiomatic facade: `client.outcode.list()` / `client.outcode.load({ id })`.
+  get outcode(): OutcodeEntity {
+    return (this._outcode ??= new OutcodeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.outcode` instead. */
   Outcode(data?: any) {
     const self = this
     return new OutcodeEntity(self,data)
   }
 
 
+  _place?: PlaceEntity
+
+  // Idiomatic facade: `client.place.list()` / `client.place.load({ id })`.
+  get place(): PlaceEntity {
+    return (this._place ??= new PlaceEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.place` instead. */
   Place(data?: any) {
     const self = this
     return new PlaceEntity(self,data)
   }
 
 
+  _postcode?: PostcodeEntity
+
+  // Idiomatic facade: `client.postcode.list()` / `client.postcode.load({ id })`.
+  get postcode(): PostcodeEntity {
+    return (this._postcode ??= new PostcodeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.postcode` instead. */
   Postcode(data?: any) {
     const self = this
     return new PostcodeEntity(self,data)
   }
 
 
+  _scottish_postcode?: ScottishPostcodeEntity
+
+  // Idiomatic facade: `client.scottish_postcode.list()` / `client.scottish_postcode.load({ id })`.
+  get scottish_postcode(): ScottishPostcodeEntity {
+    return (this._scottish_postcode ??= new ScottishPostcodeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.scottish_postcode` instead. */
   ScottishPostcode(data?: any) {
     const self = this
     return new ScottishPostcodeEntity(self,data)
   }
 
 
+  _terminated_postcode?: TerminatedPostcodeEntity
+
+  // Idiomatic facade: `client.terminated_postcode.list()` / `client.terminated_postcode.load({ id })`.
+  get terminated_postcode(): TerminatedPostcodeEntity {
+    return (this._terminated_postcode ??= new TerminatedPostcodeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.terminated_postcode` instead. */
   TerminatedPostcode(data?: any) {
     const self = this
     return new TerminatedPostcodeEntity(self,data)

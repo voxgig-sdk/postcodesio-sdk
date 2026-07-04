@@ -36,16 +36,14 @@ class PostcodeEntityTest < Minitest::Test
     postcode_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.postcode"), "postcode_ref01"))
 
-    postcode_ref01_data_result, err = postcode_ref01_ent.create(postcode_ref01_data, nil)
-    assert_nil err
+    postcode_ref01_data_result = postcode_ref01_ent.create(postcode_ref01_data, nil)
     postcode_ref01_data = Helpers.to_map(postcode_ref01_data_result)
     assert !postcode_ref01_data.nil?
 
     # LIST
     postcode_ref01_match = {}
 
-    postcode_ref01_list_result, err = postcode_ref01_ent.list(postcode_ref01_match, nil)
-    assert_nil err
+    postcode_ref01_list_result = postcode_ref01_ent.list(postcode_ref01_match, nil)
     assert postcode_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -55,8 +53,7 @@ class PostcodeEntityTest < Minitest::Test
 
     # LOAD
     postcode_ref01_match_dt0 = {}
-    postcode_ref01_data_dt0_loaded, err = postcode_ref01_ent.load(postcode_ref01_match_dt0, nil)
-    assert_nil err
+    postcode_ref01_data_dt0_loaded = postcode_ref01_ent.load(postcode_ref01_match_dt0, nil)
     assert !postcode_ref01_data_dt0_loaded.nil?
 
   end
@@ -95,7 +92,6 @@ def postcode_basic_setup(extra)
     "POSTCODESIO_TEST_POSTCODE_ENTID" => idmap,
     "POSTCODESIO_TEST_LIVE" => "FALSE",
     "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-    "POSTCODESIO_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -107,7 +103,6 @@ def postcode_basic_setup(extra)
   if env["POSTCODESIO_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["POSTCODESIO_APIKEY"],
       },
       extra || {},
     ])

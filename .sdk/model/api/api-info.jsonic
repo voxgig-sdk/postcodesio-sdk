@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         email: "support@ideal-postcodes.co.uk"
         name: "Support"

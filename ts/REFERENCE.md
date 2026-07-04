@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -170,7 +169,7 @@ Alias for `PostcodesioSDK.test()`.
 ## NearestEntity
 
 ```ts
-const nearest = client.Nearest()
+const nearest = client.nearest
 ```
 
 ### Fields
@@ -187,7 +186,7 @@ const nearest = client.Nearest()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Nearest().list()
+const results = await client.nearest.list()
 ```
 
 ### Common Methods
@@ -221,7 +220,7 @@ Return a copy of the entity options.
 ## OutcodeEntity
 
 ```ts
-const outcode = client.Outcode()
+const outcode = client.outcode
 ```
 
 ### Fields
@@ -238,7 +237,7 @@ const outcode = client.Outcode()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Outcode().load({ id: 'outcode_id' })
+const result = await client.outcode.load({ id: 'outcode_id' })
 ```
 
 ### Common Methods
@@ -272,7 +271,7 @@ Return a copy of the entity options.
 ## PlaceEntity
 
 ```ts
-const place = client.Place()
+const place = client.place
 ```
 
 ### Fields
@@ -310,7 +309,7 @@ const place = client.Place()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Place().list()
+const results = await client.place.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -318,7 +317,7 @@ const results = await client.Place().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Place().load({ id: 'place_id' })
+const result = await client.place.load({ id: 'place_id' })
 ```
 
 ### Common Methods
@@ -352,7 +351,7 @@ Return a copy of the entity options.
 ## PostcodeEntity
 
 ```ts
-const postcode = client.Postcode()
+const postcode = client.postcode
 ```
 
 ### Fields
@@ -369,7 +368,7 @@ const postcode = client.Postcode()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Postcode().create({
+const result = await client.postcode.create({
   result: /* `$OBJECT` */,
   status: /* `$INTEGER` */,
 })
@@ -380,7 +379,7 @@ const result = await client.Postcode().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Postcode().list()
+const results = await client.postcode.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -388,7 +387,7 @@ const results = await client.Postcode().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Postcode().load({ id: 'postcode_id' })
+const result = await client.postcode.load({ id: 'postcode_id' })
 ```
 
 ### Common Methods
@@ -422,7 +421,7 @@ Return a copy of the entity options.
 ## ScottishPostcodeEntity
 
 ```ts
-const scottish_postcode = client.ScottishPostcode()
+const scottish_postcode = client.scottish_postcode
 ```
 
 ### Fields
@@ -439,7 +438,7 @@ const scottish_postcode = client.ScottishPostcode()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ScottishPostcode().load({ id: 'scottish_postcode_id' })
+const result = await client.scottish_postcode.load({ id: 'scottish_postcode_id' })
 ```
 
 ### Common Methods
@@ -473,7 +472,7 @@ Return a copy of the entity options.
 ## TerminatedPostcodeEntity
 
 ```ts
-const terminated_postcode = client.TerminatedPostcode()
+const terminated_postcode = client.terminated_postcode
 ```
 
 ### Fields
@@ -490,7 +489,7 @@ const terminated_postcode = client.TerminatedPostcode()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.TerminatedPostcode().load({ id: 'terminated_postcode_id' })
+const result = await client.terminated_postcode.load({ id: 'terminated_postcode_id' })
 ```
 
 ### Common Methods

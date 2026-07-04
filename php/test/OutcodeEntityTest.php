@@ -49,8 +49,7 @@ class OutcodeEntityTest extends TestCase
         // LOAD
         $outcode_ref01_ent = $client->Outcode(null);
         $outcode_ref01_match_dt0 = [];
-        [$outcode_ref01_data_dt0_loaded, $err] = $outcode_ref01_ent->load($outcode_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $outcode_ref01_data_dt0_loaded = $outcode_ref01_ent->load($outcode_ref01_match_dt0, null);
         $this->assertNotNull($outcode_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function outcode_basic_setup($extra)
         "POSTCODESIO_TEST_OUTCODE_ENTID" => $idmap,
         "POSTCODESIO_TEST_LIVE" => "FALSE",
         "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-        "POSTCODESIO_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function outcode_basic_setup($extra)
     if ($env["POSTCODESIO_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["POSTCODESIO_APIKEY"],
             ],
             $extra ?? [],
         ]);

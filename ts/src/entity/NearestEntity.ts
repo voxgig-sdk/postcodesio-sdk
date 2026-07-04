@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Nearest,
+  NearestListMatch,
+} from '../PostcodesioTypes'
 
 // TODO: needs Entity superclass
-class NearestEntity extends PostcodesioEntityBase {
+class NearestEntity extends PostcodesioEntityBase<Nearest> {
 
   constructor(client: PostcodesioSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class NearestEntity extends PostcodesioEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: NearestListMatch, ctrl?: Control): Promise<Nearest[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class NearestEntity extends PostcodesioEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Nearest[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

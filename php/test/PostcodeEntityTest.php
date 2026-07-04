@@ -43,16 +43,14 @@ class PostcodeEntityTest extends TestCase
         $postcode_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.postcode"), "postcode_ref01"));
 
-        [$postcode_ref01_data_result, $err] = $postcode_ref01_ent->create($postcode_ref01_data, null);
-        $this->assertNull($err);
+        $postcode_ref01_data_result = $postcode_ref01_ent->create($postcode_ref01_data, null);
         $postcode_ref01_data = Helpers::to_map($postcode_ref01_data_result);
         $this->assertNotNull($postcode_ref01_data);
 
         // LIST
         $postcode_ref01_match = [];
 
-        [$postcode_ref01_list_result, $err] = $postcode_ref01_ent->list($postcode_ref01_match, null);
-        $this->assertNull($err);
+        $postcode_ref01_list_result = $postcode_ref01_ent->list($postcode_ref01_match, null);
         $this->assertIsArray($postcode_ref01_list_result);
 
         $found_item = sdk_select(
@@ -62,8 +60,7 @@ class PostcodeEntityTest extends TestCase
 
         // LOAD
         $postcode_ref01_match_dt0 = [];
-        [$postcode_ref01_data_dt0_loaded, $err] = $postcode_ref01_ent->load($postcode_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $postcode_ref01_data_dt0_loaded = $postcode_ref01_ent->load($postcode_ref01_match_dt0, null);
         $this->assertNotNull($postcode_ref01_data_dt0_loaded);
 
     }
@@ -98,7 +95,6 @@ function postcode_basic_setup($extra)
         "POSTCODESIO_TEST_POSTCODE_ENTID" => $idmap,
         "POSTCODESIO_TEST_LIVE" => "FALSE",
         "POSTCODESIO_TEST_EXPLAIN" => "FALSE",
-        "POSTCODESIO_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -110,7 +106,6 @@ function postcode_basic_setup($extra)
     if ($env["POSTCODESIO_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["POSTCODESIO_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -144,16 +144,23 @@ class PostcodesioSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class PostcodesioSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,40 +212,106 @@ class PostcodesioSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def nearest(self):
+        """Idiomatic facade: client.nearest.list() / client.nearest.load({"id": ...})."""
+        from entity.nearest_entity import NearestEntity
+        cached = getattr(self, "_nearest", None)
+        if cached is None:
+            cached = NearestEntity(self, None)
+            self._nearest = cached
+        return cached
 
     def Nearest(self, data=None):
+        # Deprecated: use client.nearest instead.
         from entity.nearest_entity import NearestEntity
         return NearestEntity(self, data)
 
 
+    @property
+    def outcode(self):
+        """Idiomatic facade: client.outcode.list() / client.outcode.load({"id": ...})."""
+        from entity.outcode_entity import OutcodeEntity
+        cached = getattr(self, "_outcode", None)
+        if cached is None:
+            cached = OutcodeEntity(self, None)
+            self._outcode = cached
+        return cached
+
     def Outcode(self, data=None):
+        # Deprecated: use client.outcode instead.
         from entity.outcode_entity import OutcodeEntity
         return OutcodeEntity(self, data)
 
 
+    @property
+    def place(self):
+        """Idiomatic facade: client.place.list() / client.place.load({"id": ...})."""
+        from entity.place_entity import PlaceEntity
+        cached = getattr(self, "_place", None)
+        if cached is None:
+            cached = PlaceEntity(self, None)
+            self._place = cached
+        return cached
+
     def Place(self, data=None):
+        # Deprecated: use client.place instead.
         from entity.place_entity import PlaceEntity
         return PlaceEntity(self, data)
 
 
+    @property
+    def postcode(self):
+        """Idiomatic facade: client.postcode.list() / client.postcode.load({"id": ...})."""
+        from entity.postcode_entity import PostcodeEntity
+        cached = getattr(self, "_postcode", None)
+        if cached is None:
+            cached = PostcodeEntity(self, None)
+            self._postcode = cached
+        return cached
+
     def Postcode(self, data=None):
+        # Deprecated: use client.postcode instead.
         from entity.postcode_entity import PostcodeEntity
         return PostcodeEntity(self, data)
 
 
+    @property
+    def scottish_postcode(self):
+        """Idiomatic facade: client.scottish_postcode.list() / client.scottish_postcode.load({"id": ...})."""
+        from entity.scottish_postcode_entity import ScottishPostcodeEntity
+        cached = getattr(self, "_scottish_postcode", None)
+        if cached is None:
+            cached = ScottishPostcodeEntity(self, None)
+            self._scottish_postcode = cached
+        return cached
+
     def ScottishPostcode(self, data=None):
+        # Deprecated: use client.scottish_postcode instead.
         from entity.scottish_postcode_entity import ScottishPostcodeEntity
         return ScottishPostcodeEntity(self, data)
 
 
+    @property
+    def terminated_postcode(self):
+        """Idiomatic facade: client.terminated_postcode.list() / client.terminated_postcode.load({"id": ...})."""
+        from entity.terminated_postcode_entity import TerminatedPostcodeEntity
+        cached = getattr(self, "_terminated_postcode", None)
+        if cached is None:
+            cached = TerminatedPostcodeEntity(self, None)
+            self._terminated_postcode = cached
+        return cached
+
     def TerminatedPostcode(self, data=None):
+        # Deprecated: use client.terminated_postcode instead.
         from entity.terminated_postcode_entity import TerminatedPostcodeEntity
         return TerminatedPostcodeEntity(self, data)
 

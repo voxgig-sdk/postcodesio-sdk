@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `dict` | SDK configuration options. |
-| `options["apikey"]` | `str` | API key for authentication. |
 | `options["base"]` | `str` | Base URL for API requests. |
 | `options["prefix"]` | `str` | URL prefix appended after base. |
 | `options["suffix"]` | `str` | URL suffix appended after path. |
@@ -74,9 +73,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -89,11 +88,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -101,7 +100,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## NearestEntity
 
 ```python
-nearest = client.Nearest()
+nearest = client.nearest
 ```
 
 ### Fields
@@ -113,12 +112,12 @@ nearest = client.Nearest()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Nearest().list({})
+results = client.nearest.list({})
 ```
 
 ### Common Methods
@@ -153,7 +152,7 @@ Return the entity name.
 ## OutcodeEntity
 
 ```python
-outcode = client.Outcode()
+outcode = client.outcode
 ```
 
 ### Fields
@@ -165,12 +164,12 @@ outcode = client.Outcode()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Outcode().load({"id": "outcode_id"})
+result = client.outcode.load({"id": "outcode_id"})
 ```
 
 ### Common Methods
@@ -205,7 +204,7 @@ Return the entity name.
 ## PlaceEntity
 
 ```python
-place = client.Place()
+place = client.place
 ```
 
 ### Fields
@@ -238,20 +237,20 @@ place = client.Place()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Place().list({})
+results = client.place.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Place().load({"id": "place_id"})
+result = client.place.load({"id": "place_id"})
 ```
 
 ### Common Methods
@@ -286,7 +285,7 @@ Return the entity name.
 ## PostcodeEntity
 
 ```python
-postcode = client.Postcode()
+postcode = client.postcode
 ```
 
 ### Fields
@@ -298,31 +297,31 @@ postcode = client.Postcode()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Postcode().create({
+result = client.postcode.create({
     "result": # `$OBJECT`,
     "status": # `$INTEGER`,
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Postcode().list({})
+results = client.postcode.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Postcode().load({"id": "postcode_id"})
+result = client.postcode.load({"id": "postcode_id"})
 ```
 
 ### Common Methods
@@ -357,7 +356,7 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```python
-scottish_postcode = client.ScottishPostcode()
+scottish_postcode = client.scottish_postcode
 ```
 
 ### Fields
@@ -369,12 +368,12 @@ scottish_postcode = client.ScottishPostcode()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.ScottishPostcode().load({"id": "scottish_postcode_id"})
+result = client.scottish_postcode.load({"id": "scottish_postcode_id"})
 ```
 
 ### Common Methods
@@ -409,7 +408,7 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```python
-terminated_postcode = client.TerminatedPostcode()
+terminated_postcode = client.terminated_postcode
 ```
 
 ### Fields
@@ -421,12 +420,12 @@ terminated_postcode = client.TerminatedPostcode()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.TerminatedPostcode().load({"id": "terminated_postcode_id"})
+result = client.terminated_postcode.load({"id": "terminated_postcode_id"})
 ```
 
 ### Common Methods

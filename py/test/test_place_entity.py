@@ -50,14 +50,12 @@ class TestPlaceEntity:
         place_ref01_ent = client.Place(None)
         place_ref01_match = {}
 
-        place_ref01_list_result, err = place_ref01_ent.list(place_ref01_match, None)
-        assert err is None
+        place_ref01_list_result = place_ref01_ent.list(place_ref01_match, None)
         assert isinstance(place_ref01_list_result, list)
 
         # LOAD
         place_ref01_match_dt0 = {}
-        place_ref01_data_dt0_loaded, err = place_ref01_ent.load(place_ref01_match_dt0, None)
-        assert err is None
+        place_ref01_data_dt0_loaded = place_ref01_ent.load(place_ref01_match_dt0, None)
         assert place_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _place_basic_setup(extra):
         "POSTCODESIO_TEST_PLACE_ENTID": idmap,
         "POSTCODESIO_TEST_LIVE": "FALSE",
         "POSTCODESIO_TEST_EXPLAIN": "FALSE",
-        "POSTCODESIO_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _place_basic_setup(extra):
     if env.get("POSTCODESIO_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("POSTCODESIO_APIKEY"),
             },
             extra or {},
         ])
