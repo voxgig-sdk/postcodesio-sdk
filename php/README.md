@@ -4,6 +4,8 @@
 
 The PHP SDK for the Postcodesio API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Nearest()` — with named operations (`list`/`load`/`create`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -36,10 +38,41 @@ try {
     // list() returns an array of Nearest records — iterate directly.
     $nearests = $client->Nearest()->list();
     foreach ($nearests as $item) {
-        echo $item["id"] . " " . $item["name"] . "\n";
+        echo $item["result"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
+}
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $nearests = $client->Nearest()->list();
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -63,7 +96,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -84,16 +120,13 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = PostcodesioSDK::test([
-    "entity" => ["nearest" => ["test01" => ["id" => "test01"]]],
-]);
+$client = PostcodesioSDK::test();
 
-// load() returns the bare mock record (throws on error).
-$nearest = $client->Nearest()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$nearest = $client->Nearest()->list();
 print_r($nearest);
 ```
 
@@ -187,10 +220,8 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -324,8 +355,8 @@ Create an instance: `$nearest = $client->Nearest();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `array` |  |
+| `status` | `int` |  |
 
 #### Example: List
 
@@ -349,8 +380,8 @@ Create an instance: `$outcode = $client->Outcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ANY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `mixed` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -375,29 +406,29 @@ Create an instance: `$place = $client->Place();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `code` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `county_unitary` | ``$STRING`` |  |
-| `county_unitary_type` | ``$STRING`` |  |
-| `district_borough` | ``$STRING`` |  |
-| `district_borough_type` | ``$STRING`` |  |
-| `easting` | ``$INTEGER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `local_type` | ``$STRING`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `max_easting` | ``$INTEGER`` |  |
-| `max_northing` | ``$INTEGER`` |  |
-| `min_easting` | ``$INTEGER`` |  |
-| `min_northing` | ``$INTEGER`` |  |
-| `name_1` | ``$STRING`` |  |
-| `name_1_lang` | ``$STRING`` |  |
-| `name_2` | ``$STRING`` |  |
-| `name_2_lang` | ``$STRING`` |  |
-| `northing` | ``$INTEGER`` |  |
-| `outcode` | ``$STRING`` |  |
-| `region` | ``$STRING`` |  |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `code` | `string` |  |
+| `country` | `string` |  |
+| `county_unitary` | `string` |  |
+| `county_unitary_type` | `string` |  |
+| `district_borough` | `string` |  |
+| `district_borough_type` | `string` |  |
+| `easting` | `int` |  |
+| `latitude` | `float` |  |
+| `local_type` | `string` |  |
+| `longitude` | `float` |  |
+| `max_easting` | `int` |  |
+| `max_northing` | `int` |  |
+| `min_easting` | `int` |  |
+| `min_northing` | `int` |  |
+| `name_1` | `string` |  |
+| `name_1_lang` | `string` |  |
+| `name_2` | `string` |  |
+| `name_2_lang` | `string` |  |
+| `northing` | `int` |  |
+| `outcode` | `string` |  |
+| `region` | `string` |  |
+| `result` | `array` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -430,8 +461,8 @@ Create an instance: `$postcode = $client->Postcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `array` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -451,8 +482,8 @@ $postcodes = $client->Postcode()->list();
 
 ```php
 $postcode = $client->Postcode()->create([
-    "result" => null, // `$OBJECT`
-    "status" => null, // `$INTEGER`
+    "result" => null, // array
+    "status" => null, // int
 ]);
 ```
 
@@ -471,8 +502,8 @@ Create an instance: `$scottish_postcode = $client->ScottishPostcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `array` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -496,8 +527,8 @@ Create an instance: `$terminated_postcode = $client->TerminatedPostcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `array` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -507,12 +538,16 @@ $terminated_postcode = $client->TerminatedPostcode()->load(["id" => "terminated_
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -529,8 +564,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -574,15 +610,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $nearest = $client->Nearest();
-$nearest->load(["id" => "example_id"]);
+$nearest->list();
 
-// $nearest->dataGet() now returns the loaded nearest data
-// $nearest->matchGet() returns the last match criteria
+// $nearest->data_get() now returns the nearest data from the last list
+// $nearest->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

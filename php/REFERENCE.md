@@ -65,11 +65,11 @@ Create a new `ScottishPostcodeEntity` instance. Pass `null` for no initial data.
 
 Create a new `TerminatedPostcodeEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): PostcodesioUtility`
 
 Return a copy of the SDK utility object.
 
@@ -112,34 +112,34 @@ $nearest = $client->Nearest();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `array` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Nearest()->list([]);
+$results = $client->Nearest()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -148,7 +148,7 @@ Set the entity match criteria.
 Create a new `NearestEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -165,8 +165,8 @@ $outcode = $client->Outcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ANY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `mixed` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -180,19 +180,19 @@ $result = $client->Outcode()->load(["id" => "outcode_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -201,7 +201,7 @@ Set the entity match criteria.
 Create a new `OutcodeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -218,38 +218,38 @@ $place = $client->Place();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | Yes |  |
-| `country` | ``$STRING`` | Yes |  |
-| `county_unitary` | ``$STRING`` | Yes |  |
-| `county_unitary_type` | ``$STRING`` | Yes |  |
-| `district_borough` | ``$STRING`` | Yes |  |
-| `district_borough_type` | ``$STRING`` | No |  |
-| `easting` | ``$INTEGER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `local_type` | ``$STRING`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `max_easting` | ``$INTEGER`` | Yes |  |
-| `max_northing` | ``$INTEGER`` | Yes |  |
-| `min_easting` | ``$INTEGER`` | Yes |  |
-| `min_northing` | ``$INTEGER`` | Yes |  |
-| `name_1` | ``$STRING`` | Yes |  |
-| `name_1_lang` | ``$STRING`` | Yes |  |
-| `name_2` | ``$STRING`` | Yes |  |
-| `name_2_lang` | ``$STRING`` | Yes |  |
-| `northing` | ``$INTEGER`` | Yes |  |
-| `outcode` | ``$STRING`` | Yes |  |
-| `region` | ``$STRING`` | Yes |  |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `code` | `string` | Yes |  |
+| `country` | `string` | Yes |  |
+| `county_unitary` | `string` | Yes |  |
+| `county_unitary_type` | `string` | Yes |  |
+| `district_borough` | `string` | Yes |  |
+| `district_borough_type` | `string` | No |  |
+| `easting` | `int` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `local_type` | `string` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `max_easting` | `int` | Yes |  |
+| `max_northing` | `int` | Yes |  |
+| `min_easting` | `int` | Yes |  |
+| `min_northing` | `int` | Yes |  |
+| `name_1` | `string` | Yes |  |
+| `name_1_lang` | `string` | Yes |  |
+| `name_2` | `string` | Yes |  |
+| `name_2_lang` | `string` | Yes |  |
+| `northing` | `int` | Yes |  |
+| `outcode` | `string` | Yes |  |
+| `region` | `string` | Yes |  |
+| `result` | `array` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Place()->list([]);
+$results = $client->Place()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -262,19 +262,19 @@ $result = $client->Place()->load(["id" => "place_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -283,7 +283,7 @@ Set the entity match criteria.
 Create a new `PlaceEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -300,8 +300,8 @@ $postcode = $client->Postcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `array` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -311,17 +311,17 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Postcode()->create([
-  "result" => /* `$OBJECT` */,
-  "status" => /* `$INTEGER` */,
+  "result" => null, // array
+  "status" => null, // int
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Postcode()->list([]);
+$results = $client->Postcode()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -334,19 +334,19 @@ $result = $client->Postcode()->load(["id" => "postcode_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -355,7 +355,7 @@ Set the entity match criteria.
 Create a new `PostcodeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -372,8 +372,8 @@ $scottish_postcode = $client->ScottishPostcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `array` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -387,19 +387,19 @@ $result = $client->ScottishPostcode()->load(["id" => "scottish_postcode_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -408,7 +408,7 @@ Set the entity match criteria.
 Create a new `ScottishPostcodeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -425,8 +425,8 @@ $terminated_postcode = $client->TerminatedPostcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `array` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -440,19 +440,19 @@ $result = $client->TerminatedPostcode()->load(["id" => "terminated_postcode_id"]
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -461,7 +461,7 @@ Set the entity match criteria.
 Create a new `TerminatedPostcodeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

@@ -158,7 +158,7 @@ PlaceLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Place#list (any subset of Place fields).
+# Request payload for Place#list.
 #
 # @!attribute [rw] code
 #   @return [String, nil]
@@ -277,7 +277,7 @@ PostcodeLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Postcode#list (any subset of Postcode fields).
+# Request payload for Postcode#list.
 #
 # @!attribute [rw] result
 #   @return [Hash, nil]
@@ -290,13 +290,13 @@ PostcodeListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Postcode#create (any subset of Postcode fields).
+# Request payload for Postcode#create.
 #
 # @!attribute [rw] result
-#   @return [Hash, nil]
+#   @return [Hash]
 #
 # @!attribute [rw] status
-#   @return [Integer, nil]
+#   @return [Integer]
 PostcodeCreateData = Struct.new(
   :result,
   :status,

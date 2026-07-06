@@ -62,8 +62,7 @@ type PlaceLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// PlaceListMatch mirrors the place fields as an all-optional match
-// filter (Go analog of Partial<Place>).
+// PlaceListMatch is the typed request payload for Place.ListTyped.
 type PlaceListMatch struct {
 	Code *string `json:"code,omitempty"`
 	Country *string `json:"country,omitempty"`
@@ -101,18 +100,16 @@ type PostcodeLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// PostcodeListMatch mirrors the postcode fields as an all-optional match
-// filter (Go analog of Partial<Postcode>).
+// PostcodeListMatch is the typed request payload for Postcode.ListTyped.
 type PostcodeListMatch struct {
 	Result *map[string]any `json:"result,omitempty"`
 	Status *int `json:"status,omitempty"`
 }
 
-// PostcodeCreateData mirrors the postcode fields as an all-optional match
-// filter (Go analog of Partial<Postcode>).
+// PostcodeCreateData is the typed request payload for Postcode.CreateTyped.
 type PostcodeCreateData struct {
-	Result *map[string]any `json:"result,omitempty"`
-	Status *int `json:"status,omitempty"`
+	Result map[string]any `json:"result"`
+	Status int `json:"status"`
 }
 
 // ScottishPostcode is the typed data model for the scottish_postcode entity.

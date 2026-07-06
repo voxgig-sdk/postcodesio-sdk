@@ -176,8 +176,8 @@ const nearest = client.Nearest()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `any[]` | Yes |  |
+| `status` | `number` | Yes |  |
 
 ### Operations
 
@@ -227,8 +227,8 @@ const outcode = client.Outcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ANY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `any` | Yes |  |
+| `status` | `number` | Yes |  |
 
 ### Operations
 
@@ -278,29 +278,29 @@ const place = client.Place()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | Yes |  |
-| `country` | ``$STRING`` | Yes |  |
-| `county_unitary` | ``$STRING`` | Yes |  |
-| `county_unitary_type` | ``$STRING`` | Yes |  |
-| `district_borough` | ``$STRING`` | Yes |  |
-| `district_borough_type` | ``$STRING`` | No |  |
-| `easting` | ``$INTEGER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `local_type` | ``$STRING`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `max_easting` | ``$INTEGER`` | Yes |  |
-| `max_northing` | ``$INTEGER`` | Yes |  |
-| `min_easting` | ``$INTEGER`` | Yes |  |
-| `min_northing` | ``$INTEGER`` | Yes |  |
-| `name_1` | ``$STRING`` | Yes |  |
-| `name_1_lang` | ``$STRING`` | Yes |  |
-| `name_2` | ``$STRING`` | Yes |  |
-| `name_2_lang` | ``$STRING`` | Yes |  |
-| `northing` | ``$INTEGER`` | Yes |  |
-| `outcode` | ``$STRING`` | Yes |  |
-| `region` | ``$STRING`` | Yes |  |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `code` | `string` | Yes |  |
+| `country` | `string` | Yes |  |
+| `county_unitary` | `string` | Yes |  |
+| `county_unitary_type` | `string` | Yes |  |
+| `district_borough` | `string` | Yes |  |
+| `district_borough_type` | `string` | No |  |
+| `easting` | `number` | Yes |  |
+| `latitude` | `number` | Yes |  |
+| `local_type` | `string` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `max_easting` | `number` | Yes |  |
+| `max_northing` | `number` | Yes |  |
+| `min_easting` | `number` | Yes |  |
+| `min_northing` | `number` | Yes |  |
+| `name_1` | `string` | Yes |  |
+| `name_1_lang` | `string` | Yes |  |
+| `name_2` | `string` | Yes |  |
+| `name_2_lang` | `string` | Yes |  |
+| `northing` | `number` | Yes |  |
+| `outcode` | `string` | Yes |  |
+| `region` | `string` | Yes |  |
+| `result` | `Record<string, any>` | Yes |  |
+| `status` | `number` | Yes |  |
 
 ### Operations
 
@@ -358,8 +358,8 @@ const postcode = client.Postcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Record<string, any>` | Yes |  |
+| `status` | `number` | Yes |  |
 
 ### Operations
 
@@ -369,8 +369,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Postcode().create({
-  result: /* `$OBJECT` */,
-  status: /* `$INTEGER` */,
+  result: /* Record<string, any> */,
+  status: /* number */,
 })
 ```
 
@@ -428,8 +428,8 @@ const scottish_postcode = client.ScottishPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `any[]` | Yes |  |
+| `status` | `number` | Yes |  |
 
 ### Operations
 
@@ -479,8 +479,8 @@ const terminated_postcode = client.TerminatedPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `any[]` | Yes |  |
+| `status` | `number` | Yes |  |
 
 ### Operations
 

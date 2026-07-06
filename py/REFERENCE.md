@@ -107,17 +107,17 @@ nearest = client.Nearest()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `list` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Nearest().list({})
+results = client.Nearest().list()
 for nearest in results:
     print(nearest)
 ```
@@ -161,8 +161,8 @@ outcode = client.Outcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ANY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -213,38 +213,38 @@ place = client.Place()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | Yes |  |
-| `country` | ``$STRING`` | Yes |  |
-| `county_unitary` | ``$STRING`` | Yes |  |
-| `county_unitary_type` | ``$STRING`` | Yes |  |
-| `district_borough` | ``$STRING`` | Yes |  |
-| `district_borough_type` | ``$STRING`` | No |  |
-| `easting` | ``$INTEGER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `local_type` | ``$STRING`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `max_easting` | ``$INTEGER`` | Yes |  |
-| `max_northing` | ``$INTEGER`` | Yes |  |
-| `min_easting` | ``$INTEGER`` | Yes |  |
-| `min_northing` | ``$INTEGER`` | Yes |  |
-| `name_1` | ``$STRING`` | Yes |  |
-| `name_1_lang` | ``$STRING`` | Yes |  |
-| `name_2` | ``$STRING`` | Yes |  |
-| `name_2_lang` | ``$STRING`` | Yes |  |
-| `northing` | ``$INTEGER`` | Yes |  |
-| `outcode` | ``$STRING`` | Yes |  |
-| `region` | ``$STRING`` | Yes |  |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `code` | `str` | Yes |  |
+| `country` | `str` | Yes |  |
+| `county_unitary` | `str` | Yes |  |
+| `county_unitary_type` | `str` | Yes |  |
+| `district_borough` | `str` | Yes |  |
+| `district_borough_type` | `str` | No |  |
+| `easting` | `int` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `local_type` | `str` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `max_easting` | `int` | Yes |  |
+| `max_northing` | `int` | Yes |  |
+| `min_easting` | `int` | Yes |  |
+| `min_northing` | `int` | Yes |  |
+| `name_1` | `str` | Yes |  |
+| `name_1_lang` | `str` | Yes |  |
+| `name_2` | `str` | Yes |  |
+| `name_2_lang` | `str` | Yes |  |
+| `northing` | `int` | Yes |  |
+| `outcode` | `str` | Yes |  |
+| `region` | `str` | Yes |  |
+| `result` | `dict` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Place().list({})
+results = client.Place().list()
 for place in results:
     print(place)
 ```
@@ -296,8 +296,8 @@ postcode = client.Postcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `dict` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -307,17 +307,17 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Postcode().create({
-    "result": ...,  # `$OBJECT`
-    "status": ...,  # `$INTEGER`
+    "result": {},  # dict
+    "status": 1,  # int
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Postcode().list({})
+results = client.Postcode().list()
 for postcode in results:
     print(postcode)
 ```
@@ -369,8 +369,8 @@ scottish_postcode = client.ScottishPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `list` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -421,8 +421,8 @@ terminated_postcode = client.TerminatedPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `list` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 

@@ -4,6 +4,8 @@
 
 The Golang SDK for the Postcodesio API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Nearest(nil)` — each with the same small set of operations (`List`, `Load`, `Create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -60,6 +62,35 @@ func main() {
 ```
 
 
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+nearests, err := client.Nearest(nil).List(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = nearests
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
+```
+
+
 ## How-to guides
 
 ### Make a direct HTTP request
@@ -106,13 +137,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-nearest, err := client.Nearest(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+nearest, err := client.Nearest(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(nearest) // the loaded mock data
+fmt.Println(nearest) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -205,8 +236,6 @@ All entities implement the `PostcodesioEntity` interface.
 | `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
 | `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
 | `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -219,16 +248,16 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `Load` / `Create` | the entity record (`map[string]any`) |
 | `List` | a `[]any` of entity records |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    nearest, err := client.Nearest(nil).Load(map[string]any{"id": "example_id"}, nil)
+    nearest, err := client.Nearest(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // nearest is the loaded record
+    // nearest is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -341,8 +370,8 @@ Create an instance: `nearest := client.Nearest(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `[]any` |  |
+| `status` | `int` |  |
 
 #### Example: List
 
@@ -369,8 +398,8 @@ Create an instance: `outcode := client.Outcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ANY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `any` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -398,29 +427,29 @@ Create an instance: `place := client.Place(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `code` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `county_unitary` | ``$STRING`` |  |
-| `county_unitary_type` | ``$STRING`` |  |
-| `district_borough` | ``$STRING`` |  |
-| `district_borough_type` | ``$STRING`` |  |
-| `easting` | ``$INTEGER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `local_type` | ``$STRING`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `max_easting` | ``$INTEGER`` |  |
-| `max_northing` | ``$INTEGER`` |  |
-| `min_easting` | ``$INTEGER`` |  |
-| `min_northing` | ``$INTEGER`` |  |
-| `name_1` | ``$STRING`` |  |
-| `name_1_lang` | ``$STRING`` |  |
-| `name_2` | ``$STRING`` |  |
-| `name_2_lang` | ``$STRING`` |  |
-| `northing` | ``$INTEGER`` |  |
-| `outcode` | ``$STRING`` |  |
-| `region` | ``$STRING`` |  |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `code` | `string` |  |
+| `country` | `string` |  |
+| `county_unitary` | `string` |  |
+| `county_unitary_type` | `string` |  |
+| `district_borough` | `string` |  |
+| `district_borough_type` | `string` |  |
+| `easting` | `int` |  |
+| `latitude` | `float64` |  |
+| `local_type` | `string` |  |
+| `longitude` | `float64` |  |
+| `max_easting` | `int` |  |
+| `max_northing` | `int` |  |
+| `min_easting` | `int` |  |
+| `min_northing` | `int` |  |
+| `name_1` | `string` |  |
+| `name_1_lang` | `string` |  |
+| `name_2` | `string` |  |
+| `name_2_lang` | `string` |  |
+| `northing` | `int` |  |
+| `outcode` | `string` |  |
+| `region` | `string` |  |
+| `result` | `map[string]any` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -459,8 +488,8 @@ Create an instance: `postcode := client.Postcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `map[string]any` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -486,8 +515,8 @@ fmt.Println(postcodes) // the array of records
 
 ```go
 result, err := client.Postcode(nil).Create(map[string]any{
-    "result": /* `$OBJECT` */,
-    "status": /* `$INTEGER` */,
+    "result": /* map[string]any */,
+    "status": /* int */,
 }, nil)
 ```
 
@@ -506,8 +535,8 @@ Create an instance: `scottish_postcode := client.ScottishPostcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `[]any` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -534,8 +563,8 @@ Create an instance: `terminated_postcode := client.TerminatedPostcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `[]any` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -548,12 +577,16 @@ fmt.Println(terminated_postcode) // the loaded record
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -570,9 +603,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -613,14 +646,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 nearest := client.Nearest(nil)
-nearest.Load(map[string]any{"id": "example_id"}, nil)
+nearest.List(nil, nil)
 
-// nearest.Data() now returns the loaded nearest data
+// nearest.Data() now returns the nearest data from the last list
 // nearest.Match() returns the last match criteria
 ```
 

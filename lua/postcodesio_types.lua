@@ -49,6 +49,29 @@
 ---@field id string
 
 ---@class PlaceListMatch
+---@field code? string
+---@field country? string
+---@field county_unitary? string
+---@field county_unitary_type? string
+---@field district_borough? string
+---@field district_borough_type? string
+---@field easting? number
+---@field latitude? number
+---@field local_type? string
+---@field longitude? number
+---@field max_easting? number
+---@field max_northing? number
+---@field min_easting? number
+---@field min_northing? number
+---@field name_1? string
+---@field name_1_lang? string
+---@field name_2? string
+---@field name_2_lang? string
+---@field northing? number
+---@field outcode? string
+---@field region? string
+---@field result? table
+---@field status? number
 
 ---@class Postcode
 ---@field result table
@@ -58,8 +81,12 @@
 ---@field id string
 
 ---@class PostcodeListMatch
+---@field result? table
+---@field status? number
 
 ---@class PostcodeCreateData
+---@field result table
+---@field status number
 
 ---@class ScottishPostcode
 ---@field result table

@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the Postcodesio API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Nearest()` — each with a small set of operations (`list`, `load`, `create`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,6 +42,35 @@ const nearests = await client.Nearest().list()
 
 for (const nearest of nearests) {
   console.log(nearest)
+}
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const nearests = await client.Nearest().list()
+  console.log(nearests)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
 }
 ```
 
@@ -85,7 +119,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = PostcodesioSDK.test()
 
-const nearest = await client.Nearest().load({ id: 'test01' })
+const nearest = await client.Nearest().list()
 // nearest is a bare entity populated with mock response data
 console.log(nearest)
 ```
@@ -104,12 +138,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Nearest()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -205,10 +239,8 @@ All entities share the same interface.
 | `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): PostcodesioSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -218,10 +250,9 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `load`, `create` and `update` resolve to a single entity object.
+- `load` and `create` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -363,8 +394,8 @@ Create an instance: `const nearest = client.Nearest()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `any[]` |  |
+| `status` | `number` |  |
 
 #### Example: List
 
@@ -387,8 +418,8 @@ Create an instance: `const outcode = client.Outcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ANY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `any` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -412,29 +443,29 @@ Create an instance: `const place = client.Place()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `code` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `county_unitary` | ``$STRING`` |  |
-| `county_unitary_type` | ``$STRING`` |  |
-| `district_borough` | ``$STRING`` |  |
-| `district_borough_type` | ``$STRING`` |  |
-| `easting` | ``$INTEGER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `local_type` | ``$STRING`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `max_easting` | ``$INTEGER`` |  |
-| `max_northing` | ``$INTEGER`` |  |
-| `min_easting` | ``$INTEGER`` |  |
-| `min_northing` | ``$INTEGER`` |  |
-| `name_1` | ``$STRING`` |  |
-| `name_1_lang` | ``$STRING`` |  |
-| `name_2` | ``$STRING`` |  |
-| `name_2_lang` | ``$STRING`` |  |
-| `northing` | ``$INTEGER`` |  |
-| `outcode` | ``$STRING`` |  |
-| `region` | ``$STRING`` |  |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `code` | `string` |  |
+| `country` | `string` |  |
+| `county_unitary` | `string` |  |
+| `county_unitary_type` | `string` |  |
+| `district_borough` | `string` |  |
+| `district_borough_type` | `string` |  |
+| `easting` | `number` |  |
+| `latitude` | `number` |  |
+| `local_type` | `string` |  |
+| `longitude` | `number` |  |
+| `max_easting` | `number` |  |
+| `max_northing` | `number` |  |
+| `min_easting` | `number` |  |
+| `min_northing` | `number` |  |
+| `name_1` | `string` |  |
+| `name_1_lang` | `string` |  |
+| `name_2` | `string` |  |
+| `name_2_lang` | `string` |  |
+| `northing` | `number` |  |
+| `outcode` | `string` |  |
+| `region` | `string` |  |
+| `result` | `Record<string, any>` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -465,8 +496,8 @@ Create an instance: `const postcode = client.Postcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `Record<string, any>` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -484,8 +515,8 @@ const postcodes = await client.Postcode().list()
 
 ```ts
 const postcode = await client.Postcode().create({
-  result: /* `$OBJECT` */,
-  status: /* `$INTEGER` */,
+  result: /* Record<string, any> */,
+  status: /* number */,
 })
 ```
 
@@ -504,8 +535,8 @@ Create an instance: `const scottish_postcode = client.ScottishPostcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `any[]` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -528,8 +559,8 @@ Create an instance: `const terminated_postcode = client.TerminatedPostcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `any[]` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -538,12 +569,16 @@ const terminated_postcode = await client.TerminatedPostcode().load({ id: 'termin
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -560,11 +595,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -600,16 +633,16 @@ import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const nearest = client.Nearest()
-await nearest.load({ id: "example_id" })
+await nearest.list()
 
-// nearest.data() now returns the loaded nearest data
-// nearest.match() returns { id: "example_id" }
+// nearest.data() now returns the nearest data from the last `list`
+// nearest.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

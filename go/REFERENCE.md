@@ -117,8 +117,8 @@ nearest := client.Nearest(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `[]any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -164,8 +164,8 @@ outcode := client.Outcode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ANY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -211,29 +211,29 @@ place := client.Place(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | Yes |  |
-| `country` | ``$STRING`` | Yes |  |
-| `county_unitary` | ``$STRING`` | Yes |  |
-| `county_unitary_type` | ``$STRING`` | Yes |  |
-| `district_borough` | ``$STRING`` | Yes |  |
-| `district_borough_type` | ``$STRING`` | No |  |
-| `easting` | ``$INTEGER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `local_type` | ``$STRING`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `max_easting` | ``$INTEGER`` | Yes |  |
-| `max_northing` | ``$INTEGER`` | Yes |  |
-| `min_easting` | ``$INTEGER`` | Yes |  |
-| `min_northing` | ``$INTEGER`` | Yes |  |
-| `name_1` | ``$STRING`` | Yes |  |
-| `name_1_lang` | ``$STRING`` | Yes |  |
-| `name_2` | ``$STRING`` | Yes |  |
-| `name_2_lang` | ``$STRING`` | Yes |  |
-| `northing` | ``$INTEGER`` | Yes |  |
-| `outcode` | ``$STRING`` | Yes |  |
-| `region` | ``$STRING`` | Yes |  |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `code` | `string` | Yes |  |
+| `country` | `string` | Yes |  |
+| `county_unitary` | `string` | Yes |  |
+| `county_unitary_type` | `string` | Yes |  |
+| `district_borough` | `string` | Yes |  |
+| `district_borough_type` | `string` | No |  |
+| `easting` | `int` | Yes |  |
+| `latitude` | `float64` | Yes |  |
+| `local_type` | `string` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `max_easting` | `int` | Yes |  |
+| `max_northing` | `int` | Yes |  |
+| `min_easting` | `int` | Yes |  |
+| `min_northing` | `int` | Yes |  |
+| `name_1` | `string` | Yes |  |
+| `name_1_lang` | `string` | Yes |  |
+| `name_2` | `string` | Yes |  |
+| `name_2_lang` | `string` | Yes |  |
+| `northing` | `int` | Yes |  |
+| `outcode` | `string` | Yes |  |
+| `region` | `string` | Yes |  |
+| `result` | `map[string]any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -287,8 +287,8 @@ postcode := client.Postcode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `map[string]any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -298,8 +298,8 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Postcode(nil).Create(map[string]any{
-    "result": /* `$OBJECT` */,
-    "status": /* `$INTEGER` */,
+    "result": /* map[string]any */,
+    "status": /* int */,
 }, nil)
 ```
 
@@ -353,8 +353,8 @@ scottish_postcode := client.ScottishPostcode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `[]any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -400,8 +400,8 @@ terminated_postcode := client.TerminatedPostcode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `[]any` | Yes |  |
+| `status` | `int` | Yes |  |
 
 ### Operations
 

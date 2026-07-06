@@ -4,6 +4,11 @@
 
 The Python SDK for the Postcodesio API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Nearest()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -38,11 +43,39 @@ error — iterate it directly.
 
 ```python
 try:
-    nearests = client.Nearest().list({})
+    nearests = client.Nearest().list()
     for nearest in nearests:
         print(nearest)
 except Exception as err:
     print(f"list failed: {err}")
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    nearests = client.Nearest().list()
+    print(nearests)
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -63,7 +96,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -89,7 +125,7 @@ Create a mock client for unit testing — no server required:
 client = PostcodesioSDK.test()
 
 # Entity ops return the bare record and raise on error.
-nearest = client.Nearest().load({"id": "test01"})
+nearest = client.Nearest().list()
 # nearest contains the mock response record
 ```
 
@@ -182,8 +218,6 @@ All entities share the same interface.
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -311,19 +345,19 @@ Create an instance: `nearest = client.Nearest()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `list` |  |
+| `status` | `int` |  |
 
 #### Example: List
 
 ```python
-nearests = client.Nearest().list({})
+nearests = client.Nearest().list()
 ```
 
 
@@ -341,8 +375,8 @@ Create an instance: `outcode = client.Outcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ANY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `Any` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -359,36 +393,36 @@ Create an instance: `place = client.Place()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `code` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `county_unitary` | ``$STRING`` |  |
-| `county_unitary_type` | ``$STRING`` |  |
-| `district_borough` | ``$STRING`` |  |
-| `district_borough_type` | ``$STRING`` |  |
-| `easting` | ``$INTEGER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `local_type` | ``$STRING`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `max_easting` | ``$INTEGER`` |  |
-| `max_northing` | ``$INTEGER`` |  |
-| `min_easting` | ``$INTEGER`` |  |
-| `min_northing` | ``$INTEGER`` |  |
-| `name_1` | ``$STRING`` |  |
-| `name_1_lang` | ``$STRING`` |  |
-| `name_2` | ``$STRING`` |  |
-| `name_2_lang` | ``$STRING`` |  |
-| `northing` | ``$INTEGER`` |  |
-| `outcode` | ``$STRING`` |  |
-| `region` | ``$STRING`` |  |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `code` | `str` |  |
+| `country` | `str` |  |
+| `county_unitary` | `str` |  |
+| `county_unitary_type` | `str` |  |
+| `district_borough` | `str` |  |
+| `district_borough_type` | `str` |  |
+| `easting` | `int` |  |
+| `latitude` | `float` |  |
+| `local_type` | `str` |  |
+| `longitude` | `float` |  |
+| `max_easting` | `int` |  |
+| `max_northing` | `int` |  |
+| `min_easting` | `int` |  |
+| `min_northing` | `int` |  |
+| `name_1` | `str` |  |
+| `name_1_lang` | `str` |  |
+| `name_2` | `str` |  |
+| `name_2_lang` | `str` |  |
+| `northing` | `int` |  |
+| `outcode` | `str` |  |
+| `region` | `str` |  |
+| `result` | `dict` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -399,7 +433,7 @@ place = client.Place().load({"id": "place_id"})
 #### Example: List
 
 ```python
-places = client.Place().list({})
+places = client.Place().list()
 ```
 
 
@@ -412,15 +446,15 @@ Create an instance: `postcode = client.Postcode()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `dict` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -431,15 +465,15 @@ postcode = client.Postcode().load({"id": "postcode_id"})
 #### Example: List
 
 ```python
-postcodes = client.Postcode().list({})
+postcodes = client.Postcode().list()
 ```
 
 #### Example: Create
 
 ```python
 postcode = client.Postcode().create({
-    "result": ...,  # `$OBJECT`
-    "status": ...,  # `$INTEGER`
+    "result": {},  # dict
+    "status": 1,  # int
 })
 ```
 
@@ -458,8 +492,8 @@ Create an instance: `scottish_postcode = client.ScottishPostcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `list` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -482,8 +516,8 @@ Create an instance: `terminated_postcode = client.TerminatedPostcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `list` |  |
+| `status` | `int` |  |
 
 #### Example: Load
 
@@ -492,12 +526,16 @@ terminated_postcode = client.TerminatedPostcode().load({"id": "terminated_postco
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -514,8 +552,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -558,14 +597,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 nearest = client.Nearest()
-nearest.load({"id": "example_id"})
+nearest.list()
 
-# nearest.data_get() now returns the loaded nearest data
+# nearest.data_get() now returns the nearest data from the last list
 # nearest.match_get() returns the last match criteria
 ```
 

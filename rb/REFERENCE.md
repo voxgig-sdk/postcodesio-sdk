@@ -8,7 +8,7 @@ Complete API reference for the Postcodesio Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'postcodesio_sdk'
+require_relative 'Postcodesio_sdk'
 
 client = PostcodesioSDK.new(options)
 ```
@@ -113,17 +113,17 @@ nearest = client.Nearest
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Array` | Yes |  |
+| `status` | `Integer` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Nearest.list(nil)
+results = client.Nearest.list
 ```
 
 ### Common Methods
@@ -166,8 +166,8 @@ outcode = client.Outcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ANY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Object` | Yes |  |
+| `status` | `Integer` | Yes |  |
 
 ### Operations
 
@@ -219,38 +219,38 @@ place = client.Place
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | ``$STRING`` | Yes |  |
-| `country` | ``$STRING`` | Yes |  |
-| `county_unitary` | ``$STRING`` | Yes |  |
-| `county_unitary_type` | ``$STRING`` | Yes |  |
-| `district_borough` | ``$STRING`` | Yes |  |
-| `district_borough_type` | ``$STRING`` | No |  |
-| `easting` | ``$INTEGER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `local_type` | ``$STRING`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `max_easting` | ``$INTEGER`` | Yes |  |
-| `max_northing` | ``$INTEGER`` | Yes |  |
-| `min_easting` | ``$INTEGER`` | Yes |  |
-| `min_northing` | ``$INTEGER`` | Yes |  |
-| `name_1` | ``$STRING`` | Yes |  |
-| `name_1_lang` | ``$STRING`` | Yes |  |
-| `name_2` | ``$STRING`` | Yes |  |
-| `name_2_lang` | ``$STRING`` | Yes |  |
-| `northing` | ``$INTEGER`` | Yes |  |
-| `outcode` | ``$STRING`` | Yes |  |
-| `region` | ``$STRING`` | Yes |  |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `code` | `String` | Yes |  |
+| `country` | `String` | Yes |  |
+| `county_unitary` | `String` | Yes |  |
+| `county_unitary_type` | `String` | Yes |  |
+| `district_borough` | `String` | Yes |  |
+| `district_borough_type` | `String` | No |  |
+| `easting` | `Integer` | Yes |  |
+| `latitude` | `Float` | Yes |  |
+| `local_type` | `String` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `max_easting` | `Integer` | Yes |  |
+| `max_northing` | `Integer` | Yes |  |
+| `min_easting` | `Integer` | Yes |  |
+| `min_northing` | `Integer` | Yes |  |
+| `name_1` | `String` | Yes |  |
+| `name_1_lang` | `String` | Yes |  |
+| `name_2` | `String` | Yes |  |
+| `name_2_lang` | `String` | Yes |  |
+| `northing` | `Integer` | Yes |  |
+| `outcode` | `String` | Yes |  |
+| `region` | `String` | Yes |  |
+| `result` | `Hash` | Yes |  |
+| `status` | `Integer` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Place.list(nil)
+results = client.Place.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -301,8 +301,8 @@ postcode = client.Postcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$OBJECT`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Hash` | Yes |  |
+| `status` | `Integer` | Yes |  |
 
 ### Operations
 
@@ -312,17 +312,17 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Postcode.create({
-  "result" => # `$OBJECT`,
-  "status" => # `$INTEGER`,
+  "result" => {}, # Hash
+  "status" => 1, # Integer
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Postcode.list(nil)
+results = client.Postcode.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -373,8 +373,8 @@ scottish_postcode = client.ScottishPostcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Array` | Yes |  |
+| `status` | `Integer` | Yes |  |
 
 ### Operations
 
@@ -426,8 +426,8 @@ terminated_postcode = client.TerminatedPostcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | ``$ARRAY`` | Yes |  |
-| `status` | ``$INTEGER`` | Yes |  |
+| `result` | `Array` | Yes |  |
+| `status` | `Integer` | Yes |  |
 
 ### Operations
 

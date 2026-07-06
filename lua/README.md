@@ -4,6 +4,8 @@
 
 The Lua SDK for the Postcodesio API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Nearest()` — each with the same small set of operations (`list`, `load`, `create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,8 +43,30 @@ local nearests, err = client:Nearest():list()
 if err then error(err) end
 
 for _, item in ipairs(nearests) do
-  print(item["id"], item["name"])
+  print(item["result"])
 end
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local nearests, err = client:Nearest():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -88,8 +112,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Nearest():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:Nearest():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -183,8 +207,6 @@ All entities share the same interface.
 | `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
 | `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
 | `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -199,12 +221,12 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `load` / `create` | the entity record (a `table`) |
 | `list` | an array (`table`) of entity records |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local nearest, err = client:Nearest():load({ id = "example_id" })
+    local nearest, err = client:Nearest():load()
     if err then error(err) end
     -- nearest is the loaded record
 
@@ -319,8 +341,8 @@ Create an instance: `local nearest = client:Nearest(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `table` |  |
+| `status` | `number` |  |
 
 #### Example: List
 
@@ -343,8 +365,8 @@ Create an instance: `local outcode = client:Outcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ANY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `any` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -368,29 +390,29 @@ Create an instance: `local place = client:Place(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `code` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `county_unitary` | ``$STRING`` |  |
-| `county_unitary_type` | ``$STRING`` |  |
-| `district_borough` | ``$STRING`` |  |
-| `district_borough_type` | ``$STRING`` |  |
-| `easting` | ``$INTEGER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `local_type` | ``$STRING`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `max_easting` | ``$INTEGER`` |  |
-| `max_northing` | ``$INTEGER`` |  |
-| `min_easting` | ``$INTEGER`` |  |
-| `min_northing` | ``$INTEGER`` |  |
-| `name_1` | ``$STRING`` |  |
-| `name_1_lang` | ``$STRING`` |  |
-| `name_2` | ``$STRING`` |  |
-| `name_2_lang` | ``$STRING`` |  |
-| `northing` | ``$INTEGER`` |  |
-| `outcode` | ``$STRING`` |  |
-| `region` | ``$STRING`` |  |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `code` | `string` |  |
+| `country` | `string` |  |
+| `county_unitary` | `string` |  |
+| `county_unitary_type` | `string` |  |
+| `district_borough` | `string` |  |
+| `district_borough_type` | `string` |  |
+| `easting` | `number` |  |
+| `latitude` | `number` |  |
+| `local_type` | `string` |  |
+| `longitude` | `number` |  |
+| `max_easting` | `number` |  |
+| `max_northing` | `number` |  |
+| `min_easting` | `number` |  |
+| `min_northing` | `number` |  |
+| `name_1` | `string` |  |
+| `name_1_lang` | `string` |  |
+| `name_2` | `string` |  |
+| `name_2_lang` | `string` |  |
+| `northing` | `number` |  |
+| `outcode` | `string` |  |
+| `region` | `string` |  |
+| `result` | `table` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -421,8 +443,8 @@ Create an instance: `local postcode = client:Postcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$OBJECT`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `table` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -440,8 +462,8 @@ local postcodes, err = client:Postcode():list()
 
 ```lua
 local postcode, err = client:Postcode():create({
-  result = nil, -- `$OBJECT`
-  status = nil, -- `$INTEGER`
+  result = nil, -- table
+  status = nil, -- number
 })
 ```
 
@@ -460,8 +482,8 @@ Create an instance: `local scottish_postcode = client:ScottishPostcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `table` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -484,8 +506,8 @@ Create an instance: `local terminated_postcode = client:TerminatedPostcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | ``$ARRAY`` |  |
-| `status` | ``$INTEGER`` |  |
+| `result` | `table` |  |
+| `status` | `number` |  |
 
 #### Example: Load
 
@@ -494,12 +516,16 @@ local terminated_postcode, err = client:TerminatedPostcode():load({ id = "termin
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -516,8 +542,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -561,14 +588,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local nearest = client:Nearest()
-nearest:load({ id = "example_id" })
+nearest:list()
 
--- nearest:data_get() now returns the loaded nearest data
+-- nearest:data_get() now returns the nearest data from the last list
 -- nearest:match_get() returns the last match criteria
 ```
 

@@ -107,7 +107,7 @@ class PostcodeListMatch(TypedDict, total=False):
     status: int
 
 
-class PostcodeCreateData(TypedDict, total=False):
+class PostcodeCreateData(TypedDict):
     result: dict
     status: int
 

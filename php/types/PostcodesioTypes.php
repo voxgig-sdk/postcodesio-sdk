@@ -72,7 +72,7 @@ class PlaceLoadMatch
     public string $id;
 }
 
-/** Match filter for Place#list (any subset of Place fields). */
+/** Request payload for Place#list. */
 class PlaceListMatch
 {
     public ?string $code = null;
@@ -113,18 +113,18 @@ class PostcodeLoadMatch
     public string $id;
 }
 
-/** Match filter for Postcode#list (any subset of Postcode fields). */
+/** Request payload for Postcode#list. */
 class PostcodeListMatch
 {
     public ?array $result = null;
     public ?int $status = null;
 }
 
-/** Match filter for Postcode#create (any subset of Postcode fields). */
+/** Request payload for Postcode#create. */
 class PostcodeCreateData
 {
-    public ?array $result = null;
-    public ?int $status = null;
+    public array $result;
+    public int $status;
 }
 
 /** ScottishPostcode entity data model. */

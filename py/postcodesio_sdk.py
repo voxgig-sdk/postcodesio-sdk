@@ -221,37 +221,37 @@ class PostcodesioSDK:
 
 
     def Nearest(self, data=None) -> "NearestEntity":
-        """Entity factory: client.Nearest().list({}) / client.Nearest().load({"id": ...})."""
+        """Entity factory: client.Nearest().list() / client.Nearest().load({"id": ...})."""
         from entity.nearest_entity import NearestEntity
         return NearestEntity(self, data)
 
 
     def Outcode(self, data=None) -> "OutcodeEntity":
-        """Entity factory: client.Outcode().list({}) / client.Outcode().load({"id": ...})."""
+        """Entity factory: client.Outcode().list() / client.Outcode().load({"id": ...})."""
         from entity.outcode_entity import OutcodeEntity
         return OutcodeEntity(self, data)
 
 
     def Place(self, data=None) -> "PlaceEntity":
-        """Entity factory: client.Place().list({}) / client.Place().load({"id": ...})."""
+        """Entity factory: client.Place().list() / client.Place().load({"id": ...})."""
         from entity.place_entity import PlaceEntity
         return PlaceEntity(self, data)
 
 
     def Postcode(self, data=None) -> "PostcodeEntity":
-        """Entity factory: client.Postcode().list({}) / client.Postcode().load({"id": ...})."""
+        """Entity factory: client.Postcode().list() / client.Postcode().load({"id": ...})."""
         from entity.postcode_entity import PostcodeEntity
         return PostcodeEntity(self, data)
 
 
     def ScottishPostcode(self, data=None) -> "ScottishPostcodeEntity":
-        """Entity factory: client.ScottishPostcode().list({}) / client.ScottishPostcode().load({"id": ...})."""
+        """Entity factory: client.ScottishPostcode().list() / client.ScottishPostcode().load({"id": ...})."""
         from entity.scottish_postcode_entity import ScottishPostcodeEntity
         return ScottishPostcodeEntity(self, data)
 
 
     def TerminatedPostcode(self, data=None) -> "TerminatedPostcodeEntity":
-        """Entity factory: client.TerminatedPostcode().list({}) / client.TerminatedPostcode().load({"id": ...})."""
+        """Entity factory: client.TerminatedPostcode().list() / client.TerminatedPostcode().load({"id": ...})."""
         from entity.terminated_postcode_entity import TerminatedPostcodeEntity
         return TerminatedPostcodeEntity(self, data)
 
