@@ -111,6 +111,7 @@ same parameters as `Direct()`.
 
 ```go
 nearest := client.Nearest(nil)
+fmt.Println(nearest.GetName()) // "nearest"
 ```
 
 ### Fields
@@ -128,6 +129,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Nearest(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -158,6 +163,7 @@ Return the entity name.
 
 ```go
 outcode := client.Outcode(nil)
+fmt.Println(outcode.GetName()) // "outcode"
 ```
 
 ### Fields
@@ -175,6 +181,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Outcode(nil).Load(map[string]any{"id": "outcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -205,6 +215,7 @@ Return the entity name.
 
 ```go
 place := client.Place(nil)
+fmt.Println(place.GetName()) // "place"
 ```
 
 ### Fields
@@ -243,6 +254,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Place(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -251,6 +266,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Place(nil).Load(map[string]any{"id": "place_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -281,6 +300,7 @@ Return the entity name.
 
 ```go
 postcode := client.Postcode(nil)
+fmt.Println(postcode.GetName()) // "postcode"
 ```
 
 ### Fields
@@ -292,23 +312,16 @@ postcode := client.Postcode(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.Postcode(nil).Create(map[string]any{
-    "result": /* map[string]any */,
-    "status": /* int */,
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Postcode(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -317,6 +330,25 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Postcode(nil).Load(map[string]any{"id": "postcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data.
+
+```go
+result, err := client.Postcode(nil).Create(map[string]any{
+    "result": map[string]any{},
+    "status": 1,
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -346,7 +378,8 @@ Return the entity name.
 ## ScottishPostcodeEntity
 
 ```go
-scottish_postcode := client.ScottishPostcode(nil)
+scottishPostcode := client.ScottishPostcode(nil)
+fmt.Println(scottishPostcode.GetName()) // "scottish_postcode"
 ```
 
 ### Fields
@@ -364,6 +397,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.ScottishPostcode(nil).Load(map[string]any{"id": "scottish_postcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -393,7 +430,8 @@ Return the entity name.
 ## TerminatedPostcodeEntity
 
 ```go
-terminated_postcode := client.TerminatedPostcode(nil)
+terminatedPostcode := client.TerminatedPostcode(nil)
+fmt.Println(terminatedPostcode.GetName()) // "terminated_postcode"
 ```
 
 ### Fields
@@ -411,6 +449,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.TerminatedPostcode(nil).Load(map[string]any{"id": "terminated_postcode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

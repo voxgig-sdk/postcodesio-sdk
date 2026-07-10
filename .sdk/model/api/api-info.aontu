@@ -40,10 +40,10 @@ Postcodes.io does not require authentication.
           url: "https://api.postcodes.io"
         }
       ]
+      summary: "Postcodes.io is a free postcode lookup API and geocoder for the UK."
       termsOfService: "https://postcodes.io/docs/licenses"
       title: "API Reference - Postcodes.io"
       version: "3.5.1"
+      website: "https://docs.ideal-postcodes.co.uk/postcodesio"
     }
   }
-}
-

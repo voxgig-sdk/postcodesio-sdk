@@ -1,8 +1,0 @@
-# Entity Models
-
-@"nearest.jsonic"
-@"outcode.jsonic"
-@"place.jsonic"
-@"postcode.jsonic"
-@"scottish_postcode.jsonic"
-@"terminated_postcode.jsonic"

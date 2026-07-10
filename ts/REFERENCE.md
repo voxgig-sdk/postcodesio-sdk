@@ -369,8 +369,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Postcode().create({
-  result: /* Record<string, any> */,
-  status: /* number */,
+  result: {},
+  status: 1,
 })
 ```
 

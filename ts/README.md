@@ -515,8 +515,8 @@ const postcodes = await client.Postcode().list()
 
 ```ts
 const postcode = await client.Postcode().create({
-  result: /* Record<string, any> */,
-  status: /* number */,
+  result: {},
+  status: 1,
 })
 ```
 

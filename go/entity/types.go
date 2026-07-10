@@ -59,7 +59,7 @@ type Place struct {
 
 // PlaceLoadMatch is the typed request payload for Place.LoadTyped.
 type PlaceLoadMatch struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 }
 
 // PlaceListMatch is the typed request payload for Place.ListTyped.
@@ -97,7 +97,7 @@ type Postcode struct {
 
 // PostcodeLoadMatch is the typed request payload for Postcode.LoadTyped.
 type PostcodeLoadMatch struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 }
 
 // PostcodeListMatch is the typed request payload for Postcode.ListTyped.

@@ -480,9 +480,9 @@ Create an instance: `postcode := client.Postcode(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -515,15 +515,19 @@ fmt.Println(postcodes) // the array of records
 
 ```go
 result, err := client.Postcode(nil).Create(map[string]any{
-    "result": /* map[string]any */,
-    "status": /* int */,
+    "result": map[string]any{},
+    "status": 1,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
 ### ScottishPostcode
 
-Create an instance: `scottish_postcode := client.ScottishPostcode(nil)`
+Create an instance: `scottishPostcode := client.ScottishPostcode(nil)`
 
 #### Operations
 
@@ -541,17 +545,17 @@ Create an instance: `scottish_postcode := client.ScottishPostcode(nil)`
 #### Example: Load
 
 ```go
-scottish_postcode, err := client.ScottishPostcode(nil).Load(map[string]any{"id": "scottish_postcode_id"}, nil)
+scottishPostcode, err := client.ScottishPostcode(nil).Load(map[string]any{"id": "scottish_postcode_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(scottish_postcode) // the loaded record
+fmt.Println(scottishPostcode) // the loaded record
 ```
 
 
 ### TerminatedPostcode
 
-Create an instance: `terminated_postcode := client.TerminatedPostcode(nil)`
+Create an instance: `terminatedPostcode := client.TerminatedPostcode(nil)`
 
 #### Operations
 
@@ -569,11 +573,11 @@ Create an instance: `terminated_postcode := client.TerminatedPostcode(nil)`
 #### Example: Load
 
 ```go
-terminated_postcode, err := client.TerminatedPostcode(nil).Load(map[string]any{"id": "terminated_postcode_id"}, nil)
+terminatedPostcode, err := client.TerminatedPostcode(nil).Load(map[string]any{"id": "terminated_postcode_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(terminated_postcode) // the loaded record
+fmt.Println(terminatedPostcode) // the loaded record
 ```
 
 

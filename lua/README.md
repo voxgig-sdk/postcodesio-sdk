@@ -462,8 +462,8 @@ local postcodes, err = client:Postcode():list()
 
 ```lua
 local postcode, err = client:Postcode():create({
-  result = nil, -- table
-  status = nil, -- number
+  result = {}, -- table
+  status = 1, -- number
 })
 ```
 

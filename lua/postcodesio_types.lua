@@ -46,7 +46,7 @@
 ---@field status number
 
 ---@class PlaceLoadMatch
----@field id string
+---@field id? string
 
 ---@class PlaceListMatch
 ---@field code? string
@@ -78,7 +78,7 @@
 ---@field status number
 
 ---@class PostcodeLoadMatch
----@field id string
+---@field id? string
 
 ---@class PostcodeListMatch
 ---@field result? table

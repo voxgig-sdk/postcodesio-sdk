@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -1076,15 +1073,18 @@
           "name": "MIT",
           "url": "https://opensource.org/licenses/MIT"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "API Server",
             "url": "https://api.postcodes.io"
           }
         ],
+        "summary": "Postcodes.io is a free postcode lookup API and geocoder for the UK.",
         "termsOfService": "https://postcodes.io/docs/licenses",
         "title": "API Reference - Postcodes.io",
-        "version": "3.5.1"
+        "version": "3.5.1",
+        "website": "https://docs.ideal-postcodes.co.uk/postcodesio"
       },
       "option": {},
       "target": {
@@ -1137,6 +1137,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -1187,6 +1190,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

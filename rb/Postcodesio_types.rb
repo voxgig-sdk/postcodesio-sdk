@@ -152,7 +152,7 @@ Place = Struct.new(
 # Request payload for Place#load.
 #
 # @!attribute [rw] id
-#   @return [String]
+#   @return [String, nil]
 PlaceLoadMatch = Struct.new(
   :id,
   keyword_init: true
@@ -271,7 +271,7 @@ Postcode = Struct.new(
 # Request payload for Postcode#load.
 #
 # @!attribute [rw] id
-#   @return [String]
+#   @return [String, nil]
 PostcodeLoadMatch = Struct.new(
   :id,
   keyword_init: true

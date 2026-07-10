@@ -63,7 +63,7 @@ class Place(PlaceRequired, total=False):
     district_borough_type: str
 
 
-class PlaceLoadMatch(TypedDict):
+class PlaceLoadMatch(TypedDict, total=False):
     id: str
 
 
@@ -98,7 +98,7 @@ class Postcode(TypedDict):
     status: int
 
 
-class PostcodeLoadMatch(TypedDict):
+class PostcodeLoadMatch(TypedDict, total=False):
     id: str
 
 
