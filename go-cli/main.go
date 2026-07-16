@@ -27,7 +27,20 @@ func main() {
 }
 
 func run(args []string, in io.Reader, out, errOut io.Writer) int {
-	client := sdk.NewPostcodesioSDK(nil)
+	// Configure from the environment: POSTCODESIO_APIKEY carries the API key and
+	// POSTCODESIO_BASE optionally overrides the API base URL (e.g. production).
+	// Both injectable by a secrets vault. Unset -> nil config defaults.
+	var opts map[string]any
+	if apikey := os.Getenv("POSTCODESIO_APIKEY"); apikey != "" {
+		opts = map[string]any{"apikey": apikey}
+	}
+	if base := os.Getenv("POSTCODESIO_BASE"); base != "" {
+		if opts == nil {
+			opts = map[string]any{}
+		}
+		opts["base"] = base
+	}
+	client := sdk.NewPostcodesioSDK(opts)
 
 	r, err := eng.NewRegistry()
 	if err != nil {
