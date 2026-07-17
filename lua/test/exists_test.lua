@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Postcodesio SDK exists test
 
 local sdk = require("postcodesio_sdk")
 
