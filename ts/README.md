@@ -35,10 +35,12 @@ const client = new PostcodesioSDK()
 
 ### 2. List nearest records
 
-`list()` resolves to an array of Nearest objects — iterate it directly:
+`list()` resolves to an array of Nearest ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const nearests = await client.Nearest().list()
+const nearests = await client.Nearest().list({ postcode_id: "example" })
 
 for (const nearest of nearests) {
   console.log(nearest)
@@ -120,7 +122,8 @@ Create a mock client for unit testing — no server required:
 const client = PostcodesioSDK.test()
 
 const nearest = await client.Nearest().list()
-// nearest is a bare entity populated with mock response data
+// nearest is the entity, populated with mock response data
+// — call nearest.data() for the record itself
 console.log(nearest)
 ```
 
@@ -303,8 +306,6 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
-| `result` |  |
-| `status` |  |
 
 Operations: load.
 
@@ -320,23 +321,21 @@ API path: `/outcodes/{outcode}`
 | `county_unitary_type` |  |
 | `district_borough` |  |
 | `district_borough_type` |  |
-| `easting` |  |
+| `eastings` |  |
 | `latitude` |  |
 | `local_type` |  |
 | `longitude` |  |
-| `max_easting` |  |
-| `max_northing` |  |
-| `min_easting` |  |
-| `min_northing` |  |
+| `max_eastings` |  |
+| `max_northings` |  |
+| `min_eastings` |  |
+| `min_northings` |  |
 | `name_1` |  |
 | `name_1_lang` |  |
 | `name_2` |  |
 | `name_2_lang` |  |
-| `northing` |  |
+| `northings` |  |
 | `outcode` |  |
 | `region` |  |
-| `result` |  |
-| `status` |  |
 
 Operations: list, load.
 
@@ -346,8 +345,50 @@ API path: `/places`
 
 | Field | Description |
 | --- | --- |
+| `admin_county` |  |
+| `admin_district` |  |
+| `admin_ward` |  |
+| `bua` |  |
+| `cancer_alliance` |  |
+| `ccg` |  |
+| `ced` |  |
+| `codes` |  |
+| `country` |  |
+| `date_of_introduction` |  |
+| `eastings` |  |
+| `european_electoral_region` |  |
+| `icb` |  |
+| `incode` |  |
+| `latitude` |  |
+| `lep1` |  |
+| `lep2` |  |
+| `longitude` |  |
+| `lsoa` |  |
+| `lsoa11` |  |
+| `lsoa21` |  |
+| `msoa` |  |
+| `msoa11` |  |
+| `msoa21` |  |
+| `national_park` |  |
+| `nhs_ha` |  |
+| `nhs_region` |  |
+| `northings` |  |
+| `nuts` |  |
+| `oa21` |  |
+| `outcode` |  |
+| `parish` |  |
+| `parliamentary_constituency` |  |
+| `parliamentary_constituency_2024` |  |
+| `pfa` |  |
+| `postcode` |  |
+| `primary_care_trust` |  |
+| `quality` |  |
+| `region` |  |
 | `result` |  |
+| `ruc11` |  |
+| `ruc21` |  |
 | `status` |  |
+| `ttwa` |  |
 
 Operations: create, list, load.
 
@@ -400,7 +441,7 @@ Create an instance: `const nearest = client.Nearest()`
 #### Example: List
 
 ```ts
-const nearests = await client.Nearest().list()
+const nearests = await client.Nearest().list({ postcode_id: "example" })
 ```
 
 
@@ -413,13 +454,6 @@ Create an instance: `const outcode = client.Outcode()`
 | Method | Description |
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `result` | `any` |  |
-| `status` | `number` |  |
 
 #### Example: Load
 
@@ -449,23 +483,21 @@ Create an instance: `const place = client.Place()`
 | `county_unitary_type` | `string` |  |
 | `district_borough` | `string` |  |
 | `district_borough_type` | `string` |  |
-| `easting` | `number` |  |
+| `eastings` | `number` |  |
 | `latitude` | `number` |  |
 | `local_type` | `string` |  |
 | `longitude` | `number` |  |
-| `max_easting` | `number` |  |
-| `max_northing` | `number` |  |
-| `min_easting` | `number` |  |
-| `min_northing` | `number` |  |
+| `max_eastings` | `number` |  |
+| `max_northings` | `number` |  |
+| `min_eastings` | `number` |  |
+| `min_northings` | `number` |  |
 | `name_1` | `string` |  |
 | `name_1_lang` | `string` |  |
 | `name_2` | `string` |  |
 | `name_2_lang` | `string` |  |
-| `northing` | `number` |  |
+| `northings` | `number` |  |
 | `outcode` | `string` |  |
 | `region` | `string` |  |
-| `result` | `Record<string, any>` |  |
-| `status` | `number` |  |
 
 #### Example: Load
 
@@ -496,8 +528,50 @@ Create an instance: `const postcode = client.Postcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | `Record<string, any>` |  |
+| `admin_county` | `string` |  |
+| `admin_district` | `string` |  |
+| `admin_ward` | `string` |  |
+| `bua` | `string` |  |
+| `cancer_alliance` | `string` |  |
+| `ccg` | `string` |  |
+| `ced` | `string` |  |
+| `codes` | `Record<string, any>` |  |
+| `country` | `string` |  |
+| `date_of_introduction` | `string` |  |
+| `eastings` | `number` |  |
+| `european_electoral_region` | `string` |  |
+| `icb` | `string` |  |
+| `incode` | `string` |  |
+| `latitude` | `number` |  |
+| `lep1` | `string` |  |
+| `lep2` | `string` |  |
+| `longitude` | `number` |  |
+| `lsoa` | `string` |  |
+| `lsoa11` | `string` |  |
+| `lsoa21` | `string` |  |
+| `msoa` | `string` |  |
+| `msoa11` | `string` |  |
+| `msoa21` | `string` |  |
+| `national_park` | `string` |  |
+| `nhs_ha` | `string` |  |
+| `nhs_region` | `string` |  |
+| `northings` | `number` |  |
+| `nuts` | `string` |  |
+| `oa21` | `string` |  |
+| `outcode` | `string` |  |
+| `parish` | `string` |  |
+| `parliamentary_constituency` | `string` |  |
+| `parliamentary_constituency_2024` | `string` |  |
+| `pfa` | `string` |  |
+| `postcode` | `string` |  |
+| `primary_care_trust` | `string` |  |
+| `quality` | `number` |  |
+| `region` | `string` |  |
+| `result` | `any[]` |  |
+| `ruc11` | `string` |  |
+| `ruc21` | `string` |  |
 | `status` | `number` |  |
+| `ttwa` | `string` |  |
 
 #### Example: Load
 
@@ -515,7 +589,31 @@ const postcodes = await client.Postcode().list()
 
 ```ts
 const postcode = await client.Postcode().create({
-  result: {},
+  admin_county: 'example_admin_county',
+  admin_district: 'example_admin_district',
+  admin_ward: 'example_admin_ward',
+  ccg: 'example_ccg',
+  ced: 'example_ced',
+  codes: {},
+  country: 'example_country',
+  eastings: 1,
+  european_electoral_region: 'example_european_electoral_region',
+  incode: 'example_incode',
+  latitude: 1,
+  longitude: 1,
+  lsoa: 'example_lsoa',
+  msoa: 'example_msoa',
+  nhs_ha: 'example_nhs_ha',
+  northings: 1,
+  nuts: 'example_nuts',
+  outcode: 'example_outcode',
+  parish: 'example_parish',
+  parliamentary_constituency: 'example_parliamentary_constituency',
+  postcode: 'example_postcode',
+  primary_care_trust: 'example_primary_care_trust',
+  quality: 1,
+  region: 'example_region',
+  result: [],
   status: 1,
 })
 ```

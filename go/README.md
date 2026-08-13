@@ -279,8 +279,6 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
-| `"result"` |  |
-| `"status"` |  |
 
 Operations: Load.
 
@@ -296,23 +294,21 @@ API path: `/outcodes/{outcode}`
 | `"county_unitary_type"` |  |
 | `"district_borough"` |  |
 | `"district_borough_type"` |  |
-| `"easting"` |  |
+| `"eastings"` |  |
 | `"latitude"` |  |
 | `"local_type"` |  |
 | `"longitude"` |  |
-| `"max_easting"` |  |
-| `"max_northing"` |  |
-| `"min_easting"` |  |
-| `"min_northing"` |  |
+| `"max_eastings"` |  |
+| `"max_northings"` |  |
+| `"min_eastings"` |  |
+| `"min_northings"` |  |
 | `"name_1"` |  |
 | `"name_1_lang"` |  |
 | `"name_2"` |  |
 | `"name_2_lang"` |  |
-| `"northing"` |  |
+| `"northings"` |  |
 | `"outcode"` |  |
 | `"region"` |  |
-| `"result"` |  |
-| `"status"` |  |
 
 Operations: List, Load.
 
@@ -322,8 +318,50 @@ API path: `/places`
 
 | Field | Description |
 | --- | --- |
+| `"admin_county"` |  |
+| `"admin_district"` |  |
+| `"admin_ward"` |  |
+| `"bua"` |  |
+| `"cancer_alliance"` |  |
+| `"ccg"` |  |
+| `"ced"` |  |
+| `"codes"` |  |
+| `"country"` |  |
+| `"date_of_introduction"` |  |
+| `"eastings"` |  |
+| `"european_electoral_region"` |  |
+| `"icb"` |  |
+| `"incode"` |  |
+| `"latitude"` |  |
+| `"lep1"` |  |
+| `"lep2"` |  |
+| `"longitude"` |  |
+| `"lsoa"` |  |
+| `"lsoa11"` |  |
+| `"lsoa21"` |  |
+| `"msoa"` |  |
+| `"msoa11"` |  |
+| `"msoa21"` |  |
+| `"national_park"` |  |
+| `"nhs_ha"` |  |
+| `"nhs_region"` |  |
+| `"northings"` |  |
+| `"nuts"` |  |
+| `"oa21"` |  |
+| `"outcode"` |  |
+| `"parish"` |  |
+| `"parliamentary_constituency"` |  |
+| `"parliamentary_constituency_2024"` |  |
+| `"pfa"` |  |
+| `"postcode"` |  |
+| `"primary_care_trust"` |  |
+| `"quality"` |  |
+| `"region"` |  |
 | `"result"` |  |
+| `"ruc11"` |  |
+| `"ruc21"` |  |
 | `"status"` |  |
+| `"ttwa"` |  |
 
 Operations: Create, List, Load.
 
@@ -394,13 +432,6 @@ Create an instance: `outcode := client.Outcode(nil)`
 | --- | --- |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `result` | `any` |  |
-| `status` | `int` |  |
-
 #### Example: Load
 
 ```go
@@ -433,23 +464,21 @@ Create an instance: `place := client.Place(nil)`
 | `county_unitary_type` | `string` |  |
 | `district_borough` | `string` |  |
 | `district_borough_type` | `string` |  |
-| `easting` | `int` |  |
+| `eastings` | `int` |  |
 | `latitude` | `float64` |  |
 | `local_type` | `string` |  |
 | `longitude` | `float64` |  |
-| `max_easting` | `int` |  |
-| `max_northing` | `int` |  |
-| `min_easting` | `int` |  |
-| `min_northing` | `int` |  |
+| `max_eastings` | `int` |  |
+| `max_northings` | `int` |  |
+| `min_eastings` | `int` |  |
+| `min_northings` | `int` |  |
 | `name_1` | `string` |  |
 | `name_1_lang` | `string` |  |
 | `name_2` | `string` |  |
 | `name_2_lang` | `string` |  |
-| `northing` | `int` |  |
+| `northings` | `int` |  |
 | `outcode` | `string` |  |
 | `region` | `string` |  |
-| `result` | `map[string]any` |  |
-| `status` | `int` |  |
 
 #### Example: Load
 
@@ -488,8 +517,50 @@ Create an instance: `postcode := client.Postcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | `map[string]any` |  |
+| `admin_county` | `string` |  |
+| `admin_district` | `string` |  |
+| `admin_ward` | `string` |  |
+| `bua` | `string` |  |
+| `cancer_alliance` | `string` |  |
+| `ccg` | `string` |  |
+| `ced` | `string` |  |
+| `codes` | `map[string]any` |  |
+| `country` | `string` |  |
+| `date_of_introduction` | `string` |  |
+| `eastings` | `int` |  |
+| `european_electoral_region` | `string` |  |
+| `icb` | `string` |  |
+| `incode` | `string` |  |
+| `latitude` | `float64` |  |
+| `lep1` | `string` |  |
+| `lep2` | `string` |  |
+| `longitude` | `float64` |  |
+| `lsoa` | `string` |  |
+| `lsoa11` | `string` |  |
+| `lsoa21` | `string` |  |
+| `msoa` | `string` |  |
+| `msoa11` | `string` |  |
+| `msoa21` | `string` |  |
+| `national_park` | `string` |  |
+| `nhs_ha` | `string` |  |
+| `nhs_region` | `string` |  |
+| `northings` | `int` |  |
+| `nuts` | `string` |  |
+| `oa21` | `string` |  |
+| `outcode` | `string` |  |
+| `parish` | `string` |  |
+| `parliamentary_constituency` | `string` |  |
+| `parliamentary_constituency_2024` | `string` |  |
+| `pfa` | `string` |  |
+| `postcode` | `string` |  |
+| `primary_care_trust` | `string` |  |
+| `quality` | `int` |  |
+| `region` | `string` |  |
+| `result` | `[]any` |  |
+| `ruc11` | `string` |  |
+| `ruc21` | `string` |  |
 | `status` | `int` |  |
+| `ttwa` | `string` |  |
 
 #### Example: Load
 
@@ -515,7 +586,31 @@ fmt.Println(postcodes) // the array of records
 
 ```go
 result, err := client.Postcode(nil).Create(map[string]any{
-    "result": map[string]any{},
+    "admin_county": "example_admin_county",
+    "admin_district": "example_admin_district",
+    "admin_ward": "example_admin_ward",
+    "ccg": "example_ccg",
+    "ced": "example_ced",
+    "codes": map[string]any{},
+    "country": "example_country",
+    "eastings": 1,
+    "european_electoral_region": "example_european_electoral_region",
+    "incode": "example_incode",
+    "latitude": 1,
+    "longitude": 1,
+    "lsoa": "example_lsoa",
+    "msoa": "example_msoa",
+    "nhs_ha": "example_nhs_ha",
+    "northings": 1,
+    "nuts": "example_nuts",
+    "outcode": "example_outcode",
+    "parish": "example_parish",
+    "parliamentary_constituency": "example_parliamentary_constituency",
+    "postcode": "example_postcode",
+    "primary_care_trust": "example_primary_care_trust",
+    "quality": 1,
+    "region": "example_region",
+    "result": []any{},
     "status": 1,
 }, nil)
 if err != nil {

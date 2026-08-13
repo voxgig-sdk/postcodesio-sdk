@@ -36,7 +36,7 @@ main: kit: entity: place: {
       type: "`$STRING`"
     }
     {
-      name: "easting"
+      name: "eastings"
       req: true
       type: "`$INTEGER`"
     }
@@ -56,22 +56,22 @@ main: kit: entity: place: {
       type: "`$NUMBER`"
     }
     {
-      name: "max_easting"
+      name: "max_eastings"
       req: true
       type: "`$INTEGER`"
     }
     {
-      name: "max_northing"
+      name: "max_northings"
       req: true
       type: "`$INTEGER`"
     }
     {
-      name: "min_easting"
+      name: "min_eastings"
       req: true
       type: "`$INTEGER`"
     }
     {
-      name: "min_northing"
+      name: "min_northings"
       req: true
       type: "`$INTEGER`"
     }
@@ -96,7 +96,7 @@ main: kit: entity: place: {
       type: "`$STRING`"
     }
     {
-      name: "northing"
+      name: "northings"
       req: true
       type: "`$INTEGER`"
     }
@@ -109,16 +109,6 @@ main: kit: entity: place: {
       name: "region"
       req: true
       type: "`$STRING`"
-    }
-    {
-      name: "result"
-      req: true
-      type: "`$OBJECT`"
-    }
-    {
-      name: "status"
-      req: true
-      type: "`$INTEGER`"
     }
   ]
 
@@ -135,7 +125,7 @@ main: kit: entity: place: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]
@@ -173,7 +163,7 @@ main: kit: entity: place: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
         {
@@ -185,7 +175,7 @@ main: kit: entity: place: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]

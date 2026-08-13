@@ -159,13 +159,6 @@ Return the entity name.
 local outcode = client:Outcode(nil)
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `any` | Yes |  |
-| `status` | `number` | Yes |  |
-
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -222,23 +215,21 @@ local place = client:Place(nil)
 | `county_unitary_type` | `string` | Yes |  |
 | `district_borough` | `string` | Yes |  |
 | `district_borough_type` | `string` | No |  |
-| `easting` | `number` | Yes |  |
+| `eastings` | `number` | Yes |  |
 | `latitude` | `number` | Yes |  |
 | `local_type` | `string` | Yes |  |
 | `longitude` | `number` | Yes |  |
-| `max_easting` | `number` | Yes |  |
-| `max_northing` | `number` | Yes |  |
-| `min_easting` | `number` | Yes |  |
-| `min_northing` | `number` | Yes |  |
+| `max_eastings` | `number` | Yes |  |
+| `max_northings` | `number` | Yes |  |
+| `min_eastings` | `number` | Yes |  |
+| `min_northings` | `number` | Yes |  |
 | `name_1` | `string` | Yes |  |
 | `name_1_lang` | `string` | Yes |  |
 | `name_2` | `string` | Yes |  |
 | `name_2_lang` | `string` | Yes |  |
-| `northing` | `number` | Yes |  |
+| `northings` | `number` | Yes |  |
 | `outcode` | `string` | Yes |  |
 | `region` | `string` | Yes |  |
-| `result` | `table` | Yes |  |
-| `status` | `number` | Yes |  |
 
 ### Operations
 
@@ -298,8 +289,50 @@ local postcode = client:Postcode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `admin_county` | `string` | Yes |  |
+| `admin_district` | `string` | Yes |  |
+| `admin_ward` | `string` | Yes |  |
+| `bua` | `string` | No |  |
+| `cancer_alliance` | `string` | No |  |
+| `ccg` | `string` | Yes |  |
+| `ced` | `string` | Yes |  |
+| `codes` | `table` | Yes |  |
+| `country` | `string` | Yes |  |
+| `date_of_introduction` | `string` | No |  |
+| `eastings` | `number` | Yes |  |
+| `european_electoral_region` | `string` | Yes |  |
+| `icb` | `string` | No |  |
+| `incode` | `string` | Yes |  |
+| `latitude` | `number` | Yes |  |
+| `lep1` | `string` | No |  |
+| `lep2` | `string` | No |  |
+| `longitude` | `number` | Yes |  |
+| `lsoa` | `string` | Yes |  |
+| `lsoa11` | `string` | No |  |
+| `lsoa21` | `string` | No |  |
+| `msoa` | `string` | Yes |  |
+| `msoa11` | `string` | No |  |
+| `msoa21` | `string` | No |  |
+| `national_park` | `string` | No |  |
+| `nhs_ha` | `string` | Yes |  |
+| `nhs_region` | `string` | No |  |
+| `northings` | `number` | Yes |  |
+| `nuts` | `string` | Yes |  |
+| `oa21` | `string` | No |  |
+| `outcode` | `string` | Yes |  |
+| `parish` | `string` | Yes |  |
+| `parliamentary_constituency` | `string` | Yes |  |
+| `parliamentary_constituency_2024` | `string` | No |  |
+| `pfa` | `string` | No |  |
+| `postcode` | `string` | Yes |  |
+| `primary_care_trust` | `string` | Yes |  |
+| `quality` | `number` | Yes |  |
+| `region` | `string` | Yes |  |
 | `result` | `table` | Yes |  |
+| `ruc11` | `string` | No |  |
+| `ruc21` | `string` | No |  |
 | `status` | `number` | Yes |  |
+| `ttwa` | `string` | No |  |
 
 ### Operations
 
@@ -309,6 +342,30 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Postcode():create({
+  admin_county = --[[ string ]],
+  admin_district = --[[ string ]],
+  admin_ward = --[[ string ]],
+  ccg = --[[ string ]],
+  ced = --[[ string ]],
+  codes = --[[ table ]],
+  country = --[[ string ]],
+  eastings = --[[ number ]],
+  european_electoral_region = --[[ string ]],
+  incode = --[[ string ]],
+  latitude = --[[ number ]],
+  longitude = --[[ number ]],
+  lsoa = --[[ string ]],
+  msoa = --[[ string ]],
+  nhs_ha = --[[ string ]],
+  northings = --[[ number ]],
+  nuts = --[[ string ]],
+  outcode = --[[ string ]],
+  parish = --[[ string ]],
+  parliamentary_constituency = --[[ string ]],
+  postcode = --[[ string ]],
+  primary_care_trust = --[[ string ]],
+  quality = --[[ number ]],
+  region = --[[ string ]],
   result = --[[ table ]],
   status = --[[ number ]],
 })

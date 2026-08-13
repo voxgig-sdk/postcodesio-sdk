@@ -162,13 +162,6 @@ Return the entity name.
 outcode = client.Outcode
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `Object` | Yes |  |
-| `status` | `Integer` | Yes |  |
-
 ### Operations
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -225,23 +218,21 @@ place = client.Place
 | `county_unitary_type` | `String` | Yes |  |
 | `district_borough` | `String` | Yes |  |
 | `district_borough_type` | `String` | No |  |
-| `easting` | `Integer` | Yes |  |
+| `eastings` | `Integer` | Yes |  |
 | `latitude` | `Float` | Yes |  |
 | `local_type` | `String` | Yes |  |
 | `longitude` | `Float` | Yes |  |
-| `max_easting` | `Integer` | Yes |  |
-| `max_northing` | `Integer` | Yes |  |
-| `min_easting` | `Integer` | Yes |  |
-| `min_northing` | `Integer` | Yes |  |
+| `max_eastings` | `Integer` | Yes |  |
+| `max_northings` | `Integer` | Yes |  |
+| `min_eastings` | `Integer` | Yes |  |
+| `min_northings` | `Integer` | Yes |  |
 | `name_1` | `String` | Yes |  |
 | `name_1_lang` | `String` | Yes |  |
 | `name_2` | `String` | Yes |  |
 | `name_2_lang` | `String` | Yes |  |
-| `northing` | `Integer` | Yes |  |
+| `northings` | `Integer` | Yes |  |
 | `outcode` | `String` | Yes |  |
 | `region` | `String` | Yes |  |
-| `result` | `Hash` | Yes |  |
-| `status` | `Integer` | Yes |  |
 
 ### Operations
 
@@ -301,8 +292,50 @@ postcode = client.Postcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | `Hash` | Yes |  |
+| `admin_county` | `String` | Yes |  |
+| `admin_district` | `String` | Yes |  |
+| `admin_ward` | `String` | Yes |  |
+| `bua` | `String` | No |  |
+| `cancer_alliance` | `String` | No |  |
+| `ccg` | `String` | Yes |  |
+| `ced` | `String` | Yes |  |
+| `codes` | `Hash` | Yes |  |
+| `country` | `String` | Yes |  |
+| `date_of_introduction` | `String` | No |  |
+| `eastings` | `Integer` | Yes |  |
+| `european_electoral_region` | `String` | Yes |  |
+| `icb` | `String` | No |  |
+| `incode` | `String` | Yes |  |
+| `latitude` | `Float` | Yes |  |
+| `lep1` | `String` | No |  |
+| `lep2` | `String` | No |  |
+| `longitude` | `Float` | Yes |  |
+| `lsoa` | `String` | Yes |  |
+| `lsoa11` | `String` | No |  |
+| `lsoa21` | `String` | No |  |
+| `msoa` | `String` | Yes |  |
+| `msoa11` | `String` | No |  |
+| `msoa21` | `String` | No |  |
+| `national_park` | `String` | No |  |
+| `nhs_ha` | `String` | Yes |  |
+| `nhs_region` | `String` | No |  |
+| `northings` | `Integer` | Yes |  |
+| `nuts` | `String` | Yes |  |
+| `oa21` | `String` | No |  |
+| `outcode` | `String` | Yes |  |
+| `parish` | `String` | Yes |  |
+| `parliamentary_constituency` | `String` | Yes |  |
+| `parliamentary_constituency_2024` | `String` | No |  |
+| `pfa` | `String` | No |  |
+| `postcode` | `String` | Yes |  |
+| `primary_care_trust` | `String` | Yes |  |
+| `quality` | `Integer` | Yes |  |
+| `region` | `String` | Yes |  |
+| `result` | `Array` | Yes |  |
+| `ruc11` | `String` | No |  |
+| `ruc21` | `String` | No |  |
 | `status` | `Integer` | Yes |  |
+| `ttwa` | `String` | No |  |
 
 ### Operations
 
@@ -312,7 +345,31 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Postcode.create({
-  "result" => {}, # Hash
+  "admin_county" => "example_admin_county", # String
+  "admin_district" => "example_admin_district", # String
+  "admin_ward" => "example_admin_ward", # String
+  "ccg" => "example_ccg", # String
+  "ced" => "example_ced", # String
+  "codes" => {}, # Hash
+  "country" => "example_country", # String
+  "eastings" => 1, # Integer
+  "european_electoral_region" => "example_european_electoral_region", # String
+  "incode" => "example_incode", # String
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
+  "lsoa" => "example_lsoa", # String
+  "msoa" => "example_msoa", # String
+  "nhs_ha" => "example_nhs_ha", # String
+  "northings" => 1, # Integer
+  "nuts" => "example_nuts", # String
+  "outcode" => "example_outcode", # String
+  "parish" => "example_parish", # String
+  "parliamentary_constituency" => "example_parliamentary_constituency", # String
+  "postcode" => "example_postcode", # String
+  "primary_care_trust" => "example_primary_care_trust", # String
+  "quality" => 1, # Integer
+  "region" => "example_region", # String
+  "result" => [], # Array
   "status" => 1, # Integer
 })
 ```

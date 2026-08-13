@@ -6,14 +6,224 @@ main: kit: entity: postcode: {
 
   fields: [
     {
-      name: "result"
+      name: "admin_county"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "admin_district"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "admin_ward"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "bua"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "cancer_alliance"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "ccg"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "ced"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "codes"
       req: true
       type: "`$OBJECT`"
+    }
+    {
+      name: "country"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "date_of_introduction"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "eastings"
+      req: true
+      type: "`$INTEGER`"
+    }
+    {
+      name: "european_electoral_region"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "icb"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "incode"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "latitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "lep1"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lep2"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "longitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "lsoa"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "lsoa11"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lsoa21"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "msoa"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "msoa11"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "msoa21"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "national_park"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "nhs_ha"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "nhs_region"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "northings"
+      req: true
+      type: "`$INTEGER`"
+    }
+    {
+      name: "nuts"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "oa21"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "outcode"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "parish"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "parliamentary_constituency"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "parliamentary_constituency_2024"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "pfa"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "postcode"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "primary_care_trust"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "quality"
+      req: true
+      type: "`$INTEGER`"
+    }
+    {
+      name: "region"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "result"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "ruc11"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "ruc21"
+      req: false
+      type: "`$STRING`"
     }
     {
       name: "status"
       req: true
       type: "`$INTEGER`"
+    }
+    {
+      name: "ttwa"
+      req: false
+      type: "`$STRING`"
     }
   ]
 
@@ -30,7 +240,7 @@ main: kit: entity: postcode: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]
@@ -117,7 +327,7 @@ main: kit: entity: postcode: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]
@@ -156,7 +366,7 @@ main: kit: entity: postcode: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
         {
@@ -185,7 +395,7 @@ main: kit: entity: postcode: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]

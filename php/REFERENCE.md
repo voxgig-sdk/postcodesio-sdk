@@ -161,13 +161,6 @@ Return the entity name.
 $outcode = $client->Outcode();
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `mixed` | Yes |  |
-| `status` | `int` | Yes |  |
-
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -224,23 +217,21 @@ $place = $client->Place();
 | `county_unitary_type` | `string` | Yes |  |
 | `district_borough` | `string` | Yes |  |
 | `district_borough_type` | `string` | No |  |
-| `easting` | `int` | Yes |  |
+| `eastings` | `int` | Yes |  |
 | `latitude` | `float` | Yes |  |
 | `local_type` | `string` | Yes |  |
 | `longitude` | `float` | Yes |  |
-| `max_easting` | `int` | Yes |  |
-| `max_northing` | `int` | Yes |  |
-| `min_easting` | `int` | Yes |  |
-| `min_northing` | `int` | Yes |  |
+| `max_eastings` | `int` | Yes |  |
+| `max_northings` | `int` | Yes |  |
+| `min_eastings` | `int` | Yes |  |
+| `min_northings` | `int` | Yes |  |
 | `name_1` | `string` | Yes |  |
 | `name_1_lang` | `string` | Yes |  |
 | `name_2` | `string` | Yes |  |
 | `name_2_lang` | `string` | Yes |  |
-| `northing` | `int` | Yes |  |
+| `northings` | `int` | Yes |  |
 | `outcode` | `string` | Yes |  |
 | `region` | `string` | Yes |  |
-| `result` | `array` | Yes |  |
-| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -300,8 +291,50 @@ $postcode = $client->Postcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `admin_county` | `string` | Yes |  |
+| `admin_district` | `string` | Yes |  |
+| `admin_ward` | `string` | Yes |  |
+| `bua` | `string` | No |  |
+| `cancer_alliance` | `string` | No |  |
+| `ccg` | `string` | Yes |  |
+| `ced` | `string` | Yes |  |
+| `codes` | `array` | Yes |  |
+| `country` | `string` | Yes |  |
+| `date_of_introduction` | `string` | No |  |
+| `eastings` | `int` | Yes |  |
+| `european_electoral_region` | `string` | Yes |  |
+| `icb` | `string` | No |  |
+| `incode` | `string` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `lep1` | `string` | No |  |
+| `lep2` | `string` | No |  |
+| `longitude` | `float` | Yes |  |
+| `lsoa` | `string` | Yes |  |
+| `lsoa11` | `string` | No |  |
+| `lsoa21` | `string` | No |  |
+| `msoa` | `string` | Yes |  |
+| `msoa11` | `string` | No |  |
+| `msoa21` | `string` | No |  |
+| `national_park` | `string` | No |  |
+| `nhs_ha` | `string` | Yes |  |
+| `nhs_region` | `string` | No |  |
+| `northings` | `int` | Yes |  |
+| `nuts` | `string` | Yes |  |
+| `oa21` | `string` | No |  |
+| `outcode` | `string` | Yes |  |
+| `parish` | `string` | Yes |  |
+| `parliamentary_constituency` | `string` | Yes |  |
+| `parliamentary_constituency_2024` | `string` | No |  |
+| `pfa` | `string` | No |  |
+| `postcode` | `string` | Yes |  |
+| `primary_care_trust` | `string` | Yes |  |
+| `quality` | `int` | Yes |  |
+| `region` | `string` | Yes |  |
 | `result` | `array` | Yes |  |
+| `ruc11` | `string` | No |  |
+| `ruc21` | `string` | No |  |
 | `status` | `int` | Yes |  |
+| `ttwa` | `string` | No |  |
 
 ### Operations
 
@@ -311,6 +344,30 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Postcode()->create([
+  "admin_county" => null, // string
+  "admin_district" => null, // string
+  "admin_ward" => null, // string
+  "ccg" => null, // string
+  "ced" => null, // string
+  "codes" => null, // array
+  "country" => null, // string
+  "eastings" => null, // int
+  "european_electoral_region" => null, // string
+  "incode" => null, // string
+  "latitude" => null, // float
+  "longitude" => null, // float
+  "lsoa" => null, // string
+  "msoa" => null, // string
+  "nhs_ha" => null, // string
+  "northings" => null, // int
+  "nuts" => null, // string
+  "outcode" => null, // string
+  "parish" => null, // string
+  "parliamentary_constituency" => null, // string
+  "postcode" => null, // string
+  "primary_care_trust" => null, // string
+  "quality" => null, // int
+  "region" => null, // string
   "result" => null, // array
   "status" => null, // int
 ]);

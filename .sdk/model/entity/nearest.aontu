@@ -54,7 +54,7 @@ main: kit: entity: nearest: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]

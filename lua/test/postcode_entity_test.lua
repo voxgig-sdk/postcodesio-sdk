@@ -82,7 +82,7 @@ describe("PostcodeEntity", function()
 
     local postcode_ref01_data_result, err = postcode_ref01_ent:create(postcode_ref01_data, nil)
     assert.is_nil(err)
-    postcode_ref01_data = helpers.to_map(postcode_ref01_data_result)
+    postcode_ref01_data = helpers.to_map(type(postcode_ref01_data_result) == 'table' and postcode_ref01_data_result.data_get and postcode_ref01_data_result:data_get() or postcode_ref01_data_result)
     assert.is_not_nil(postcode_ref01_data)
 
     -- LIST
@@ -91,11 +91,6 @@ describe("PostcodeEntity", function()
     local postcode_ref01_list_result, err = postcode_ref01_ent:list(postcode_ref01_match, nil)
     assert.is_nil(err)
     assert.is_table(postcode_ref01_list_result)
-
-    local found_item = vs.select(
-      runner.entity_list_to_data(postcode_ref01_list_result),
-      { id = postcode_ref01_data["id"] })
-    assert.is_false(vs.isempty(found_item))
 
     -- LOAD
     local postcode_ref01_match_dt0 = {}

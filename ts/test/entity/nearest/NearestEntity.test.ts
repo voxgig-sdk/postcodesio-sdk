@@ -64,7 +64,7 @@ describe('NearestEntity', async () => {
     const nearest_ref01_match: any = {}
     nearest_ref01_match['postcode_id'] = setup.idmap['postcode01']
 
-    const nearest_ref01_list = await nearest_ref01_ent.list(nearest_ref01_match)
+    const nearest_ref01_list = (await nearest_ref01_ent.list(nearest_ref01_match)).map((e: any) => e.data())
 
 
   })

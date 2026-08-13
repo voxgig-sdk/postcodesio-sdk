@@ -166,13 +166,6 @@ outcode := client.Outcode(nil)
 fmt.Println(outcode.GetName()) // "outcode"
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `any` | Yes |  |
-| `status` | `int` | Yes |  |
-
 ### Operations
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -228,23 +221,21 @@ fmt.Println(place.GetName()) // "place"
 | `county_unitary_type` | `string` | Yes |  |
 | `district_borough` | `string` | Yes |  |
 | `district_borough_type` | `string` | No |  |
-| `easting` | `int` | Yes |  |
+| `eastings` | `int` | Yes |  |
 | `latitude` | `float64` | Yes |  |
 | `local_type` | `string` | Yes |  |
 | `longitude` | `float64` | Yes |  |
-| `max_easting` | `int` | Yes |  |
-| `max_northing` | `int` | Yes |  |
-| `min_easting` | `int` | Yes |  |
-| `min_northing` | `int` | Yes |  |
+| `max_eastings` | `int` | Yes |  |
+| `max_northings` | `int` | Yes |  |
+| `min_eastings` | `int` | Yes |  |
+| `min_northings` | `int` | Yes |  |
 | `name_1` | `string` | Yes |  |
 | `name_1_lang` | `string` | Yes |  |
 | `name_2` | `string` | Yes |  |
 | `name_2_lang` | `string` | Yes |  |
-| `northing` | `int` | Yes |  |
+| `northings` | `int` | Yes |  |
 | `outcode` | `string` | Yes |  |
 | `region` | `string` | Yes |  |
-| `result` | `map[string]any` | Yes |  |
-| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -307,8 +298,50 @@ fmt.Println(postcode.GetName()) // "postcode"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | `map[string]any` | Yes |  |
+| `admin_county` | `string` | Yes |  |
+| `admin_district` | `string` | Yes |  |
+| `admin_ward` | `string` | Yes |  |
+| `bua` | `string` | No |  |
+| `cancer_alliance` | `string` | No |  |
+| `ccg` | `string` | Yes |  |
+| `ced` | `string` | Yes |  |
+| `codes` | `map[string]any` | Yes |  |
+| `country` | `string` | Yes |  |
+| `date_of_introduction` | `string` | No |  |
+| `eastings` | `int` | Yes |  |
+| `european_electoral_region` | `string` | Yes |  |
+| `icb` | `string` | No |  |
+| `incode` | `string` | Yes |  |
+| `latitude` | `float64` | Yes |  |
+| `lep1` | `string` | No |  |
+| `lep2` | `string` | No |  |
+| `longitude` | `float64` | Yes |  |
+| `lsoa` | `string` | Yes |  |
+| `lsoa11` | `string` | No |  |
+| `lsoa21` | `string` | No |  |
+| `msoa` | `string` | Yes |  |
+| `msoa11` | `string` | No |  |
+| `msoa21` | `string` | No |  |
+| `national_park` | `string` | No |  |
+| `nhs_ha` | `string` | Yes |  |
+| `nhs_region` | `string` | No |  |
+| `northings` | `int` | Yes |  |
+| `nuts` | `string` | Yes |  |
+| `oa21` | `string` | No |  |
+| `outcode` | `string` | Yes |  |
+| `parish` | `string` | Yes |  |
+| `parliamentary_constituency` | `string` | Yes |  |
+| `parliamentary_constituency_2024` | `string` | No |  |
+| `pfa` | `string` | No |  |
+| `postcode` | `string` | Yes |  |
+| `primary_care_trust` | `string` | Yes |  |
+| `quality` | `int` | Yes |  |
+| `region` | `string` | Yes |  |
+| `result` | `[]any` | Yes |  |
+| `ruc11` | `string` | No |  |
+| `ruc21` | `string` | No |  |
 | `status` | `int` | Yes |  |
+| `ttwa` | `string` | No |  |
 
 ### Operations
 
@@ -342,7 +375,31 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Postcode(nil).Create(map[string]any{
-    "result": map[string]any{},
+    "admin_county": "example_admin_county",
+    "admin_district": "example_admin_district",
+    "admin_ward": "example_admin_ward",
+    "ccg": "example_ccg",
+    "ced": "example_ced",
+    "codes": map[string]any{},
+    "country": "example_country",
+    "eastings": 1,
+    "european_electoral_region": "example_european_electoral_region",
+    "incode": "example_incode",
+    "latitude": 1,
+    "longitude": 1,
+    "lsoa": "example_lsoa",
+    "msoa": "example_msoa",
+    "nhs_ha": "example_nhs_ha",
+    "northings": 1,
+    "nuts": "example_nuts",
+    "outcode": "example_outcode",
+    "parish": "example_parish",
+    "parliamentary_constituency": "example_parliamentary_constituency",
+    "postcode": "example_postcode",
+    "primary_care_trust": "example_primary_care_trust",
+    "quality": 1,
+    "region": "example_region",
+    "result": []any{},
     "status": 1,
 }, nil)
 if err != nil {

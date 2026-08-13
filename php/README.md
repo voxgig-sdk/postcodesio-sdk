@@ -125,7 +125,8 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = PostcodesioSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $nearest = $client->Nearest()->list();
 print_r($nearest);
 ```
@@ -231,7 +232,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -264,8 +265,6 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
-| `result` |  |
-| `status` |  |
 
 Operations: Load.
 
@@ -281,23 +280,21 @@ API path: `/outcodes/{outcode}`
 | `county_unitary_type` |  |
 | `district_borough` |  |
 | `district_borough_type` |  |
-| `easting` |  |
+| `eastings` |  |
 | `latitude` |  |
 | `local_type` |  |
 | `longitude` |  |
-| `max_easting` |  |
-| `max_northing` |  |
-| `min_easting` |  |
-| `min_northing` |  |
+| `max_eastings` |  |
+| `max_northings` |  |
+| `min_eastings` |  |
+| `min_northings` |  |
 | `name_1` |  |
 | `name_1_lang` |  |
 | `name_2` |  |
 | `name_2_lang` |  |
-| `northing` |  |
+| `northings` |  |
 | `outcode` |  |
 | `region` |  |
-| `result` |  |
-| `status` |  |
 
 Operations: List, Load.
 
@@ -307,8 +304,50 @@ API path: `/places`
 
 | Field | Description |
 | --- | --- |
+| `admin_county` |  |
+| `admin_district` |  |
+| `admin_ward` |  |
+| `bua` |  |
+| `cancer_alliance` |  |
+| `ccg` |  |
+| `ced` |  |
+| `codes` |  |
+| `country` |  |
+| `date_of_introduction` |  |
+| `eastings` |  |
+| `european_electoral_region` |  |
+| `icb` |  |
+| `incode` |  |
+| `latitude` |  |
+| `lep1` |  |
+| `lep2` |  |
+| `longitude` |  |
+| `lsoa` |  |
+| `lsoa11` |  |
+| `lsoa21` |  |
+| `msoa` |  |
+| `msoa11` |  |
+| `msoa21` |  |
+| `national_park` |  |
+| `nhs_ha` |  |
+| `nhs_region` |  |
+| `northings` |  |
+| `nuts` |  |
+| `oa21` |  |
+| `outcode` |  |
+| `parish` |  |
+| `parliamentary_constituency` |  |
+| `parliamentary_constituency_2024` |  |
+| `pfa` |  |
+| `postcode` |  |
+| `primary_care_trust` |  |
+| `quality` |  |
+| `region` |  |
 | `result` |  |
+| `ruc11` |  |
+| `ruc21` |  |
 | `status` |  |
+| `ttwa` |  |
 
 Operations: Create, List, Load.
 
@@ -376,17 +415,10 @@ Create an instance: `$outcode = $client->Outcode();`
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `result` | `mixed` |  |
-| `status` | `int` |  |
-
 #### Example: Load
 
 ```php
-// load() returns the bare Outcode record (throws on error).
+// load() returns the ENTITY — call data_get() for the Outcode record (throws on error).
 $outcode = $client->Outcode()->load(["id" => "outcode_id"]);
 ```
 
@@ -412,28 +444,26 @@ Create an instance: `$place = $client->Place();`
 | `county_unitary_type` | `string` |  |
 | `district_borough` | `string` |  |
 | `district_borough_type` | `string` |  |
-| `easting` | `int` |  |
+| `eastings` | `int` |  |
 | `latitude` | `float` |  |
 | `local_type` | `string` |  |
 | `longitude` | `float` |  |
-| `max_easting` | `int` |  |
-| `max_northing` | `int` |  |
-| `min_easting` | `int` |  |
-| `min_northing` | `int` |  |
+| `max_eastings` | `int` |  |
+| `max_northings` | `int` |  |
+| `min_eastings` | `int` |  |
+| `min_northings` | `int` |  |
 | `name_1` | `string` |  |
 | `name_1_lang` | `string` |  |
 | `name_2` | `string` |  |
 | `name_2_lang` | `string` |  |
-| `northing` | `int` |  |
+| `northings` | `int` |  |
 | `outcode` | `string` |  |
 | `region` | `string` |  |
-| `result` | `array` |  |
-| `status` | `int` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Place record (throws on error).
+// load() returns the ENTITY — call data_get() for the Place record (throws on error).
 $place = $client->Place()->load(["id" => "place_id"]);
 ```
 
@@ -461,13 +491,55 @@ Create an instance: `$postcode = $client->Postcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `admin_county` | `string` |  |
+| `admin_district` | `string` |  |
+| `admin_ward` | `string` |  |
+| `bua` | `string` |  |
+| `cancer_alliance` | `string` |  |
+| `ccg` | `string` |  |
+| `ced` | `string` |  |
+| `codes` | `array` |  |
+| `country` | `string` |  |
+| `date_of_introduction` | `string` |  |
+| `eastings` | `int` |  |
+| `european_electoral_region` | `string` |  |
+| `icb` | `string` |  |
+| `incode` | `string` |  |
+| `latitude` | `float` |  |
+| `lep1` | `string` |  |
+| `lep2` | `string` |  |
+| `longitude` | `float` |  |
+| `lsoa` | `string` |  |
+| `lsoa11` | `string` |  |
+| `lsoa21` | `string` |  |
+| `msoa` | `string` |  |
+| `msoa11` | `string` |  |
+| `msoa21` | `string` |  |
+| `national_park` | `string` |  |
+| `nhs_ha` | `string` |  |
+| `nhs_region` | `string` |  |
+| `northings` | `int` |  |
+| `nuts` | `string` |  |
+| `oa21` | `string` |  |
+| `outcode` | `string` |  |
+| `parish` | `string` |  |
+| `parliamentary_constituency` | `string` |  |
+| `parliamentary_constituency_2024` | `string` |  |
+| `pfa` | `string` |  |
+| `postcode` | `string` |  |
+| `primary_care_trust` | `string` |  |
+| `quality` | `int` |  |
+| `region` | `string` |  |
 | `result` | `array` |  |
+| `ruc11` | `string` |  |
+| `ruc21` | `string` |  |
 | `status` | `int` |  |
+| `ttwa` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Postcode record (throws on error).
+// load() returns the ENTITY — call data_get() for the Postcode record (throws on error).
 $postcode = $client->Postcode()->load(["id" => "postcode_id"]);
 ```
 
@@ -482,6 +554,30 @@ $postcodes = $client->Postcode()->list();
 
 ```php
 $postcode = $client->Postcode()->create([
+    "admin_county" => null, // string
+    "admin_district" => null, // string
+    "admin_ward" => null, // string
+    "ccg" => null, // string
+    "ced" => null, // string
+    "codes" => null, // array
+    "country" => null, // string
+    "eastings" => null, // int
+    "european_electoral_region" => null, // string
+    "incode" => null, // string
+    "latitude" => null, // float
+    "longitude" => null, // float
+    "lsoa" => null, // string
+    "msoa" => null, // string
+    "nhs_ha" => null, // string
+    "northings" => null, // int
+    "nuts" => null, // string
+    "outcode" => null, // string
+    "parish" => null, // string
+    "parliamentary_constituency" => null, // string
+    "postcode" => null, // string
+    "primary_care_trust" => null, // string
+    "quality" => null, // int
+    "region" => null, // string
     "result" => null, // array
     "status" => null, // int
 ]);
@@ -508,7 +604,7 @@ Create an instance: `$scottish_postcode = $client->ScottishPostcode();`
 #### Example: Load
 
 ```php
-// load() returns the bare ScottishPostcode record (throws on error).
+// load() returns the ENTITY — call data_get() for the ScottishPostcode record (throws on error).
 $scottish_postcode = $client->ScottishPostcode()->load(["id" => "scottish_postcode_id"]);
 ```
 
@@ -533,7 +629,7 @@ Create an instance: `$terminated_postcode = $client->TerminatedPostcode();`
 #### Example: Load
 
 ```php
-// load() returns the bare TerminatedPostcode record (throws on error).
+// load() returns the ENTITY — call data_get() for the TerminatedPostcode record (throws on error).
 $terminated_postcode = $client->TerminatedPostcode()->load(["id" => "terminated_postcode_id"]);
 ```
 

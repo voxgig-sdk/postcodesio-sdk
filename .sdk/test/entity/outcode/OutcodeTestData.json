@@ -2,28 +2,19 @@
   "existing": {
     "outcode": {
       "OUTCODE00": {
-        "result": "s14",
-        "status": "s15",
         "id": "OUTCODE00"
       },
       "OUTCODE01": {
-        "result": "s28",
-        "status": "s29",
         "id": "OUTCODE01"
       },
       "OUTCODE02": {
-        "result": "s3c",
-        "status": "s3d",
         "id": "OUTCODE02"
       }
     }
   },
   "new": {
     "outcode": {
-      "outcode_ref01": {
-        "result": "s50",
-        "status": "s51"
-      }
+      "outcode_ref01": {}
     }
   }
 }

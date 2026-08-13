@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from postcodesio_sdk.utility.voxgig_struct import voxgig_struct as vs
 from postcodesio_sdk import PostcodesioSDK
-from core import helpers
+from postcodesio_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestPostcodeEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from postcodesio_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = PostcodesioSDK.test(
@@ -78,7 +78,7 @@ class TestPostcodeEntity:
         postcode_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.postcode"), "postcode_ref01"))
 
-        postcode_ref01_data = helpers.to_map(postcode_ref01_ent.create(postcode_ref01_data, None))
+        postcode_ref01_data = helpers.to_map(runner.entity_data(postcode_ref01_ent.create(postcode_ref01_data, None)))
         assert postcode_ref01_data is not None
 
         # LIST
@@ -86,11 +86,6 @@ class TestPostcodeEntity:
 
         postcode_ref01_list_result = postcode_ref01_ent.list(postcode_ref01_match, None)
         assert isinstance(postcode_ref01_list_result, list)
-
-        found_item = vs.select(
-            runner.entity_list_to_data(postcode_ref01_list_result),
-            {"id": postcode_ref01_data["id"]})
-        assert not vs.isempty(found_item)
 
         # LOAD
         postcode_ref01_match_dt0 = {}

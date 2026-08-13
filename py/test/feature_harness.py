@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import PostcodesioControl
-from core.error import PostcodesioError
-from core.result import PostcodesioResult
-from core.spec import PostcodesioSpec
+from postcodesio_sdk.config import make_config
+from postcodesio_sdk.features import _make_feature
+from postcodesio_sdk.core.control import PostcodesioControl
+from postcodesio_sdk.core.error import PostcodesioError
+from postcodesio_sdk.core.result import PostcodesioResult
+from postcodesio_sdk.core.spec import PostcodesioSpec
 
 
 # True when this SDK was generated with the named feature.

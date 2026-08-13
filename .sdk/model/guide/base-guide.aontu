@@ -9,6 +9,7 @@ guide: {
     path: "/postcodes/{postcode}/nearest": {
       rename: param: "postcode": *"postcode_id"
       op: list: method: *GET
+      op: list: transform: res: *("`body.result`")|top
     }
   }
 
@@ -16,33 +17,41 @@ guide: {
     path: "/outcodes/{outcode}": {
       rename: param: "outcode": *"id"
       op: load: method: *GET
+      op: load: transform: res: *("`body.result`")|top
     }
   }
 
   entity: place: {
     path: "/places": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.result`")|top
     }
     path: "/places/{code}": {
       rename: param: "code": *"id"
       op: load: method: *GET
+      op: load: transform: res: *("`body.result`")|top
     }
     path: "/random/places": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.result`")|top
     }
   }
 
   entity: postcode: {
     path: "/postcodes": {
       op: create: method: *POST
+      op: create: transform: res: *("`body.result`")|top
       op: list: method: *GET
+      op: list: transform: res: *("`body.result`")|top
     }
     path: "/postcodes/{postcode}": {
       rename: param: "postcode": *"id"
       op: load: method: *GET
+      op: load: transform: res: *("`body.result`")|top
     }
     path: "/random/postcodes": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.result`")|top
     }
   }
 

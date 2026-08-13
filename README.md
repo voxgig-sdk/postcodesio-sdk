@@ -23,7 +23,7 @@ support (`list`, `load`, `create`):
 
 ```ts
 const client = new PostcodesioSDK()
-const items = await client.Nearest().list()
+const items = await client.Nearest().list({ postcode_id: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = PostcodesioSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = PostcodesioSDK.test({
+  entity: {
+    nearest: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const nearests = await client.Nearest().list()
-// nearests is an array of bare Nearest records populated with mock data
+// nearests is an array of Nearest entities, populated with mock data
+// — call nearests[0].data() for the record itself
 console.log(nearests)
 ```
 
@@ -110,8 +119,8 @@ import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
 
 const client = new PostcodesioSDK()
 
-// List all nearests (returns Nearest[])
-const nearests = await client.Nearest().list()
+// List all nearests (returns NearestEntity[] — .data() for the record)
+const nearests = await client.Nearest().list({ postcode_id: "example" })
 for (const nearest of nearests) {
   console.log(nearest)
 }
@@ -175,7 +184,7 @@ from postcodesio_sdk import PostcodesioSDK
 client = PostcodesioSDK()
 
 # List all nearests (returns a list, raises on error)
-nearests = client.Nearest().list()
+nearests = client.Nearest().list({"postcode_id": "example"})
 for nearest in nearests:
     print(nearest)
 ```
@@ -348,6 +357,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://ideal-postcodes.co.uk/support](https://ideal-postcodes.co.uk/support)
 

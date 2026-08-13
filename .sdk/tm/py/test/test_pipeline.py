@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import PostcodesioSDK
-from core.error import PostcodesioError
-from core.result import PostcodesioResult
-from core.response import PostcodesioResponse
-from core.spec import PostcodesioSpec
-from feature.base_feature import PostcodesioBaseFeature
+from projectname_sdk.core.error import PostcodesioError
+from projectname_sdk.core.result import PostcodesioResult
+from projectname_sdk.core.response import PostcodesioResponse
+from projectname_sdk.core.spec import PostcodesioSpec
+from projectname_sdk.feature.base_feature import PostcodesioBaseFeature
 
 
 def _client():

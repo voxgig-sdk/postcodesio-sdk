@@ -4,19 +4,6 @@ main: kit: entity: outcode: {
 
   alias: field: {}
 
-  fields: [
-    {
-      name: "result"
-      req: true
-      type: "`$ANY`"
-    }
-    {
-      name: "status"
-      req: true
-      type: "`$INTEGER`"
-    }
-  ]
-
   name: "outcode"
   op: {
     load: {
@@ -53,7 +40,7 @@ main: kit: entity: outcode: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.result`"
           }
         }
       ]

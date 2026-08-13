@@ -226,9 +226,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local nearest, err = client:Nearest():load()
+    local outcode, err = client:Outcode():load({ id = "example_id" })
     if err then error(err) end
-    -- nearest is the loaded record
+    -- outcode is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -250,8 +250,6 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
-| `result` |  |
-| `status` |  |
 
 Operations: Load.
 
@@ -267,23 +265,21 @@ API path: `/outcodes/{outcode}`
 | `county_unitary_type` |  |
 | `district_borough` |  |
 | `district_borough_type` |  |
-| `easting` |  |
+| `eastings` |  |
 | `latitude` |  |
 | `local_type` |  |
 | `longitude` |  |
-| `max_easting` |  |
-| `max_northing` |  |
-| `min_easting` |  |
-| `min_northing` |  |
+| `max_eastings` |  |
+| `max_northings` |  |
+| `min_eastings` |  |
+| `min_northings` |  |
 | `name_1` |  |
 | `name_1_lang` |  |
 | `name_2` |  |
 | `name_2_lang` |  |
-| `northing` |  |
+| `northings` |  |
 | `outcode` |  |
 | `region` |  |
-| `result` |  |
-| `status` |  |
 
 Operations: List, Load.
 
@@ -293,8 +289,50 @@ API path: `/places`
 
 | Field | Description |
 | --- | --- |
+| `admin_county` |  |
+| `admin_district` |  |
+| `admin_ward` |  |
+| `bua` |  |
+| `cancer_alliance` |  |
+| `ccg` |  |
+| `ced` |  |
+| `codes` |  |
+| `country` |  |
+| `date_of_introduction` |  |
+| `eastings` |  |
+| `european_electoral_region` |  |
+| `icb` |  |
+| `incode` |  |
+| `latitude` |  |
+| `lep1` |  |
+| `lep2` |  |
+| `longitude` |  |
+| `lsoa` |  |
+| `lsoa11` |  |
+| `lsoa21` |  |
+| `msoa` |  |
+| `msoa11` |  |
+| `msoa21` |  |
+| `national_park` |  |
+| `nhs_ha` |  |
+| `nhs_region` |  |
+| `northings` |  |
+| `nuts` |  |
+| `oa21` |  |
+| `outcode` |  |
+| `parish` |  |
+| `parliamentary_constituency` |  |
+| `parliamentary_constituency_2024` |  |
+| `pfa` |  |
+| `postcode` |  |
+| `primary_care_trust` |  |
+| `quality` |  |
+| `region` |  |
 | `result` |  |
+| `ruc11` |  |
+| `ruc21` |  |
 | `status` |  |
+| `ttwa` |  |
 
 Operations: Create, List, Load.
 
@@ -361,13 +399,6 @@ Create an instance: `local outcode = client:Outcode(nil)`
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `result` | `any` |  |
-| `status` | `number` |  |
-
 #### Example: Load
 
 ```lua
@@ -396,23 +427,21 @@ Create an instance: `local place = client:Place(nil)`
 | `county_unitary_type` | `string` |  |
 | `district_borough` | `string` |  |
 | `district_borough_type` | `string` |  |
-| `easting` | `number` |  |
+| `eastings` | `number` |  |
 | `latitude` | `number` |  |
 | `local_type` | `string` |  |
 | `longitude` | `number` |  |
-| `max_easting` | `number` |  |
-| `max_northing` | `number` |  |
-| `min_easting` | `number` |  |
-| `min_northing` | `number` |  |
+| `max_eastings` | `number` |  |
+| `max_northings` | `number` |  |
+| `min_eastings` | `number` |  |
+| `min_northings` | `number` |  |
 | `name_1` | `string` |  |
 | `name_1_lang` | `string` |  |
 | `name_2` | `string` |  |
 | `name_2_lang` | `string` |  |
-| `northing` | `number` |  |
+| `northings` | `number` |  |
 | `outcode` | `string` |  |
 | `region` | `string` |  |
-| `result` | `table` |  |
-| `status` | `number` |  |
 
 #### Example: Load
 
@@ -443,8 +472,50 @@ Create an instance: `local postcode = client:Postcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `admin_county` | `string` |  |
+| `admin_district` | `string` |  |
+| `admin_ward` | `string` |  |
+| `bua` | `string` |  |
+| `cancer_alliance` | `string` |  |
+| `ccg` | `string` |  |
+| `ced` | `string` |  |
+| `codes` | `table` |  |
+| `country` | `string` |  |
+| `date_of_introduction` | `string` |  |
+| `eastings` | `number` |  |
+| `european_electoral_region` | `string` |  |
+| `icb` | `string` |  |
+| `incode` | `string` |  |
+| `latitude` | `number` |  |
+| `lep1` | `string` |  |
+| `lep2` | `string` |  |
+| `longitude` | `number` |  |
+| `lsoa` | `string` |  |
+| `lsoa11` | `string` |  |
+| `lsoa21` | `string` |  |
+| `msoa` | `string` |  |
+| `msoa11` | `string` |  |
+| `msoa21` | `string` |  |
+| `national_park` | `string` |  |
+| `nhs_ha` | `string` |  |
+| `nhs_region` | `string` |  |
+| `northings` | `number` |  |
+| `nuts` | `string` |  |
+| `oa21` | `string` |  |
+| `outcode` | `string` |  |
+| `parish` | `string` |  |
+| `parliamentary_constituency` | `string` |  |
+| `parliamentary_constituency_2024` | `string` |  |
+| `pfa` | `string` |  |
+| `postcode` | `string` |  |
+| `primary_care_trust` | `string` |  |
+| `quality` | `number` |  |
+| `region` | `string` |  |
 | `result` | `table` |  |
+| `ruc11` | `string` |  |
+| `ruc21` | `string` |  |
 | `status` | `number` |  |
+| `ttwa` | `string` |  |
 
 #### Example: Load
 
@@ -462,6 +533,30 @@ local postcodes, err = client:Postcode():list()
 
 ```lua
 local postcode, err = client:Postcode():create({
+  admin_county = "example_admin_county", -- string
+  admin_district = "example_admin_district", -- string
+  admin_ward = "example_admin_ward", -- string
+  ccg = "example_ccg", -- string
+  ced = "example_ced", -- string
+  codes = {}, -- table
+  country = "example_country", -- string
+  eastings = 1, -- number
+  european_electoral_region = "example_european_electoral_region", -- string
+  incode = "example_incode", -- string
+  latitude = 1, -- number
+  longitude = 1, -- number
+  lsoa = "example_lsoa", -- string
+  msoa = "example_msoa", -- string
+  nhs_ha = "example_nhs_ha", -- string
+  northings = 1, -- number
+  nuts = "example_nuts", -- string
+  outcode = "example_outcode", -- string
+  parish = "example_parish", -- string
+  parliamentary_constituency = "example_parliamentary_constituency", -- string
+  postcode = "example_postcode", -- string
+  primary_care_trust = "example_primary_care_trust", -- string
+  quality = 1, -- number
+  region = "example_region", -- string
   result = {}, -- table
   status = 1, -- number
 })

@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Postcodesio SDK exists test
 
 import pytest
 from postcodesio_sdk import PostcodesioSDK

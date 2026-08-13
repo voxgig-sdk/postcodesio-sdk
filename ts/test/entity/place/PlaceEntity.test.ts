@@ -63,7 +63,7 @@ describe('PlaceEntity', async () => {
     const place_ref01_ent = client.Place()
     const place_ref01_match: any = {}
 
-    const place_ref01_list = await place_ref01_ent.list(place_ref01_match)
+    const place_ref01_list = (await place_ref01_ent.list(place_ref01_match)).map((e: any) => e.data())
 
 
 

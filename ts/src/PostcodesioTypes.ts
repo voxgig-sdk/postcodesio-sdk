@@ -15,8 +15,6 @@ export interface NearestListMatch {
 }
 
 export interface Outcode {
-  result: any
-  status: number
 }
 
 export interface OutcodeLoadMatch {
@@ -30,23 +28,21 @@ export interface Place {
   county_unitary_type: string
   district_borough: string
   district_borough_type?: string
-  easting: number
+  eastings: number
   latitude: number
   local_type: string
   longitude: number
-  max_easting: number
-  max_northing: number
-  min_easting: number
-  min_northing: number
+  max_eastings: number
+  max_northings: number
+  min_eastings: number
+  min_northings: number
   name_1: string
   name_1_lang: string
   name_2: string
   name_2_lang: string
-  northing: number
+  northings: number
   outcode: string
   region: string
-  result: Record<string, any>
-  status: number
 }
 
 export interface PlaceLoadMatch {
@@ -60,28 +56,68 @@ export interface PlaceListMatch {
   county_unitary_type?: string
   district_borough?: string
   district_borough_type?: string
-  easting?: number
+  eastings?: number
   latitude?: number
   local_type?: string
   longitude?: number
-  max_easting?: number
-  max_northing?: number
-  min_easting?: number
-  min_northing?: number
+  max_eastings?: number
+  max_northings?: number
+  min_eastings?: number
+  min_northings?: number
   name_1?: string
   name_1_lang?: string
   name_2?: string
   name_2_lang?: string
-  northing?: number
+  northings?: number
   outcode?: string
   region?: string
-  result?: Record<string, any>
-  status?: number
 }
 
 export interface Postcode {
-  result: Record<string, any>
+  admin_county: string
+  admin_district: string
+  admin_ward: string
+  bua?: string
+  cancer_alliance?: string
+  ccg: string
+  ced: string
+  codes: Record<string, any>
+  country: string
+  date_of_introduction?: string
+  eastings: number
+  european_electoral_region: string
+  icb?: string
+  incode: string
+  latitude: number
+  lep1?: string
+  lep2?: string
+  longitude: number
+  lsoa: string
+  lsoa11?: string
+  lsoa21?: string
+  msoa: string
+  msoa11?: string
+  msoa21?: string
+  national_park?: string
+  nhs_ha: string
+  nhs_region?: string
+  northings: number
+  nuts: string
+  oa21?: string
+  outcode: string
+  parish: string
+  parliamentary_constituency: string
+  parliamentary_constituency_2024?: string
+  pfa?: string
+  postcode: string
+  primary_care_trust: string
+  quality: number
+  region: string
+  result: any[]
+  ruc11?: string
+  ruc21?: string
   status: number
+  ttwa?: string
 }
 
 export interface PostcodeLoadMatch {
@@ -89,13 +125,97 @@ export interface PostcodeLoadMatch {
 }
 
 export interface PostcodeListMatch {
-  result?: Record<string, any>
+  admin_county?: string
+  admin_district?: string
+  admin_ward?: string
+  bua?: string
+  cancer_alliance?: string
+  ccg?: string
+  ced?: string
+  codes?: Record<string, any>
+  country?: string
+  date_of_introduction?: string
+  eastings?: number
+  european_electoral_region?: string
+  icb?: string
+  incode?: string
+  latitude?: number
+  lep1?: string
+  lep2?: string
+  longitude?: number
+  lsoa?: string
+  lsoa11?: string
+  lsoa21?: string
+  msoa?: string
+  msoa11?: string
+  msoa21?: string
+  national_park?: string
+  nhs_ha?: string
+  nhs_region?: string
+  northings?: number
+  nuts?: string
+  oa21?: string
+  outcode?: string
+  parish?: string
+  parliamentary_constituency?: string
+  parliamentary_constituency_2024?: string
+  pfa?: string
+  postcode?: string
+  primary_care_trust?: string
+  quality?: number
+  region?: string
+  result?: any[]
+  ruc11?: string
+  ruc21?: string
   status?: number
+  ttwa?: string
 }
 
 export interface PostcodeCreateData {
-  result: Record<string, any>
+  admin_county: string
+  admin_district: string
+  admin_ward: string
+  bua?: string
+  cancer_alliance?: string
+  ccg: string
+  ced: string
+  codes: Record<string, any>
+  country: string
+  date_of_introduction?: string
+  eastings: number
+  european_electoral_region: string
+  icb?: string
+  incode: string
+  latitude: number
+  lep1?: string
+  lep2?: string
+  longitude: number
+  lsoa: string
+  lsoa11?: string
+  lsoa21?: string
+  msoa: string
+  msoa11?: string
+  msoa21?: string
+  national_park?: string
+  nhs_ha: string
+  nhs_region?: string
+  northings: number
+  nuts: string
+  oa21?: string
+  outcode: string
+  parish: string
+  parliamentary_constituency: string
+  parliamentary_constituency_2024?: string
+  pfa?: string
+  postcode: string
+  primary_care_trust: string
+  quality: number
+  region: string
+  result: any[]
+  ruc11?: string
+  ruc21?: string
   status: number
+  ttwa?: string
 }
 
 export interface ScottishPostcode {

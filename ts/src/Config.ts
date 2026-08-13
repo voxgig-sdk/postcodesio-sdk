@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Postcodesio',
   }
 
 
@@ -106,6 +106,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/postcodes/{postcode}/nearest",
               "parts": [
@@ -125,7 +126,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             }
@@ -142,22 +143,7 @@ class Config {
       }
     },
     "outcode": {
-      "fields": [
-        {
-          "active": true,
-          "name": "result",
-          "req": true,
-          "type": "`$ANY`",
-          "index$": 0
-        },
-        {
-          "active": true,
-          "name": "status",
-          "req": true,
-          "type": "`$INTEGER`",
-          "index$": 1
-        }
-      ],
+      "fields": [],
       "name": "outcode",
       "op": {
         "load": {
@@ -180,6 +166,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/outcodes/{outcode}",
               "parts": [
@@ -198,7 +185,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             }
@@ -256,7 +243,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "easting",
+          "name": "eastings",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 6
@@ -284,28 +271,28 @@ class Config {
         },
         {
           "active": true,
-          "name": "max_easting",
+          "name": "max_eastings",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 10
         },
         {
           "active": true,
-          "name": "max_northing",
+          "name": "max_northings",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 11
         },
         {
           "active": true,
-          "name": "min_easting",
+          "name": "min_eastings",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 12
         },
         {
           "active": true,
-          "name": "min_northing",
+          "name": "min_northings",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 13
@@ -340,7 +327,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "northing",
+          "name": "northings",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 18
@@ -358,20 +345,6 @@ class Config {
           "req": true,
           "type": "`$STRING`",
           "index$": 20
-        },
-        {
-          "active": true,
-          "name": "result",
-          "req": true,
-          "type": "`$OBJECT`",
-          "index$": 21
-        },
-        {
-          "active": true,
-          "name": "status",
-          "req": true,
-          "type": "`$INTEGER`",
-          "index$": 22
         }
       ],
       "name": "place",
@@ -383,6 +356,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/places",
               "parts": [
@@ -391,7 +365,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             }
@@ -417,6 +391,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/places/{code}",
               "parts": [
@@ -435,13 +410,14 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/random/places",
               "parts": [
@@ -451,7 +427,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 1
             }
@@ -467,17 +443,311 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "result",
+          "name": "admin_county",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 0
+        },
+        {
+          "active": true,
+          "name": "admin_district",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 1
+        },
+        {
+          "active": true,
+          "name": "admin_ward",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 2
+        },
+        {
+          "active": true,
+          "name": "bua",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 3
+        },
+        {
+          "active": true,
+          "name": "cancer_alliance",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 4
+        },
+        {
+          "active": true,
+          "name": "ccg",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 5
+        },
+        {
+          "active": true,
+          "name": "ced",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 6
+        },
+        {
+          "active": true,
+          "name": "codes",
           "req": true,
           "type": "`$OBJECT`",
-          "index$": 0
+          "index$": 7
+        },
+        {
+          "active": true,
+          "name": "country",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 8
+        },
+        {
+          "active": true,
+          "name": "date_of_introduction",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 9
+        },
+        {
+          "active": true,
+          "name": "eastings",
+          "req": true,
+          "type": "`$INTEGER`",
+          "index$": 10
+        },
+        {
+          "active": true,
+          "name": "european_electoral_region",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 11
+        },
+        {
+          "active": true,
+          "name": "icb",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 12
+        },
+        {
+          "active": true,
+          "name": "incode",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 13
+        },
+        {
+          "active": true,
+          "name": "latitude",
+          "req": true,
+          "type": "`$NUMBER`",
+          "index$": 14
+        },
+        {
+          "active": true,
+          "name": "lep1",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 15
+        },
+        {
+          "active": true,
+          "name": "lep2",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 16
+        },
+        {
+          "active": true,
+          "name": "longitude",
+          "req": true,
+          "type": "`$NUMBER`",
+          "index$": 17
+        },
+        {
+          "active": true,
+          "name": "lsoa",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 18
+        },
+        {
+          "active": true,
+          "name": "lsoa11",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 19
+        },
+        {
+          "active": true,
+          "name": "lsoa21",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 20
+        },
+        {
+          "active": true,
+          "name": "msoa",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 21
+        },
+        {
+          "active": true,
+          "name": "msoa11",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 22
+        },
+        {
+          "active": true,
+          "name": "msoa21",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 23
+        },
+        {
+          "active": true,
+          "name": "national_park",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 24
+        },
+        {
+          "active": true,
+          "name": "nhs_ha",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 25
+        },
+        {
+          "active": true,
+          "name": "nhs_region",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 26
+        },
+        {
+          "active": true,
+          "name": "northings",
+          "req": true,
+          "type": "`$INTEGER`",
+          "index$": 27
+        },
+        {
+          "active": true,
+          "name": "nuts",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 28
+        },
+        {
+          "active": true,
+          "name": "oa21",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 29
+        },
+        {
+          "active": true,
+          "name": "outcode",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 30
+        },
+        {
+          "active": true,
+          "name": "parish",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 31
+        },
+        {
+          "active": true,
+          "name": "parliamentary_constituency",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 32
+        },
+        {
+          "active": true,
+          "name": "parliamentary_constituency_2024",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 33
+        },
+        {
+          "active": true,
+          "name": "pfa",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 34
+        },
+        {
+          "active": true,
+          "name": "postcode",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 35
+        },
+        {
+          "active": true,
+          "name": "primary_care_trust",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 36
+        },
+        {
+          "active": true,
+          "name": "quality",
+          "req": true,
+          "type": "`$INTEGER`",
+          "index$": 37
+        },
+        {
+          "active": true,
+          "name": "region",
+          "req": true,
+          "type": "`$STRING`",
+          "index$": 38
+        },
+        {
+          "active": true,
+          "name": "result",
+          "req": true,
+          "type": "`$ARRAY`",
+          "index$": 39
+        },
+        {
+          "active": true,
+          "name": "ruc11",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 40
+        },
+        {
+          "active": true,
+          "name": "ruc21",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 41
         },
         {
           "active": true,
           "name": "status",
           "req": true,
           "type": "`$INTEGER`",
-          "index$": 1
+          "index$": 42
+        },
+        {
+          "active": true,
+          "name": "ttwa",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 43
         }
       ],
       "name": "postcode",
@@ -489,6 +759,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/postcodes",
               "parts": [
@@ -497,7 +768,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             }
@@ -577,6 +848,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/postcodes",
               "parts": [
@@ -595,7 +867,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             }
@@ -622,6 +894,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/postcodes/{postcode}",
               "parts": [
@@ -640,7 +913,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 0
             },
@@ -659,6 +932,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/random/postcodes",
               "parts": [
@@ -672,7 +946,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.result`"
               },
               "index$": 1
             }
@@ -722,6 +996,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/scotland/postcodes/{postcode}",
               "parts": [
@@ -791,6 +1066,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/terminated_postcodes/{postcode}",
               "parts": [

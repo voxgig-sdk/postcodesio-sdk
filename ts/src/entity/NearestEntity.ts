@@ -37,7 +37,7 @@ class NearestEntity extends PostcodesioEntityBase<Nearest> {
 
 
 
-  async list(this: any, reqmatch?: NearestListMatch, ctrl?: Control): Promise<Nearest[]> {
+  async list(this: any, reqmatch?: NearestListMatch, ctrl?: Control): Promise<NearestEntity[]> {
 
     const utility = this._utility
 

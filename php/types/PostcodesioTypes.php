@@ -28,8 +28,6 @@ class NearestListMatch
 /** Outcode entity data model. */
 class Outcode
 {
-    public mixed $result;
-    public int $status;
 }
 
 /** Request payload for Outcode#load. */
@@ -47,23 +45,21 @@ class Place
     public string $county_unitary_type;
     public string $district_borough;
     public ?string $district_borough_type = null;
-    public int $easting;
+    public int $eastings;
     public float $latitude;
     public string $local_type;
     public float $longitude;
-    public int $max_easting;
-    public int $max_northing;
-    public int $min_easting;
-    public int $min_northing;
+    public int $max_eastings;
+    public int $max_northings;
+    public int $min_eastings;
+    public int $min_northings;
     public string $name_1;
     public string $name_1_lang;
     public string $name_2;
     public string $name_2_lang;
-    public int $northing;
+    public int $northings;
     public string $outcode;
     public string $region;
-    public array $result;
-    public int $status;
 }
 
 /** Request payload for Place#load. */
@@ -81,30 +77,70 @@ class PlaceListMatch
     public ?string $county_unitary_type = null;
     public ?string $district_borough = null;
     public ?string $district_borough_type = null;
-    public ?int $easting = null;
+    public ?int $eastings = null;
     public ?float $latitude = null;
     public ?string $local_type = null;
     public ?float $longitude = null;
-    public ?int $max_easting = null;
-    public ?int $max_northing = null;
-    public ?int $min_easting = null;
-    public ?int $min_northing = null;
+    public ?int $max_eastings = null;
+    public ?int $max_northings = null;
+    public ?int $min_eastings = null;
+    public ?int $min_northings = null;
     public ?string $name_1 = null;
     public ?string $name_1_lang = null;
     public ?string $name_2 = null;
     public ?string $name_2_lang = null;
-    public ?int $northing = null;
+    public ?int $northings = null;
     public ?string $outcode = null;
     public ?string $region = null;
-    public ?array $result = null;
-    public ?int $status = null;
 }
 
 /** Postcode entity data model. */
 class Postcode
 {
+    public string $admin_county;
+    public string $admin_district;
+    public string $admin_ward;
+    public ?string $bua = null;
+    public ?string $cancer_alliance = null;
+    public string $ccg;
+    public string $ced;
+    public array $codes;
+    public string $country;
+    public ?string $date_of_introduction = null;
+    public int $eastings;
+    public string $european_electoral_region;
+    public ?string $icb = null;
+    public string $incode;
+    public float $latitude;
+    public ?string $lep1 = null;
+    public ?string $lep2 = null;
+    public float $longitude;
+    public string $lsoa;
+    public ?string $lsoa11 = null;
+    public ?string $lsoa21 = null;
+    public string $msoa;
+    public ?string $msoa11 = null;
+    public ?string $msoa21 = null;
+    public ?string $national_park = null;
+    public string $nhs_ha;
+    public ?string $nhs_region = null;
+    public int $northings;
+    public string $nuts;
+    public ?string $oa21 = null;
+    public string $outcode;
+    public string $parish;
+    public string $parliamentary_constituency;
+    public ?string $parliamentary_constituency_2024 = null;
+    public ?string $pfa = null;
+    public string $postcode;
+    public string $primary_care_trust;
+    public int $quality;
+    public string $region;
     public array $result;
+    public ?string $ruc11 = null;
+    public ?string $ruc21 = null;
     public int $status;
+    public ?string $ttwa = null;
 }
 
 /** Request payload for Postcode#load. */
@@ -116,15 +152,99 @@ class PostcodeLoadMatch
 /** Request payload for Postcode#list. */
 class PostcodeListMatch
 {
+    public ?string $admin_county = null;
+    public ?string $admin_district = null;
+    public ?string $admin_ward = null;
+    public ?string $bua = null;
+    public ?string $cancer_alliance = null;
+    public ?string $ccg = null;
+    public ?string $ced = null;
+    public ?array $codes = null;
+    public ?string $country = null;
+    public ?string $date_of_introduction = null;
+    public ?int $eastings = null;
+    public ?string $european_electoral_region = null;
+    public ?string $icb = null;
+    public ?string $incode = null;
+    public ?float $latitude = null;
+    public ?string $lep1 = null;
+    public ?string $lep2 = null;
+    public ?float $longitude = null;
+    public ?string $lsoa = null;
+    public ?string $lsoa11 = null;
+    public ?string $lsoa21 = null;
+    public ?string $msoa = null;
+    public ?string $msoa11 = null;
+    public ?string $msoa21 = null;
+    public ?string $national_park = null;
+    public ?string $nhs_ha = null;
+    public ?string $nhs_region = null;
+    public ?int $northings = null;
+    public ?string $nuts = null;
+    public ?string $oa21 = null;
+    public ?string $outcode = null;
+    public ?string $parish = null;
+    public ?string $parliamentary_constituency = null;
+    public ?string $parliamentary_constituency_2024 = null;
+    public ?string $pfa = null;
+    public ?string $postcode = null;
+    public ?string $primary_care_trust = null;
+    public ?int $quality = null;
+    public ?string $region = null;
     public ?array $result = null;
+    public ?string $ruc11 = null;
+    public ?string $ruc21 = null;
     public ?int $status = null;
+    public ?string $ttwa = null;
 }
 
 /** Request payload for Postcode#create. */
 class PostcodeCreateData
 {
+    public string $admin_county;
+    public string $admin_district;
+    public string $admin_ward;
+    public ?string $bua = null;
+    public ?string $cancer_alliance = null;
+    public string $ccg;
+    public string $ced;
+    public array $codes;
+    public string $country;
+    public ?string $date_of_introduction = null;
+    public int $eastings;
+    public string $european_electoral_region;
+    public ?string $icb = null;
+    public string $incode;
+    public float $latitude;
+    public ?string $lep1 = null;
+    public ?string $lep2 = null;
+    public float $longitude;
+    public string $lsoa;
+    public ?string $lsoa11 = null;
+    public ?string $lsoa21 = null;
+    public string $msoa;
+    public ?string $msoa11 = null;
+    public ?string $msoa21 = null;
+    public ?string $national_park = null;
+    public string $nhs_ha;
+    public ?string $nhs_region = null;
+    public int $northings;
+    public string $nuts;
+    public ?string $oa21 = null;
+    public string $outcode;
+    public string $parish;
+    public string $parliamentary_constituency;
+    public ?string $parliamentary_constituency_2024 = null;
+    public ?string $pfa = null;
+    public string $postcode;
+    public string $primary_care_trust;
+    public int $quality;
+    public string $region;
     public array $result;
+    public ?string $ruc11 = null;
+    public ?string $ruc21 = null;
     public int $status;
+    public ?string $ttwa = null;
 }
 
 /** ScottishPostcode entity data model. */

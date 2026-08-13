@@ -119,7 +119,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = PostcodesioSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 nearest = client.Nearest.list()
 puts nearest
 ```
@@ -254,8 +255,6 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
-| `result` |  |
-| `status` |  |
 
 Operations: Load.
 
@@ -271,23 +270,21 @@ API path: `/outcodes/{outcode}`
 | `county_unitary_type` |  |
 | `district_borough` |  |
 | `district_borough_type` |  |
-| `easting` |  |
+| `eastings` |  |
 | `latitude` |  |
 | `local_type` |  |
 | `longitude` |  |
-| `max_easting` |  |
-| `max_northing` |  |
-| `min_easting` |  |
-| `min_northing` |  |
+| `max_eastings` |  |
+| `max_northings` |  |
+| `min_eastings` |  |
+| `min_northings` |  |
 | `name_1` |  |
 | `name_1_lang` |  |
 | `name_2` |  |
 | `name_2_lang` |  |
-| `northing` |  |
+| `northings` |  |
 | `outcode` |  |
 | `region` |  |
-| `result` |  |
-| `status` |  |
 
 Operations: List, Load.
 
@@ -297,8 +294,50 @@ API path: `/places`
 
 | Field | Description |
 | --- | --- |
+| `admin_county` |  |
+| `admin_district` |  |
+| `admin_ward` |  |
+| `bua` |  |
+| `cancer_alliance` |  |
+| `ccg` |  |
+| `ced` |  |
+| `codes` |  |
+| `country` |  |
+| `date_of_introduction` |  |
+| `eastings` |  |
+| `european_electoral_region` |  |
+| `icb` |  |
+| `incode` |  |
+| `latitude` |  |
+| `lep1` |  |
+| `lep2` |  |
+| `longitude` |  |
+| `lsoa` |  |
+| `lsoa11` |  |
+| `lsoa21` |  |
+| `msoa` |  |
+| `msoa11` |  |
+| `msoa21` |  |
+| `national_park` |  |
+| `nhs_ha` |  |
+| `nhs_region` |  |
+| `northings` |  |
+| `nuts` |  |
+| `oa21` |  |
+| `outcode` |  |
+| `parish` |  |
+| `parliamentary_constituency` |  |
+| `parliamentary_constituency_2024` |  |
+| `pfa` |  |
+| `postcode` |  |
+| `primary_care_trust` |  |
+| `quality` |  |
+| `region` |  |
 | `result` |  |
+| `ruc11` |  |
+| `ruc21` |  |
 | `status` |  |
+| `ttwa` |  |
 
 Operations: Create, List, Load.
 
@@ -366,17 +405,10 @@ Create an instance: `outcode = client.Outcode`
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `result` | `Object` |  |
-| `status` | `Integer` |  |
-
 #### Example: Load
 
 ```ruby
-# load returns the bare Outcode record (raises on error).
+# load returns the ENTITY — call data_get for the Outcode record (raises on error).
 outcode = client.Outcode.load({ "id" => "outcode_id" })
 ```
 
@@ -402,28 +434,26 @@ Create an instance: `place = client.Place`
 | `county_unitary_type` | `String` |  |
 | `district_borough` | `String` |  |
 | `district_borough_type` | `String` |  |
-| `easting` | `Integer` |  |
+| `eastings` | `Integer` |  |
 | `latitude` | `Float` |  |
 | `local_type` | `String` |  |
 | `longitude` | `Float` |  |
-| `max_easting` | `Integer` |  |
-| `max_northing` | `Integer` |  |
-| `min_easting` | `Integer` |  |
-| `min_northing` | `Integer` |  |
+| `max_eastings` | `Integer` |  |
+| `max_northings` | `Integer` |  |
+| `min_eastings` | `Integer` |  |
+| `min_northings` | `Integer` |  |
 | `name_1` | `String` |  |
 | `name_1_lang` | `String` |  |
 | `name_2` | `String` |  |
 | `name_2_lang` | `String` |  |
-| `northing` | `Integer` |  |
+| `northings` | `Integer` |  |
 | `outcode` | `String` |  |
 | `region` | `String` |  |
-| `result` | `Hash` |  |
-| `status` | `Integer` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Place record (raises on error).
+# load returns the ENTITY — call data_get for the Place record (raises on error).
 place = client.Place.load({ "id" => "place_id" })
 ```
 
@@ -451,13 +481,55 @@ Create an instance: `postcode = client.Postcode`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | `Hash` |  |
+| `admin_county` | `String` |  |
+| `admin_district` | `String` |  |
+| `admin_ward` | `String` |  |
+| `bua` | `String` |  |
+| `cancer_alliance` | `String` |  |
+| `ccg` | `String` |  |
+| `ced` | `String` |  |
+| `codes` | `Hash` |  |
+| `country` | `String` |  |
+| `date_of_introduction` | `String` |  |
+| `eastings` | `Integer` |  |
+| `european_electoral_region` | `String` |  |
+| `icb` | `String` |  |
+| `incode` | `String` |  |
+| `latitude` | `Float` |  |
+| `lep1` | `String` |  |
+| `lep2` | `String` |  |
+| `longitude` | `Float` |  |
+| `lsoa` | `String` |  |
+| `lsoa11` | `String` |  |
+| `lsoa21` | `String` |  |
+| `msoa` | `String` |  |
+| `msoa11` | `String` |  |
+| `msoa21` | `String` |  |
+| `national_park` | `String` |  |
+| `nhs_ha` | `String` |  |
+| `nhs_region` | `String` |  |
+| `northings` | `Integer` |  |
+| `nuts` | `String` |  |
+| `oa21` | `String` |  |
+| `outcode` | `String` |  |
+| `parish` | `String` |  |
+| `parliamentary_constituency` | `String` |  |
+| `parliamentary_constituency_2024` | `String` |  |
+| `pfa` | `String` |  |
+| `postcode` | `String` |  |
+| `primary_care_trust` | `String` |  |
+| `quality` | `Integer` |  |
+| `region` | `String` |  |
+| `result` | `Array` |  |
+| `ruc11` | `String` |  |
+| `ruc21` | `String` |  |
 | `status` | `Integer` |  |
+| `ttwa` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Postcode record (raises on error).
+# load returns the ENTITY — call data_get for the Postcode record (raises on error).
 postcode = client.Postcode.load({ "id" => "postcode_id" })
 ```
 
@@ -472,7 +544,31 @@ postcodes = client.Postcode.list
 
 ```ruby
 postcode = client.Postcode.create({
-  "result" => {}, # Hash
+  "admin_county" => "example_admin_county", # String
+  "admin_district" => "example_admin_district", # String
+  "admin_ward" => "example_admin_ward", # String
+  "ccg" => "example_ccg", # String
+  "ced" => "example_ced", # String
+  "codes" => {}, # Hash
+  "country" => "example_country", # String
+  "eastings" => 1, # Integer
+  "european_electoral_region" => "example_european_electoral_region", # String
+  "incode" => "example_incode", # String
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
+  "lsoa" => "example_lsoa", # String
+  "msoa" => "example_msoa", # String
+  "nhs_ha" => "example_nhs_ha", # String
+  "northings" => 1, # Integer
+  "nuts" => "example_nuts", # String
+  "outcode" => "example_outcode", # String
+  "parish" => "example_parish", # String
+  "parliamentary_constituency" => "example_parliamentary_constituency", # String
+  "postcode" => "example_postcode", # String
+  "primary_care_trust" => "example_primary_care_trust", # String
+  "quality" => 1, # Integer
+  "region" => "example_region", # String
+  "result" => [], # Array
   "status" => 1, # Integer
 })
 ```
@@ -498,7 +594,7 @@ Create an instance: `scottish_postcode = client.ScottishPostcode`
 #### Example: Load
 
 ```ruby
-# load returns the bare ScottishPostcode record (raises on error).
+# load returns the ENTITY — call data_get for the ScottishPostcode record (raises on error).
 scottish_postcode = client.ScottishPostcode.load({ "id" => "scottish_postcode_id" })
 ```
 
@@ -523,7 +619,7 @@ Create an instance: `terminated_postcode = client.TerminatedPostcode`
 #### Example: Load
 
 ```ruby
-# load returns the bare TerminatedPostcode record (raises on error).
+# load returns the ENTITY — call data_get for the TerminatedPostcode record (raises on error).
 terminated_postcode = client.TerminatedPostcode.load({ "id" => "terminated_postcode_id" })
 ```
 

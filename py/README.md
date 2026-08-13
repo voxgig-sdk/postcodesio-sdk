@@ -43,7 +43,7 @@ error — iterate it directly.
 
 ```python
 try:
-    nearests = client.Nearest().list()
+    nearests = client.Nearest().list({"postcode_id": "example"})
     for nearest in nearests:
         print(nearest)
 except Exception as err:
@@ -124,7 +124,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = PostcodesioSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 nearest = client.Nearest().list()
 # nearest contains the mock response record
 ```
@@ -227,7 +228,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -260,8 +261,6 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
-| `result` |  |
-| `status` |  |
 
 Operations: Load.
 
@@ -277,23 +276,21 @@ API path: `/outcodes/{outcode}`
 | `county_unitary_type` |  |
 | `district_borough` |  |
 | `district_borough_type` |  |
-| `easting` |  |
+| `eastings` |  |
 | `latitude` |  |
 | `local_type` |  |
 | `longitude` |  |
-| `max_easting` |  |
-| `max_northing` |  |
-| `min_easting` |  |
-| `min_northing` |  |
+| `max_eastings` |  |
+| `max_northings` |  |
+| `min_eastings` |  |
+| `min_northings` |  |
 | `name_1` |  |
 | `name_1_lang` |  |
 | `name_2` |  |
 | `name_2_lang` |  |
-| `northing` |  |
+| `northings` |  |
 | `outcode` |  |
 | `region` |  |
-| `result` |  |
-| `status` |  |
 
 Operations: List, Load.
 
@@ -303,8 +300,50 @@ API path: `/places`
 
 | Field | Description |
 | --- | --- |
+| `admin_county` |  |
+| `admin_district` |  |
+| `admin_ward` |  |
+| `bua` |  |
+| `cancer_alliance` |  |
+| `ccg` |  |
+| `ced` |  |
+| `codes` |  |
+| `country` |  |
+| `date_of_introduction` |  |
+| `eastings` |  |
+| `european_electoral_region` |  |
+| `icb` |  |
+| `incode` |  |
+| `latitude` |  |
+| `lep1` |  |
+| `lep2` |  |
+| `longitude` |  |
+| `lsoa` |  |
+| `lsoa11` |  |
+| `lsoa21` |  |
+| `msoa` |  |
+| `msoa11` |  |
+| `msoa21` |  |
+| `national_park` |  |
+| `nhs_ha` |  |
+| `nhs_region` |  |
+| `northings` |  |
+| `nuts` |  |
+| `oa21` |  |
+| `outcode` |  |
+| `parish` |  |
+| `parliamentary_constituency` |  |
+| `parliamentary_constituency_2024` |  |
+| `pfa` |  |
+| `postcode` |  |
+| `primary_care_trust` |  |
+| `quality` |  |
+| `region` |  |
 | `result` |  |
+| `ruc11` |  |
+| `ruc21` |  |
 | `status` |  |
+| `ttwa` |  |
 
 Operations: Create, List, Load.
 
@@ -357,7 +396,7 @@ Create an instance: `nearest = client.Nearest()`
 #### Example: List
 
 ```python
-nearests = client.Nearest().list()
+nearests = client.Nearest().list({"postcode_id": "example"})
 ```
 
 
@@ -370,13 +409,6 @@ Create an instance: `outcode = client.Outcode()`
 | Method | Description |
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `result` | `Any` |  |
-| `status` | `int` |  |
 
 #### Example: Load
 
@@ -406,23 +438,21 @@ Create an instance: `place = client.Place()`
 | `county_unitary_type` | `str` |  |
 | `district_borough` | `str` |  |
 | `district_borough_type` | `str` |  |
-| `easting` | `int` |  |
+| `eastings` | `int` |  |
 | `latitude` | `float` |  |
 | `local_type` | `str` |  |
 | `longitude` | `float` |  |
-| `max_easting` | `int` |  |
-| `max_northing` | `int` |  |
-| `min_easting` | `int` |  |
-| `min_northing` | `int` |  |
+| `max_eastings` | `int` |  |
+| `max_northings` | `int` |  |
+| `min_eastings` | `int` |  |
+| `min_northings` | `int` |  |
 | `name_1` | `str` |  |
 | `name_1_lang` | `str` |  |
 | `name_2` | `str` |  |
 | `name_2_lang` | `str` |  |
-| `northing` | `int` |  |
+| `northings` | `int` |  |
 | `outcode` | `str` |  |
 | `region` | `str` |  |
-| `result` | `dict` |  |
-| `status` | `int` |  |
 
 #### Example: Load
 
@@ -453,8 +483,50 @@ Create an instance: `postcode = client.Postcode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `result` | `dict` |  |
+| `admin_county` | `str` |  |
+| `admin_district` | `str` |  |
+| `admin_ward` | `str` |  |
+| `bua` | `str` |  |
+| `cancer_alliance` | `str` |  |
+| `ccg` | `str` |  |
+| `ced` | `str` |  |
+| `codes` | `dict` |  |
+| `country` | `str` |  |
+| `date_of_introduction` | `str` |  |
+| `eastings` | `int` |  |
+| `european_electoral_region` | `str` |  |
+| `icb` | `str` |  |
+| `incode` | `str` |  |
+| `latitude` | `float` |  |
+| `lep1` | `str` |  |
+| `lep2` | `str` |  |
+| `longitude` | `float` |  |
+| `lsoa` | `str` |  |
+| `lsoa11` | `str` |  |
+| `lsoa21` | `str` |  |
+| `msoa` | `str` |  |
+| `msoa11` | `str` |  |
+| `msoa21` | `str` |  |
+| `national_park` | `str` |  |
+| `nhs_ha` | `str` |  |
+| `nhs_region` | `str` |  |
+| `northings` | `int` |  |
+| `nuts` | `str` |  |
+| `oa21` | `str` |  |
+| `outcode` | `str` |  |
+| `parish` | `str` |  |
+| `parliamentary_constituency` | `str` |  |
+| `parliamentary_constituency_2024` | `str` |  |
+| `pfa` | `str` |  |
+| `postcode` | `str` |  |
+| `primary_care_trust` | `str` |  |
+| `quality` | `int` |  |
+| `region` | `str` |  |
+| `result` | `list` |  |
+| `ruc11` | `str` |  |
+| `ruc21` | `str` |  |
 | `status` | `int` |  |
+| `ttwa` | `str` |  |
 
 #### Example: Load
 
@@ -472,7 +544,31 @@ postcodes = client.Postcode().list()
 
 ```python
 postcode = client.Postcode().create({
-    "result": {},  # dict
+    "admin_county": "example_admin_county",  # str
+    "admin_district": "example_admin_district",  # str
+    "admin_ward": "example_admin_ward",  # str
+    "ccg": "example_ccg",  # str
+    "ced": "example_ced",  # str
+    "codes": {},  # dict
+    "country": "example_country",  # str
+    "eastings": 1,  # int
+    "european_electoral_region": "example_european_electoral_region",  # str
+    "incode": "example_incode",  # str
+    "latitude": 1,  # float
+    "longitude": 1,  # float
+    "lsoa": "example_lsoa",  # str
+    "msoa": "example_msoa",  # str
+    "nhs_ha": "example_nhs_ha",  # str
+    "northings": 1,  # int
+    "nuts": "example_nuts",  # str
+    "outcode": "example_outcode",  # str
+    "parish": "example_parish",  # str
+    "parliamentary_constituency": "example_parliamentary_constituency",  # str
+    "postcode": "example_postcode",  # str
+    "primary_care_trust": "example_primary_care_trust",  # str
+    "quality": 1,  # int
+    "region": "example_region",  # str
+    "result": [],  # list
     "status": 1,  # int
 })
 ```

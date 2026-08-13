@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ PostcodesioUtility.registrar = ->(u) {
   u.prepare_params = PostcodesioUtilities::PrepareParams
   u.prepare_path = PostcodesioUtilities::PreparePath
   u.prepare_query = PostcodesioUtilities::PrepareQuery
+  u.graphql_body = PostcodesioUtilities::GraphqlBody
+  u.graphql_errors = PostcodesioUtilities::GraphqlErrors
   u.result_basic = PostcodesioUtilities::ResultBasic
   u.result_body = PostcodesioUtilities::ResultBody
   u.result_headers = PostcodesioUtilities::ResultHeaders

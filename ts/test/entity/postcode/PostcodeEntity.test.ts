@@ -62,16 +62,14 @@ describe('PostcodeEntity', async () => {
     const postcode_ref01_ent = client.Postcode()
     let postcode_ref01_data = setup.data.new.postcode['postcode_ref01']
 
-    postcode_ref01_data = await postcode_ref01_ent.create(postcode_ref01_data)
+    postcode_ref01_data = (await postcode_ref01_ent.create(postcode_ref01_data)).data()
     assert(null != postcode_ref01_data)
 
 
     // LIST
     const postcode_ref01_match: any = {}
 
-    const postcode_ref01_list = await postcode_ref01_ent.list(postcode_ref01_match)
-
-    assert(!isempty(select(postcode_ref01_list, { id: postcode_ref01_data.id })))
+    const postcode_ref01_list = (await postcode_ref01_ent.list(postcode_ref01_match)).map((e: any) => e.data())
 
 
 

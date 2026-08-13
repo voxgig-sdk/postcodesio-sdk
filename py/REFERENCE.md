@@ -117,7 +117,7 @@ nearest = client.Nearest()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Nearest().list()
+results = client.Nearest().list({"postcode_id": "example"})
 for nearest in results:
     print(nearest)
 ```
@@ -156,13 +156,6 @@ Return the entity name.
 ```python
 outcode = client.Outcode()
 ```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `Any` | Yes |  |
-| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -219,23 +212,21 @@ place = client.Place()
 | `county_unitary_type` | `str` | Yes |  |
 | `district_borough` | `str` | Yes |  |
 | `district_borough_type` | `str` | No |  |
-| `easting` | `int` | Yes |  |
+| `eastings` | `int` | Yes |  |
 | `latitude` | `float` | Yes |  |
 | `local_type` | `str` | Yes |  |
 | `longitude` | `float` | Yes |  |
-| `max_easting` | `int` | Yes |  |
-| `max_northing` | `int` | Yes |  |
-| `min_easting` | `int` | Yes |  |
-| `min_northing` | `int` | Yes |  |
+| `max_eastings` | `int` | Yes |  |
+| `max_northings` | `int` | Yes |  |
+| `min_eastings` | `int` | Yes |  |
+| `min_northings` | `int` | Yes |  |
 | `name_1` | `str` | Yes |  |
 | `name_1_lang` | `str` | Yes |  |
 | `name_2` | `str` | Yes |  |
 | `name_2_lang` | `str` | Yes |  |
-| `northing` | `int` | Yes |  |
+| `northings` | `int` | Yes |  |
 | `outcode` | `str` | Yes |  |
 | `region` | `str` | Yes |  |
-| `result` | `dict` | Yes |  |
-| `status` | `int` | Yes |  |
 
 ### Operations
 
@@ -296,8 +287,50 @@ postcode = client.Postcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | `dict` | Yes |  |
+| `admin_county` | `str` | Yes |  |
+| `admin_district` | `str` | Yes |  |
+| `admin_ward` | `str` | Yes |  |
+| `bua` | `str` | No |  |
+| `cancer_alliance` | `str` | No |  |
+| `ccg` | `str` | Yes |  |
+| `ced` | `str` | Yes |  |
+| `codes` | `dict` | Yes |  |
+| `country` | `str` | Yes |  |
+| `date_of_introduction` | `str` | No |  |
+| `eastings` | `int` | Yes |  |
+| `european_electoral_region` | `str` | Yes |  |
+| `icb` | `str` | No |  |
+| `incode` | `str` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `lep1` | `str` | No |  |
+| `lep2` | `str` | No |  |
+| `longitude` | `float` | Yes |  |
+| `lsoa` | `str` | Yes |  |
+| `lsoa11` | `str` | No |  |
+| `lsoa21` | `str` | No |  |
+| `msoa` | `str` | Yes |  |
+| `msoa11` | `str` | No |  |
+| `msoa21` | `str` | No |  |
+| `national_park` | `str` | No |  |
+| `nhs_ha` | `str` | Yes |  |
+| `nhs_region` | `str` | No |  |
+| `northings` | `int` | Yes |  |
+| `nuts` | `str` | Yes |  |
+| `oa21` | `str` | No |  |
+| `outcode` | `str` | Yes |  |
+| `parish` | `str` | Yes |  |
+| `parliamentary_constituency` | `str` | Yes |  |
+| `parliamentary_constituency_2024` | `str` | No |  |
+| `pfa` | `str` | No |  |
+| `postcode` | `str` | Yes |  |
+| `primary_care_trust` | `str` | Yes |  |
+| `quality` | `int` | Yes |  |
+| `region` | `str` | Yes |  |
+| `result` | `list` | Yes |  |
+| `ruc11` | `str` | No |  |
+| `ruc21` | `str` | No |  |
 | `status` | `int` | Yes |  |
+| `ttwa` | `str` | No |  |
 
 ### Operations
 
@@ -307,7 +340,31 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Postcode().create({
-    "result": {},  # dict
+    "admin_county": "example_admin_county",  # str
+    "admin_district": "example_admin_district",  # str
+    "admin_ward": "example_admin_ward",  # str
+    "ccg": "example_ccg",  # str
+    "ced": "example_ced",  # str
+    "codes": {},  # dict
+    "country": "example_country",  # str
+    "eastings": 1,  # int
+    "european_electoral_region": "example_european_electoral_region",  # str
+    "incode": "example_incode",  # str
+    "latitude": 1,  # float
+    "longitude": 1,  # float
+    "lsoa": "example_lsoa",  # str
+    "msoa": "example_msoa",  # str
+    "nhs_ha": "example_nhs_ha",  # str
+    "northings": 1,  # int
+    "nuts": "example_nuts",  # str
+    "outcode": "example_outcode",  # str
+    "parish": "example_parish",  # str
+    "parliamentary_constituency": "example_parliamentary_constituency",  # str
+    "postcode": "example_postcode",  # str
+    "primary_care_trust": "example_primary_care_trust",  # str
+    "quality": 1,  # int
+    "region": "example_region",  # str
+    "result": [],  # list
     "status": 1,  # int
 })
 ```
