@@ -28,7 +28,7 @@ class PostcodesioSDK
     utility = PostcodesioUtility.new
     @_utility = utility
 
-    config = PostcodesioConfig.make_config
+    config = PostcodesioConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

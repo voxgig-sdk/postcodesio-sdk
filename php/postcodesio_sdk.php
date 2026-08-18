@@ -40,7 +40,7 @@ class PostcodesioSDK
         $utility = new PostcodesioUtility();
         $this->_utility = $utility;
 
-        $config = PostcodesioConfig::make_config();
+        $config = PostcodesioConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -65,7 +65,7 @@ class Place
 /** Request payload for Place#load. */
 class PlaceLoadMatch
 {
-    public ?string $id = null;
+    public string $id;
 }
 
 /** Request payload for Place#list. */
@@ -146,7 +146,7 @@ class Postcode
 /** Request payload for Postcode#load. */
 class PostcodeLoadMatch
 {
-    public ?string $id = null;
+    public string $id;
 }
 
 /** Request payload for Postcode#list. */

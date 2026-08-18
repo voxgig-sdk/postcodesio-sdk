@@ -46,7 +46,7 @@ export interface Place {
 }
 
 export interface PlaceLoadMatch {
-  id?: string
+  id: string
 }
 
 export interface PlaceListMatch {
@@ -121,7 +121,7 @@ export interface Postcode {
 }
 
 export interface PostcodeLoadMatch {
-  id?: string
+  id: string
 }
 
 export interface PostcodeListMatch {

@@ -23,7 +23,7 @@ func NewPostcodesioSDK(options map[string]any) *PostcodesioSDK {
 
 	sdk.utility = NewUtility()
 
-	config := MakeConfig()
+	config := SharedConfig()
 
 	sdk.rootctx = sdk.utility.MakeContext(map[string]any{
 		"client":  sdk,

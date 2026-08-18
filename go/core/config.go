@@ -1,5 +1,12 @@
 package core
 
+import (
+	"sync"
+)
+
+// MakeConfig builds a fresh, fully materialised config map. Every call
+// rebuilds the whole structure, so prefer SharedConfig unless you need a
+// private copy you intend to mutate.
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
@@ -30,18 +37,14 @@ func MakeConfig() map[string]any {
 			"nearest": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "result",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 1,
 					},
 				},
 				"name": "nearest",
@@ -51,18 +54,15 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"example": "SW1A 2AA",
 											"kind": "param",
 											"name": "postcode_id",
 											"orig": "postcode",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -88,7 +88,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -110,18 +109,15 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"example": "SW1A",
 											"kind": "param",
 											"name": "id",
 											"orig": "outcode",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -146,7 +142,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -158,151 +153,108 @@ func MakeConfig() map[string]any {
 			"place": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "code",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "country",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 1,
 					},
 					map[string]any{
-						"active": true,
 						"name": "county_unitary",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 2,
 					},
 					map[string]any{
-						"active": true,
 						"name": "county_unitary_type",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 3,
 					},
 					map[string]any{
-						"active": true,
 						"name": "district_borough",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 4,
 					},
 					map[string]any{
-						"active": true,
 						"name": "district_borough_type",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 5,
 					},
 					map[string]any{
-						"active": true,
 						"name": "eastings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 6,
 					},
 					map[string]any{
-						"active": true,
 						"name": "latitude",
 						"req": true,
 						"type": "`$NUMBER`",
-						"index$": 7,
 					},
 					map[string]any{
-						"active": true,
 						"name": "local_type",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 8,
 					},
 					map[string]any{
-						"active": true,
 						"name": "longitude",
 						"req": true,
 						"type": "`$NUMBER`",
-						"index$": 9,
 					},
 					map[string]any{
-						"active": true,
 						"name": "max_eastings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 10,
 					},
 					map[string]any{
-						"active": true,
 						"name": "max_northings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 11,
 					},
 					map[string]any{
-						"active": true,
 						"name": "min_eastings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 12,
 					},
 					map[string]any{
-						"active": true,
 						"name": "min_northings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 13,
 					},
 					map[string]any{
-						"active": true,
 						"name": "name_1",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 14,
 					},
 					map[string]any{
-						"active": true,
 						"name": "name_1_lang",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 15,
 					},
 					map[string]any{
-						"active": true,
 						"name": "name_2",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 16,
 					},
 					map[string]any{
-						"active": true,
 						"name": "name_2_lang",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 17,
 					},
 					map[string]any{
-						"active": true,
 						"name": "northings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 18,
 					},
 					map[string]any{
-						"active": true,
 						"name": "outcode",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 19,
 					},
 					map[string]any{
-						"active": true,
 						"name": "region",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 20,
 					},
 				},
 				"name": "place",
@@ -312,7 +264,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
@@ -325,7 +276,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -334,17 +284,14 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"kind": "param",
 											"name": "id",
 											"orig": "code",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -369,10 +316,8 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
@@ -386,7 +331,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 1,
 							},
 						},
 					},
@@ -398,312 +342,206 @@ func MakeConfig() map[string]any {
 			"postcode": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "admin_county",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "admin_district",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 1,
 					},
 					map[string]any{
-						"active": true,
 						"name": "admin_ward",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 2,
 					},
 					map[string]any{
-						"active": true,
 						"name": "bua",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 3,
 					},
 					map[string]any{
-						"active": true,
 						"name": "cancer_alliance",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 4,
 					},
 					map[string]any{
-						"active": true,
 						"name": "ccg",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 5,
 					},
 					map[string]any{
-						"active": true,
 						"name": "ced",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 6,
 					},
 					map[string]any{
-						"active": true,
 						"name": "codes",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 7,
 					},
 					map[string]any{
-						"active": true,
 						"name": "country",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 8,
 					},
 					map[string]any{
-						"active": true,
 						"name": "date_of_introduction",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 9,
 					},
 					map[string]any{
-						"active": true,
 						"name": "eastings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 10,
 					},
 					map[string]any{
-						"active": true,
 						"name": "european_electoral_region",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 11,
 					},
 					map[string]any{
-						"active": true,
 						"name": "icb",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 12,
 					},
 					map[string]any{
-						"active": true,
 						"name": "incode",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 13,
 					},
 					map[string]any{
-						"active": true,
 						"name": "latitude",
 						"req": true,
 						"type": "`$NUMBER`",
-						"index$": 14,
 					},
 					map[string]any{
-						"active": true,
 						"name": "lep1",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 15,
 					},
 					map[string]any{
-						"active": true,
 						"name": "lep2",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 16,
 					},
 					map[string]any{
-						"active": true,
 						"name": "longitude",
 						"req": true,
 						"type": "`$NUMBER`",
-						"index$": 17,
 					},
 					map[string]any{
-						"active": true,
 						"name": "lsoa",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 18,
 					},
 					map[string]any{
-						"active": true,
 						"name": "lsoa11",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 19,
 					},
 					map[string]any{
-						"active": true,
 						"name": "lsoa21",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 20,
 					},
 					map[string]any{
-						"active": true,
 						"name": "msoa",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 21,
 					},
 					map[string]any{
-						"active": true,
 						"name": "msoa11",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 22,
 					},
 					map[string]any{
-						"active": true,
 						"name": "msoa21",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 23,
 					},
 					map[string]any{
-						"active": true,
 						"name": "national_park",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 24,
 					},
 					map[string]any{
-						"active": true,
 						"name": "nhs_ha",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 25,
 					},
 					map[string]any{
-						"active": true,
 						"name": "nhs_region",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 26,
 					},
 					map[string]any{
-						"active": true,
 						"name": "northings",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 27,
 					},
 					map[string]any{
-						"active": true,
 						"name": "nuts",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 28,
 					},
 					map[string]any{
-						"active": true,
 						"name": "oa21",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 29,
 					},
 					map[string]any{
-						"active": true,
 						"name": "outcode",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 30,
 					},
 					map[string]any{
-						"active": true,
 						"name": "parish",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 31,
 					},
 					map[string]any{
-						"active": true,
 						"name": "parliamentary_constituency",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 32,
 					},
 					map[string]any{
-						"active": true,
 						"name": "parliamentary_constituency_2024",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 33,
 					},
 					map[string]any{
-						"active": true,
 						"name": "pfa",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 34,
 					},
 					map[string]any{
-						"active": true,
 						"name": "postcode",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 35,
 					},
 					map[string]any{
-						"active": true,
 						"name": "primary_care_trust",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 36,
 					},
 					map[string]any{
-						"active": true,
 						"name": "quality",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 37,
 					},
 					map[string]any{
-						"active": true,
 						"name": "region",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 38,
 					},
 					map[string]any{
-						"active": true,
 						"name": "result",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 39,
 					},
 					map[string]any{
-						"active": true,
 						"name": "ruc11",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 40,
 					},
 					map[string]any{
-						"active": true,
 						"name": "ruc21",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 41,
 					},
 					map[string]any{
-						"active": true,
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 42,
 					},
 					map[string]any{
-						"active": true,
 						"name": "ttwa",
-						"req": false,
 						"type": "`$STRING`",
-						"index$": 43,
 					},
 				},
 				"name": "postcode",
@@ -713,7 +551,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
@@ -726,7 +563,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -735,70 +571,55 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"query": []any{
 										map[string]any{
-											"active": true,
 											"example": "postcode",
 											"kind": "query",
 											"name": "filter",
 											"orig": "filter",
-											"reqd": false,
 											"type": "`$STRING`",
 										},
 										map[string]any{
-											"active": true,
 											"example": 51.50354,
 											"kind": "query",
 											"name": "latitude",
 											"orig": "latitude",
-											"reqd": false,
 											"type": "`$NUMBER`",
 										},
 										map[string]any{
-											"active": true,
 											"example": 3,
 											"kind": "query",
 											"name": "limit",
 											"orig": "limit",
-											"reqd": false,
 											"type": "`$INTEGER`",
 										},
 										map[string]any{
-											"active": true,
 											"example": -0.127695,
 											"kind": "query",
 											"name": "longitude",
 											"orig": "longitude",
-											"reqd": false,
 											"type": "`$NUMBER`",
 										},
 										map[string]any{
-											"active": true,
 											"example": "SW1A 2AA",
 											"kind": "query",
 											"name": "query",
 											"orig": "query",
-											"reqd": false,
 											"type": "`$ANY`",
 										},
 										map[string]any{
-											"active": true,
 											"example": 500,
 											"kind": "query",
 											"name": "radius",
 											"orig": "radius",
-											"reqd": false,
 											"type": "`$INTEGER`",
 										},
 										map[string]any{
-											"active": true,
 											"example": "true",
 											"kind": "query",
 											"name": "widesearch",
 											"orig": "widesearch",
-											"reqd": false,
 											"type": "`$BOOLEAN`",
 										},
 									},
@@ -824,7 +645,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -833,18 +653,15 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"example": "SW1A 2AA",
 											"kind": "param",
 											"name": "id",
 											"orig": "postcode",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -869,19 +686,15 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 0,
 							},
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"query": []any{
 										map[string]any{
-											"active": true,
 											"example": "SW1A",
 											"kind": "query",
 											"name": "outcode",
 											"orig": "outcode",
-											"reqd": false,
 											"type": "`$STRING`",
 										},
 									},
@@ -902,7 +715,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"index$": 1,
 							},
 						},
 					},
@@ -914,18 +726,14 @@ func MakeConfig() map[string]any {
 			"scottish_postcode": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "result",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 1,
 					},
 				},
 				"name": "scottish_postcode",
@@ -935,17 +743,14 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"kind": "param",
 											"name": "id",
 											"orig": "postcode",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -971,7 +776,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -983,18 +787,14 @@ func MakeConfig() map[string]any {
 			"terminated_postcode": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "result",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 1,
 					},
 				},
 				"name": "terminated_postcode",
@@ -1004,17 +804,14 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"kind": "param",
 											"name": "id",
 											"orig": "postcode",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -1039,7 +836,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -1050,6 +846,24 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+var (
+	sharedConfigOnce sync.Once
+	sharedConfigVal  map[string]any
+)
+
+// SharedConfig returns the process-wide config, built once on first use.
+// The SDK reads the config on every request and never writes to it, so one
+// instance is shared by every client rather than rebuilt per client.
+//
+// The returned map is shared: treat it as read-only. Callers that need to
+// mutate should use MakeConfig, which always returns a fresh copy.
+func SharedConfig() map[string]any {
+	sharedConfigOnce.Do(func() {
+		sharedConfigVal = MakeConfig()
+	})
+	return sharedConfigVal
 }
 
 func makeFeature(name string) Feature {

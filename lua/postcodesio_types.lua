@@ -42,7 +42,7 @@
 ---@field region string
 
 ---@class PlaceLoadMatch
----@field id? string
+---@field id string
 
 ---@class PlaceListMatch
 ---@field code? string
@@ -114,7 +114,7 @@
 ---@field ttwa? string
 
 ---@class PostcodeLoadMatch
----@field id? string
+---@field id string
 
 ---@class PostcodeListMatch
 ---@field admin_county? string
