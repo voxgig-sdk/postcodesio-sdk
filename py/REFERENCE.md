@@ -107,7 +107,7 @@ nearest = client.Nearest()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | `list` | Yes |  |
+| `result` | `list` | Yes | Array of nearest postcodes sorted by distance |
 | `status` | `int` | Yes |  |
 
 ### Operations
@@ -206,27 +206,27 @@ place = client.Place()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `code` | `str` | Yes |  |
-| `country` | `str` | Yes |  |
-| `county_unitary` | `str` | Yes |  |
-| `county_unitary_type` | `str` | Yes |  |
-| `district_borough` | `str` | Yes |  |
-| `district_borough_type` | `str` | No |  |
-| `eastings` | `int` | Yes |  |
-| `latitude` | `float` | Yes |  |
-| `local_type` | `str` | Yes |  |
-| `longitude` | `float` | Yes |  |
-| `max_eastings` | `int` | Yes |  |
-| `max_northings` | `int` | Yes |  |
-| `min_eastings` | `int` | Yes |  |
-| `min_northings` | `int` | Yes |  |
-| `name_1` | `str` | Yes |  |
-| `name_1_lang` | `str` | Yes |  |
-| `name_2` | `str` | Yes |  |
-| `name_2_lang` | `str` | Yes |  |
-| `northings` | `int` | Yes |  |
-| `outcode` | `str` | Yes |  |
-| `region` | `str` | Yes |  |
+| `code` | `str` | Yes | Unique identifier for the place record (persistent except for Section of Named/Numbered Roads) |
+| `country` | `str` | Yes | Country within Great Britain (England, Scotland, or Wales) |
+| `county_unitary` | `str` | Yes | County, Unitary Authority or Greater London Authority that contains this place |
+| `county_unitary_type` | `str` | Yes | Type of administrative unit (e.g., County, UnitaryAuthority) |
+| `district_borough` | `str` | Yes | District, Metropolitan District or London Borough containing this place |
+| `district_borough_type` | `str` | No | Type of district/borough administrative unit |
+| `eastings` | `int` | Yes | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `latitude` | `float` | Yes | WGS84 latitude coordinate |
+| `local_type` | `str` | Yes | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
+| `longitude` | `float` | Yes | WGS84 longitude coordinate |
+| `max_eastings` | `int` | Yes | Eastern edge of the place's bounding box (Minimum Bounding Rectangle) |
+| `max_northings` | `int` | Yes | Northern edge of the place's bounding box (Minimum Bounding Rectangle) |
+| `min_eastings` | `int` | Yes | Western edge of the place's bounding box (Minimum Bounding Rectangle) |
+| `min_northings` | `int` | Yes | Southern edge of the place's bounding box (Minimum Bounding Rectangle) |
+| `name_1` | `str` | Yes | Official name of the place (preserves original format, e.g., "The Pennines" not "Pennines, The") |
+| `name_1_lang` | `str` | Yes | Language code for name_1 (cym=Welsh, eng=English, gla=Scottish Gaelic) |
+| `name_2` | `str` | Yes | Alternative name in a different language |
+| `name_2_lang` | `str` | Yes | Language code for name_2 (cym=Welsh, eng=English, gla=Scottish Gaelic) |
+| `northings` | `int` | Yes | Ordnance Survey grid reference Northing (1m resolution, not available for Channel Islands/Isle of Man) |
+| `outcode` | `str` | Yes | Postcode district (first part of the postcode) |
+| `region` | `str` | Yes | European Region (formerly Government Office Region) containing this place |
 
 ### Operations
 
@@ -287,50 +287,50 @@ postcode = client.Postcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `admin_county` | `str` | Yes |  |
-| `admin_district` | `str` | Yes |  |
-| `admin_ward` | `str` | Yes |  |
-| `bua` | `str` | No |  |
-| `cancer_alliance` | `str` | No |  |
-| `ccg` | `str` | Yes |  |
-| `ced` | `str` | Yes |  |
-| `codes` | `dict` | Yes |  |
-| `country` | `str` | Yes |  |
-| `date_of_introduction` | `str` | No |  |
-| `eastings` | `int` | Yes |  |
-| `european_electoral_region` | `str` | Yes |  |
-| `icb` | `str` | No |  |
-| `incode` | `str` | Yes |  |
-| `latitude` | `float` | Yes |  |
-| `lep1` | `str` | No |  |
-| `lep2` | `str` | No |  |
-| `longitude` | `float` | Yes |  |
-| `lsoa` | `str` | Yes |  |
-| `lsoa11` | `str` | No |  |
-| `lsoa21` | `str` | No |  |
-| `msoa` | `str` | Yes |  |
-| `msoa11` | `str` | No |  |
-| `msoa21` | `str` | No |  |
-| `national_park` | `str` | No |  |
-| `nhs_ha` | `str` | Yes |  |
-| `nhs_region` | `str` | No |  |
-| `northings` | `int` | Yes |  |
-| `nuts` | `str` | Yes |  |
-| `oa21` | `str` | No |  |
-| `outcode` | `str` | Yes |  |
-| `parish` | `str` | Yes |  |
-| `parliamentary_constituency` | `str` | Yes |  |
-| `parliamentary_constituency_2024` | `str` | No |  |
-| `pfa` | `str` | No |  |
-| `postcode` | `str` | Yes |  |
-| `primary_care_trust` | `str` | Yes |  |
-| `quality` | `int` | Yes |  |
-| `region` | `str` | Yes |  |
-| `result` | `list` | Yes |  |
-| `ruc11` | `str` | No |  |
-| `ruc21` | `str` | No |  |
+| `admin_county` | `str` | Yes | The administrative county for this postcode. |
+| `admin_district` | `str` | Yes | The administrative district or unitary authority for this postcode. |
+| `admin_ward` | `str` | Yes | The electoral/administrative ward for this postcode. |
+| `bua` | `str` | No | The Built-up Area (2022) for this postcode. |
+| `cancer_alliance` | `str` | No | The Cancer Alliance for this postcode. |
+| `ccg` | `str` | Yes | NHS Clinical Commissioning Group responsible for planning healthcare services in England. |
+| `ced` | `str` | Yes | The county electoral division for English postcodes. |
+| `codes` | `dict` | Yes | Contains the GSS (Government Statistical Service) codes for administrative areas. |
+| `country` | `str` | Yes | The UK constituent country for this postcode (England, Scotland, Wales, Northern Ireland, Channel Islands, or Isle of Man). |
+| `date_of_introduction` | `str` | No | The date the postcode was introduced in YYYYMM format. |
+| `eastings` | `int` | Yes | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
+| `european_electoral_region` | `str` | Yes | The European Electoral Region for this postcode. |
+| `icb` | `str` | No | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `incode` | `str` | Yes | The second part of a postcode after the space (always 3 characters). |
+| `latitude` | `float` | Yes | WGS84 latitude coordinate (north-south position). |
+| `lep1` | `str` | No | The primary Local Enterprise Partnership for this postcode. |
+| `lep2` | `str` | No | The secondary Local Enterprise Partnership for this postcode, if it falls within overlapping LEP areas. |
+| `longitude` | `float` | Yes | WGS84 longitude coordinate (east-west position). |
+| `lsoa` | `str` | Yes | 2021 Census LSOA code (smaller statistical area, typically 1,000-1,500 residents). |
+| `lsoa11` | `str` | No | 2011 Census LSOA code. |
+| `lsoa21` | `str` | No | 2021 Census LSOA code. |
+| `msoa` | `str` | Yes | 2021 Census MSOA code (mid-size statistical area, typically 5,000-7,000 residents). |
+| `msoa11` | `str` | No | 2011 Census MSOA code. |
+| `msoa21` | `str` | No | 2021 Census MSOA code. |
+| `national_park` | `str` | No | The National Park this postcode falls within, if any. |
+| `nhs_ha` | `str` | Yes | The NHS health authority area for this postcode. |
+| `nhs_region` | `str` | No | The NHS England Region for this postcode. |
+| `northings` | `int` | Yes | The OS grid reference northing (Y-coordinate) to 1 metre resolution. |
+| `nuts` | `str` | Yes | Statistical geography code for international comparisons (formerly NUTS - Nomenclature of Units for Territorial Statistics). |
+| `oa21` | `str` | No | 2021 Census Output Area code - the smallest census geography. |
+| `outcode` | `str` | Yes | The first part of a postcode before the space (2-4 characters). |
+| `parish` | `str` | Yes | The civil parish (England) or community (Wales) for this postcode. |
+| `parliamentary_constituency` | `str` | Yes | The UK Parliamentary constituency for this postcode. |
+| `parliamentary_constituency_2024` | `str` | No | The UK Parliamentary constituency for this postcode based on July 2024 boundaries. |
+| `pfa` | `str` | No | The police force area for this postcode. |
+| `postcode` | `str` | Yes | UK postcode format: 2-4 character outward code, a space, and a 3-character inward code (e.g., SW1A 2AA). |
+| `primary_care_trust` | `str` | Yes | The healthcare administrative area for this postcode. |
+| `quality` | `int` | Yes | Positional Quality Indicator (1-9). |
+| `region` | `str` | Yes | The regional designation for this postcode (formerly Government Office Regions or GORs). |
+| `result` | `list` | Yes | Array containing detailed location information for the requested postcode or nearest postcodes |
+| `ruc11` | `str` | No | The 2011 Census Rural-Urban Classification for this postcode. |
+| `ruc21` | `str` | No | The 2021 Census Rural-Urban Classification for this postcode. |
 | `status` | `int` | Yes |  |
-| `ttwa` | `str` | No |  |
+| `ttwa` | `str` | No | The Travel to Work Area for this postcode. |
 
 ### Operations
 
@@ -426,7 +426,7 @@ scottish_postcode = client.ScottishPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | `list` | Yes |  |
+| `result` | `list` | Yes | Data for a given postcode |
 | `status` | `int` | Yes |  |
 
 ### Operations
@@ -478,7 +478,7 @@ terminated_postcode = client.TerminatedPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `result` | `list` | Yes |  |
+| `result` | `list` | Yes | Data for a given postcode |
 | `status` | `int` | Yes |  |
 
 ### Operations

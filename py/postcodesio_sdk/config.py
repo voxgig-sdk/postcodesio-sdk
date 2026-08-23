@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "Postcodesio",
+            "slug": "postcodesio",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -56,6 +59,7 @@ def make_config():
           {
             "name": "result",
             "req": True,
+            "short": "Array of nearest postcodes sorted by distance",
             "type": "`$ARRAY`",
           },
           {
@@ -172,105 +176,126 @@ def make_config():
           {
             "name": "code",
             "req": True,
+            "short": "Unique identifier for the place record (persistent except for Section of Named/Numbered Roads)",
             "type": "`$STRING`",
           },
           {
             "name": "country",
             "req": True,
+            "short": "Country within Great Britain (England, Scotland, or Wales)",
             "type": "`$STRING`",
           },
           {
             "name": "county_unitary",
             "req": True,
+            "short": "County, Unitary Authority or Greater London Authority that contains this place",
             "type": "`$STRING`",
           },
           {
             "name": "county_unitary_type",
             "req": True,
+            "short": "Type of administrative unit (e.g., County, UnitaryAuthority)",
             "type": "`$STRING`",
           },
           {
             "name": "district_borough",
             "req": True,
+            "short": "District, Metropolitan District or London Borough containing this place",
             "type": "`$STRING`",
           },
           {
             "name": "district_borough_type",
+            "short": "Type of district/borough administrative unit",
             "type": "`$STRING`",
           },
           {
             "name": "eastings",
             "req": True,
+            "short": "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)",
             "type": "`$INTEGER`",
           },
           {
             "name": "latitude",
             "req": True,
+            "short": "WGS84 latitude coordinate",
             "type": "`$NUMBER`",
           },
           {
             "name": "local_type",
             "req": True,
+            "short": "Ordnance Survey classification (City, Town, Village, Hamlet, etc.)",
             "type": "`$STRING`",
           },
           {
             "name": "longitude",
             "req": True,
+            "short": "WGS84 longitude coordinate",
             "type": "`$NUMBER`",
           },
           {
             "name": "max_eastings",
             "req": True,
+            "short": "Eastern edge of the place's bounding box (Minimum Bounding Rectangle)",
             "type": "`$INTEGER`",
           },
           {
             "name": "max_northings",
             "req": True,
+            "short": "Northern edge of the place's bounding box (Minimum Bounding Rectangle)",
             "type": "`$INTEGER`",
           },
           {
             "name": "min_eastings",
             "req": True,
+            "short": "Western edge of the place's bounding box (Minimum Bounding Rectangle)",
             "type": "`$INTEGER`",
           },
           {
             "name": "min_northings",
             "req": True,
+            "short": "Southern edge of the place's bounding box (Minimum Bounding Rectangle)",
             "type": "`$INTEGER`",
           },
           {
             "name": "name_1",
             "req": True,
+            "short": "Official name of the place (preserves original format, e.g., \"The Pennines\" not \"Pennines, The\")",
             "type": "`$STRING`",
           },
           {
             "name": "name_1_lang",
             "req": True,
+            "short": "Language code for name_1 (cym=Welsh, eng=English, gla=Scottish Gaelic)",
             "type": "`$STRING`",
           },
           {
             "name": "name_2",
             "req": True,
+            "short": "Alternative name in a different language",
             "type": "`$STRING`",
           },
           {
             "name": "name_2_lang",
             "req": True,
+            "short": "Language code for name_2 (cym=Welsh, eng=English, gla=Scottish Gaelic)",
             "type": "`$STRING`",
           },
           {
             "name": "northings",
             "req": True,
+            "short": "Ordnance Survey grid reference Northing (1m resolution, not available for Channel Islands/Isle of Man)",
             "type": "`$INTEGER`",
           },
           {
             "name": "outcode",
             "req": True,
+            "short": "Postcode district (first part of the postcode)",
             "type": "`$STRING`",
           },
           {
             "name": "region",
             "req": True,
+            "short": "European Region (formerly Government Office Region) containing this place",
             "type": "`$STRING`",
           },
         ],
@@ -361,194 +386,236 @@ def make_config():
           {
             "name": "admin_county",
             "req": True,
+            "short": "The administrative county for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "admin_district",
             "req": True,
+            "short": "The administrative district or unitary authority for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "admin_ward",
             "req": True,
+            "short": "The electoral/administrative ward for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "bua",
+            "short": "The Built-up Area (2022) for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "cancer_alliance",
+            "short": "The Cancer Alliance for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "ccg",
             "req": True,
+            "short": "NHS Clinical Commissioning Group responsible for planning healthcare services in England.",
             "type": "`$STRING`",
           },
           {
             "name": "ced",
             "req": True,
+            "short": "The county electoral division for English postcodes.",
             "type": "`$STRING`",
           },
           {
             "name": "codes",
             "req": True,
+            "short": "Contains the GSS (Government Statistical Service) codes for administrative areas.",
             "type": "`$OBJECT`",
           },
           {
             "name": "country",
             "req": True,
+            "short": "The UK constituent country for this postcode (England, Scotland, Wales, Northern Ireland, Channel Islands, or Isle of Man).",
             "type": "`$STRING`",
           },
           {
             "name": "date_of_introduction",
+            "short": "The date the postcode was introduced in YYYYMM format.",
             "type": "`$STRING`",
           },
           {
             "name": "eastings",
             "req": True,
+            "short": "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
             "type": "`$INTEGER`",
           },
           {
             "name": "european_electoral_region",
             "req": True,
+            "short": "The European Electoral Region for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "icb",
+            "short": "The NHS Integrated Care Board responsible for healthcare planning in this area.",
             "type": "`$STRING`",
           },
           {
             "name": "incode",
             "req": True,
+            "short": "The second part of a postcode after the space (always 3 characters).",
             "type": "`$STRING`",
           },
           {
             "name": "latitude",
             "req": True,
+            "short": "WGS84 latitude coordinate (north-south position).",
             "type": "`$NUMBER`",
           },
           {
             "name": "lep1",
+            "short": "The primary Local Enterprise Partnership for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "lep2",
+            "short": "The secondary Local Enterprise Partnership for this postcode, if it falls within overlapping LEP areas.",
             "type": "`$STRING`",
           },
           {
             "name": "longitude",
             "req": True,
+            "short": "WGS84 longitude coordinate (east-west position).",
             "type": "`$NUMBER`",
           },
           {
             "name": "lsoa",
             "req": True,
+            "short": "2021 Census LSOA code (smaller statistical area, typically 1,000-1,500 residents).",
             "type": "`$STRING`",
           },
           {
             "name": "lsoa11",
+            "short": "2011 Census LSOA code.",
             "type": "`$STRING`",
           },
           {
             "name": "lsoa21",
+            "short": "2021 Census LSOA code.",
             "type": "`$STRING`",
           },
           {
             "name": "msoa",
             "req": True,
+            "short": "2021 Census MSOA code (mid-size statistical area, typically 5,000-7,000 residents).",
             "type": "`$STRING`",
           },
           {
             "name": "msoa11",
+            "short": "2011 Census MSOA code.",
             "type": "`$STRING`",
           },
           {
             "name": "msoa21",
+            "short": "2021 Census MSOA code.",
             "type": "`$STRING`",
           },
           {
             "name": "national_park",
+            "short": "The National Park this postcode falls within, if any.",
             "type": "`$STRING`",
           },
           {
             "name": "nhs_ha",
             "req": True,
+            "short": "The NHS health authority area for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "nhs_region",
+            "short": "The NHS England Region for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "northings",
             "req": True,
+            "short": "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
             "type": "`$INTEGER`",
           },
           {
             "name": "nuts",
             "req": True,
+            "short": "Statistical geography code for international comparisons (formerly NUTS - Nomenclature of Units for Territorial Statistics).",
             "type": "`$STRING`",
           },
           {
             "name": "oa21",
+            "short": "2021 Census Output Area code - the smallest census geography.",
             "type": "`$STRING`",
           },
           {
             "name": "outcode",
             "req": True,
+            "short": "The first part of a postcode before the space (2-4 characters).",
             "type": "`$STRING`",
           },
           {
             "name": "parish",
             "req": True,
+            "short": "The civil parish (England) or community (Wales) for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "parliamentary_constituency",
             "req": True,
+            "short": "The UK Parliamentary constituency for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "parliamentary_constituency_2024",
+            "short": "The UK Parliamentary constituency for this postcode based on July 2024 boundaries.",
             "type": "`$STRING`",
           },
           {
             "name": "pfa",
+            "short": "The police force area for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "postcode",
             "req": True,
+            "short": "UK postcode format: 2-4 character outward code, a space, and a 3-character inward code (e.g., SW1A 2AA).",
             "type": "`$STRING`",
           },
           {
             "name": "primary_care_trust",
             "req": True,
+            "short": "The healthcare administrative area for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "quality",
             "req": True,
+            "short": "Positional Quality Indicator (1-9).",
             "type": "`$INTEGER`",
           },
           {
             "name": "region",
             "req": True,
+            "short": "The regional designation for this postcode (formerly Government Office Regions or GORs).",
             "type": "`$STRING`",
           },
           {
             "name": "result",
             "req": True,
+            "short": "Array containing detailed location information for the requested postcode or nearest postcodes",
             "type": "`$ARRAY`",
           },
           {
             "name": "ruc11",
+            "short": "The 2011 Census Rural-Urban Classification for this postcode.",
             "type": "`$STRING`",
           },
           {
             "name": "ruc21",
+            "short": "The 2021 Census Rural-Urban Classification for this postcode.",
             "type": "`$STRING`",
           },
           {
@@ -558,6 +625,7 @@ def make_config():
           },
           {
             "name": "ttwa",
+            "short": "The Travel to Work Area for this postcode.",
             "type": "`$STRING`",
           },
         ],
@@ -745,6 +813,7 @@ def make_config():
           {
             "name": "result",
             "req": True,
+            "short": "Data for a given postcode",
             "type": "`$ARRAY`",
           },
           {
@@ -806,6 +875,7 @@ def make_config():
           {
             "name": "result",
             "req": True,
+            "short": "Data for a given postcode",
             "type": "`$ARRAY`",
           },
           {
