@@ -61,13 +61,19 @@ func TestTerminatedPostcodeEntity(t *testing.T) {
 
 		// LOAD
 		terminatedPostcodeRef01Ent := client.TerminatedPostcode(nil)
-		terminatedPostcodeRef01MatchDt0 := map[string]any{}
+		terminatedPostcodeRef01MatchDt0 := map[string]any{
+			"id": terminatedPostcodeRef01Data["id"],
+		}
 		terminatedPostcodeRef01DataDt0Loaded, err := terminatedPostcodeRef01Ent.Load(terminatedPostcodeRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if terminatedPostcodeRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		terminatedPostcodeRef01DataDt0LoadResult := core.ToMapAny(entityData(terminatedPostcodeRef01DataDt0Loaded))
+		if terminatedPostcodeRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if terminatedPostcodeRef01DataDt0LoadResult["id"] != terminatedPostcodeRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

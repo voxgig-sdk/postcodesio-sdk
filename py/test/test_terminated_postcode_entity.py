@@ -48,9 +48,13 @@ class TestTerminatedPostcodeEntity:
 
         # LOAD
         terminated_postcode_ref01_ent = client.TerminatedPostcode(None)
-        terminated_postcode_ref01_match_dt0 = {}
+        terminated_postcode_ref01_match_dt0 = {
+            "id": terminated_postcode_ref01_data["id"],
+        }
         terminated_postcode_ref01_data_dt0_loaded = terminated_postcode_ref01_ent.load(terminated_postcode_ref01_match_dt0, None)
-        assert terminated_postcode_ref01_data_dt0_loaded is not None
+        terminated_postcode_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(terminated_postcode_ref01_data_dt0_loaded))
+        assert terminated_postcode_ref01_data_dt0_load_result is not None
+        assert terminated_postcode_ref01_data_dt0_load_result["id"] == terminated_postcode_ref01_data["id"]
 
 
 

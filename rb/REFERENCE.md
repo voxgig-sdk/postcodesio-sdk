@@ -162,6 +162,12 @@ Return the entity name.
 outcode = client.Outcode
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `String` | No |  |
+
 ### Operations
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -219,6 +225,7 @@ place = client.Place
 | `district_borough` | `String` | Yes | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | `String` | No | Type of district/borough administrative unit |
 | `eastings` | `Integer` | Yes | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` | `String` | No |  |
 | `latitude` | `Float` | Yes | WGS84 latitude coordinate |
 | `local_type` | `String` | Yes | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | `Float` | Yes | WGS84 longitude coordinate |
@@ -305,6 +312,7 @@ postcode = client.Postcode
 | `eastings` | `Integer` | Yes | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | `String` | Yes | The European Electoral Region for this postcode. |
 | `icb` | `String` | No | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` | `String` | No |  |
 | `incode` | `String` | Yes | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | `Float` | Yes | WGS84 latitude coordinate (north-south position). |
 | `lep1` | `String` | No | The primary Local Enterprise Partnership for this postcode. |
@@ -430,6 +438,7 @@ scottish_postcode = client.ScottishPostcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `String` | No |  |
 | `result` | `Array` | Yes | Data for a given postcode |
 | `status` | `Integer` | Yes |  |
 
@@ -483,6 +492,7 @@ terminated_postcode = client.TerminatedPostcode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `String` | No |  |
 | `result` | `Array` | Yes | Data for a given postcode |
 | `status` | `Integer` | Yes |  |
 

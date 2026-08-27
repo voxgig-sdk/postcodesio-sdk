@@ -48,9 +48,13 @@ class TerminatedPostcodeEntityTest extends TestCase
 
         // LOAD
         $terminated_postcode_ref01_ent = $client->TerminatedPostcode(null);
-        $terminated_postcode_ref01_match_dt0 = [];
+        $terminated_postcode_ref01_match_dt0 = [
+            "id" => $terminated_postcode_ref01_data["id"],
+        ];
         $terminated_postcode_ref01_data_dt0_loaded = $terminated_postcode_ref01_ent->load($terminated_postcode_ref01_match_dt0, null);
-        $this->assertNotNull($terminated_postcode_ref01_data_dt0_loaded);
+        $terminated_postcode_ref01_data_dt0_load_result = Helpers::to_map(is_object($terminated_postcode_ref01_data_dt0_loaded) && method_exists($terminated_postcode_ref01_data_dt0_loaded, 'data_get') ? $terminated_postcode_ref01_data_dt0_loaded->data_get() : $terminated_postcode_ref01_data_dt0_loaded);
+        $this->assertNotNull($terminated_postcode_ref01_data_dt0_load_result);
+        $this->assertEquals($terminated_postcode_ref01_data_dt0_load_result["id"], $terminated_postcode_ref01_data["id"]);
 
     }
 }

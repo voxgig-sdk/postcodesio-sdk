@@ -59,9 +59,12 @@ describe('TerminatedPostcodeEntity', async () => {
 
     let terminated_postcode_ref01_data = Object.values(setup.data.existing.terminated_postcode)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
+    // LOAD
     const terminated_postcode_ref01_ent = client.TerminatedPostcode()
+    const terminated_postcode_ref01_match_dt0: any = {}
+    terminated_postcode_ref01_match_dt0.id = terminated_postcode_ref01_data.id
+    const terminated_postcode_ref01_data_dt0 = (await terminated_postcode_ref01_ent.load(terminated_postcode_ref01_match_dt0)).data()
+    assert(terminated_postcode_ref01_data_dt0.id === terminated_postcode_ref01_data.id)
 
 
   })

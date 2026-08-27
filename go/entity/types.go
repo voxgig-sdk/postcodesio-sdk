@@ -25,6 +25,7 @@ type NearestListMatch struct {
 
 // Outcode is the typed data model for the outcode entity.
 type Outcode struct {
+	Id *string `json:"id,omitempty"`
 }
 
 // OutcodeLoadMatch is the typed request payload for Outcode.LoadTyped.
@@ -41,6 +42,7 @@ type Place struct {
 	DistrictBorough string `json:"district_borough"`
 	DistrictBoroughType *string `json:"district_borough_type,omitempty"`
 	Eastings int `json:"eastings"`
+	Id *string `json:"id,omitempty"`
 	Latitude float64 `json:"latitude"`
 	LocalType string `json:"local_type"`
 	Longitude float64 `json:"longitude"`
@@ -71,6 +73,7 @@ type PlaceListMatch struct {
 	DistrictBorough *string `json:"district_borough,omitempty"`
 	DistrictBoroughType *string `json:"district_borough_type,omitempty"`
 	Eastings *int `json:"eastings,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Latitude *float64 `json:"latitude,omitempty"`
 	LocalType *string `json:"local_type,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
@@ -102,6 +105,7 @@ type Postcode struct {
 	Eastings int `json:"eastings"`
 	EuropeanElectoralRegion string `json:"european_electoral_region"`
 	Icb *string `json:"icb,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Incode string `json:"incode"`
 	Latitude float64 `json:"latitude"`
 	Lep1 *string `json:"lep1,omitempty"`
@@ -155,6 +159,7 @@ type PostcodeListMatch struct {
 	Eastings *int `json:"eastings,omitempty"`
 	EuropeanElectoralRegion *string `json:"european_electoral_region,omitempty"`
 	Icb *string `json:"icb,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Incode *string `json:"incode,omitempty"`
 	Latitude *float64 `json:"latitude,omitempty"`
 	Lep1 *string `json:"lep1,omitempty"`
@@ -203,6 +208,7 @@ type PostcodeCreateData struct {
 	Eastings int `json:"eastings"`
 	EuropeanElectoralRegion string `json:"european_electoral_region"`
 	Icb *string `json:"icb,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Incode string `json:"incode"`
 	Latitude float64 `json:"latitude"`
 	Lep1 *string `json:"lep1,omitempty"`
@@ -238,6 +244,7 @@ type PostcodeCreateData struct {
 
 // ScottishPostcode is the typed data model for the scottish_postcode entity.
 type ScottishPostcode struct {
+	Id *string `json:"id,omitempty"`
 	Result []any `json:"result"`
 	Status int `json:"status"`
 }
@@ -249,6 +256,7 @@ type ScottishPostcodeLoadMatch struct {
 
 // TerminatedPostcode is the typed data model for the terminated_postcode entity.
 type TerminatedPostcode struct {
+	Id *string `json:"id,omitempty"`
 	Result []any `json:"result"`
 	Status int `json:"status"`
 }

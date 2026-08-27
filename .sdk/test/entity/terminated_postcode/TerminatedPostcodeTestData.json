@@ -2,19 +2,19 @@
   "existing": {
     "terminated_postcode": {
       "TERMINATED_POSTCODE00": {
+        "id": "TERMINATED_POSTCODE00",
         "result": [],
-        "status": "s15",
-        "id": "TERMINATED_POSTCODE00"
+        "status": "s20"
       },
       "TERMINATED_POSTCODE01": {
+        "id": "TERMINATED_POSTCODE01",
         "result": [],
-        "status": "s29",
-        "id": "TERMINATED_POSTCODE01"
+        "status": "s3e"
       },
       "TERMINATED_POSTCODE02": {
+        "id": "TERMINATED_POSTCODE02",
         "result": [],
-        "status": "s3d",
-        "id": "TERMINATED_POSTCODE02"
+        "status": "s5c"
       }
     }
   },
@@ -22,7 +22,7 @@
     "terminated_postcode": {
       "terminated_postcode_ref01": {
         "result": [],
-        "status": "s51"
+        "status": "s7a"
       }
     }
   }

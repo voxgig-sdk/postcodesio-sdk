@@ -80,6 +80,7 @@ class TestPostcodeEntity:
 
         postcode_ref01_data = helpers.to_map(runner.entity_data(postcode_ref01_ent.create(postcode_ref01_data, None)))
         assert postcode_ref01_data is not None
+        assert postcode_ref01_data["id"] is not None
 
         # LIST
         postcode_ref01_match = {}
@@ -87,10 +88,19 @@ class TestPostcodeEntity:
         postcode_ref01_list_result = postcode_ref01_ent.list(postcode_ref01_match, None)
         assert isinstance(postcode_ref01_list_result, list)
 
+        found_item = vs.select(
+            runner.entity_list_to_data(postcode_ref01_list_result),
+            {"id": postcode_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
         # LOAD
-        postcode_ref01_match_dt0 = {}
+        postcode_ref01_match_dt0 = {
+            "id": postcode_ref01_data["id"],
+        }
         postcode_ref01_data_dt0_loaded = postcode_ref01_ent.load(postcode_ref01_match_dt0, None)
-        assert postcode_ref01_data_dt0_loaded is not None
+        postcode_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(postcode_ref01_data_dt0_loaded))
+        assert postcode_ref01_data_dt0_load_result is not None
+        assert postcode_ref01_data_dt0_load_result["id"] == postcode_ref01_data["id"]
 
 
 

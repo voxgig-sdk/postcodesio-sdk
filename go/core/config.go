@@ -20,6 +20,7 @@ func MakeConfig() map[string]any {
 				"options": map[string]any{
 					"active": false,
 				},
+				"transport": "base",
 			},
 		},
 		"options": map[string]any{
@@ -105,7 +106,12 @@ func MakeConfig() map[string]any {
 				},
 			},
 			"outcode": map[string]any{
-				"fields": []any{},
+				"fields": []any{
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
+					},
+				},
 				"name": "outcode",
 				"op": map[string]any{
 					"load": map[string]any{
@@ -196,6 +202,10 @@ func MakeConfig() map[string]any {
 						"req": true,
 						"short": "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)",
 						"type": "`$INTEGER`",
+					},
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "latitude",
@@ -438,6 +448,10 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "icb",
 						"short": "The NHS Integrated Care Board responsible for healthcare planning in this area.",
+						"type": "`$STRING`",
+					},
+					map[string]any{
+						"name": "id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -794,6 +808,10 @@ func MakeConfig() map[string]any {
 			"scottish_postcode": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
+					},
+					map[string]any{
 						"name": "result",
 						"req": true,
 						"short": "Data for a given postcode",
@@ -855,6 +873,10 @@ func MakeConfig() map[string]any {
 			},
 			"terminated_postcode": map[string]any{
 				"fields": []any{
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
+					},
 					map[string]any{
 						"name": "result",
 						"req": true,

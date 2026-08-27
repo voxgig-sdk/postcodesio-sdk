@@ -157,6 +157,12 @@ Return the entity name.
 outcode = client.Outcode()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `str` | No |  |
+
 ### Operations
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -213,6 +219,7 @@ place = client.Place()
 | `district_borough` | `str` | Yes | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | `str` | No | Type of district/borough administrative unit |
 | `eastings` | `int` | Yes | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` | `str` | No |  |
 | `latitude` | `float` | Yes | WGS84 latitude coordinate |
 | `local_type` | `str` | Yes | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | `float` | Yes | WGS84 longitude coordinate |
@@ -300,6 +307,7 @@ postcode = client.Postcode()
 | `eastings` | `int` | Yes | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | `str` | Yes | The European Electoral Region for this postcode. |
 | `icb` | `str` | No | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` | `str` | No |  |
 | `incode` | `str` | Yes | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | `float` | Yes | WGS84 latitude coordinate (north-south position). |
 | `lep1` | `str` | No | The primary Local Enterprise Partnership for this postcode. |
@@ -426,6 +434,7 @@ scottish_postcode = client.ScottishPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `str` | No |  |
 | `result` | `list` | Yes | Data for a given postcode |
 | `status` | `int` | Yes |  |
 
@@ -478,6 +487,7 @@ terminated_postcode = client.TerminatedPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `str` | No |  |
 | `result` | `list` | Yes | Data for a given postcode |
 | `status` | `int` | Yes |  |
 

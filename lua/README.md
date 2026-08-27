@@ -250,6 +250,7 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: Load.
 
@@ -266,6 +267,7 @@ API path: `/outcodes/{outcode}`
 | `district_borough` | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | Type of district/borough administrative unit |
 | `eastings` | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` |  |
 | `latitude` | WGS84 latitude coordinate |
 | `local_type` | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | WGS84 longitude coordinate |
@@ -302,6 +304,7 @@ API path: `/places`
 | `eastings` | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | The European Electoral Region for this postcode. |
 | `icb` | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` |  |
 | `incode` | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | WGS84 latitude coordinate (north-south position). |
 | `lep1` | The primary Local Enterprise Partnership for this postcode. |
@@ -342,6 +345,7 @@ API path: `/postcodes`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `result` | Data for a given postcode |
 | `status` |  |
 
@@ -353,6 +357,7 @@ API path: `/scotland/postcodes/{postcode}`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `result` | Data for a given postcode |
 | `status` |  |
 
@@ -399,6 +404,12 @@ Create an instance: `local outcode = client:Outcode(nil)`
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
 
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
+
 #### Example: Load
 
 ```lua
@@ -428,6 +439,7 @@ Create an instance: `local place = client:Place(nil)`
 | `district_borough` | `string` | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | `string` | Type of district/borough administrative unit |
 | `eastings` | `number` | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` | `string` |  |
 | `latitude` | `number` | WGS84 latitude coordinate |
 | `local_type` | `string` | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | `number` | WGS84 longitude coordinate |
@@ -485,6 +497,7 @@ Create an instance: `local postcode = client:Postcode(nil)`
 | `eastings` | `number` | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | `string` | The European Electoral Region for this postcode. |
 | `icb` | `string` | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` | `string` |  |
 | `incode` | `string` | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | `number` | WGS84 latitude coordinate (north-south position). |
 | `lep1` | `string` | The primary Local Enterprise Partnership for this postcode. |
@@ -577,6 +590,7 @@ Create an instance: `local scottish_postcode = client:ScottishPostcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `result` | `table` | Data for a given postcode |
 | `status` | `number` |  |
 
@@ -601,6 +615,7 @@ Create an instance: `local terminated_postcode = client:TerminatedPostcode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `result` | `table` | Data for a given postcode |
 | `status` | `number` |  |
 

@@ -41,9 +41,13 @@ class TerminatedPostcodeEntityTest < Minitest::Test
 
     # LOAD
     terminated_postcode_ref01_ent = client.TerminatedPostcode(nil)
-    terminated_postcode_ref01_match_dt0 = {}
+    terminated_postcode_ref01_match_dt0 = {
+      "id" => terminated_postcode_ref01_data["id"],
+    }
     terminated_postcode_ref01_data_dt0_loaded = terminated_postcode_ref01_ent.load(terminated_postcode_ref01_match_dt0, nil)
-    assert !terminated_postcode_ref01_data_dt0_loaded.nil?
+    terminated_postcode_ref01_data_dt0_load_result = Helpers.to_map(terminated_postcode_ref01_data_dt0_loaded.respond_to?(:data_get) ? terminated_postcode_ref01_data_dt0_loaded.data_get : terminated_postcode_ref01_data_dt0_loaded)
+    assert !terminated_postcode_ref01_data_dt0_load_result.nil?
+    assert_equal terminated_postcode_ref01_data_dt0_load_result["id"], terminated_postcode_ref01_data["id"]
 
   end
 end

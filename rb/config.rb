@@ -28,6 +28,7 @@ module PostcodesioConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
@@ -113,7 +114,12 @@ module PostcodesioConfig
           },
         },
         "outcode" => {
-          "fields" => [],
+          "fields" => [
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+          ],
           "name" => "outcode",
           "op" => {
             "load" => {
@@ -204,6 +210,10 @@ module PostcodesioConfig
               "req" => true,
               "short" => "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)",
               "type" => "`$INTEGER`",
+            },
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
             },
             {
               "name" => "latitude",
@@ -446,6 +456,10 @@ module PostcodesioConfig
             {
               "name" => "icb",
               "short" => "The NHS Integrated Care Board responsible for healthcare planning in this area.",
+              "type" => "`$STRING`",
+            },
+            {
+              "name" => "id",
               "type" => "`$STRING`",
             },
             {
@@ -802,6 +816,10 @@ module PostcodesioConfig
         "scottish_postcode" => {
           "fields" => [
             {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+            {
               "name" => "result",
               "req" => true,
               "short" => "Data for a given postcode",
@@ -863,6 +881,10 @@ module PostcodesioConfig
         },
         "terminated_postcode" => {
           "fields" => [
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
             {
               "name" => "result",
               "req" => true,

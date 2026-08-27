@@ -31,8 +31,13 @@ NearestListMatch = Struct.new(
 )
 
 # Outcode entity data model.
-class Outcode
-end
+#
+# @!attribute [rw] id
+#   @return [String, nil]
+Outcode = Struct.new(
+  :id,
+  keyword_init: true
+)
 
 # Request payload for Outcode#load.
 #
@@ -65,6 +70,9 @@ OutcodeLoadMatch = Struct.new(
 #
 # @!attribute [rw] eastings
 #   @return [Integer]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
 #
 # @!attribute [rw] latitude
 #   @return [Float]
@@ -115,6 +123,7 @@ Place = Struct.new(
   :district_borough,
   :district_borough_type,
   :eastings,
+  :id,
   :latitude,
   :local_type,
   :longitude,
@@ -163,6 +172,9 @@ PlaceLoadMatch = Struct.new(
 #
 # @!attribute [rw] eastings
 #   @return [Integer, nil]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
 #
 # @!attribute [rw] latitude
 #   @return [Float, nil]
@@ -213,6 +225,7 @@ PlaceListMatch = Struct.new(
   :district_borough,
   :district_borough_type,
   :eastings,
+  :id,
   :latitude,
   :local_type,
   :longitude,
@@ -269,6 +282,9 @@ PlaceListMatch = Struct.new(
 #   @return [String]
 #
 # @!attribute [rw] icb
+#   @return [String, nil]
+#
+# @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] incode
@@ -377,6 +393,7 @@ Postcode = Struct.new(
   :eastings,
   :european_electoral_region,
   :icb,
+  :id,
   :incode,
   :latitude,
   :lep1,
@@ -459,6 +476,9 @@ PostcodeLoadMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] icb
+#   @return [String, nil]
+#
+# @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] incode
@@ -567,6 +587,7 @@ PostcodeListMatch = Struct.new(
   :eastings,
   :european_electoral_region,
   :icb,
+  :id,
   :incode,
   :latitude,
   :lep1,
@@ -640,6 +661,9 @@ PostcodeListMatch = Struct.new(
 #   @return [String]
 #
 # @!attribute [rw] icb
+#   @return [String, nil]
+#
+# @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] incode
@@ -748,6 +772,7 @@ PostcodeCreateData = Struct.new(
   :eastings,
   :european_electoral_region,
   :icb,
+  :id,
   :incode,
   :latitude,
   :lep1,
@@ -784,12 +809,16 @@ PostcodeCreateData = Struct.new(
 
 # ScottishPostcode entity data model.
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] result
 #   @return [Array]
 #
 # @!attribute [rw] status
 #   @return [Integer]
 ScottishPostcode = Struct.new(
+  :id,
   :result,
   :status,
   keyword_init: true
@@ -806,12 +835,16 @@ ScottishPostcodeLoadMatch = Struct.new(
 
 # TerminatedPostcode entity data model.
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] result
 #   @return [Array]
 #
 # @!attribute [rw] status
 #   @return [Integer]
 TerminatedPostcode = Struct.new(
+  :id,
   :result,
   :status,
   keyword_init: true

@@ -2,19 +2,19 @@
   "existing": {
     "scottish_postcode": {
       "SCOTTISH_POSTCODE00": {
+        "id": "SCOTTISH_POSTCODE00",
         "result": [],
-        "status": "s15",
-        "id": "SCOTTISH_POSTCODE00"
+        "status": "s20"
       },
       "SCOTTISH_POSTCODE01": {
+        "id": "SCOTTISH_POSTCODE01",
         "result": [],
-        "status": "s29",
-        "id": "SCOTTISH_POSTCODE01"
+        "status": "s3e"
       },
       "SCOTTISH_POSTCODE02": {
+        "id": "SCOTTISH_POSTCODE02",
         "result": [],
-        "status": "s3d",
-        "id": "SCOTTISH_POSTCODE02"
+        "status": "s5c"
       }
     }
   },
@@ -22,7 +22,7 @@
     "scottish_postcode": {
       "scottish_postcode_ref01": {
         "result": [],
-        "status": "s51"
+        "status": "s7a"
       }
     }
   }

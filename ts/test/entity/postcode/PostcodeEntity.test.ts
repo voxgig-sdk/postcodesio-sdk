@@ -63,7 +63,7 @@ describe('PostcodeEntity', async () => {
     let postcode_ref01_data = setup.data.new.postcode['postcode_ref01']
 
     postcode_ref01_data = (await postcode_ref01_ent.create(postcode_ref01_data)).data()
-    assert(null != postcode_ref01_data)
+    assert(null != postcode_ref01_data.id)
 
 
     // LIST
@@ -71,6 +71,14 @@ describe('PostcodeEntity', async () => {
 
     const postcode_ref01_list = (await postcode_ref01_ent.list(postcode_ref01_match)).map((e: any) => e.data())
 
+    assert(!isempty(select(postcode_ref01_list, { id: postcode_ref01_data.id })))
+
+
+    // LOAD
+    const postcode_ref01_match_dt0: any = {}
+    postcode_ref01_match_dt0.id = postcode_ref01_data.id
+    const postcode_ref01_data_dt0 = (await postcode_ref01_ent.load(postcode_ref01_match_dt0)).data()
+    assert(postcode_ref01_data_dt0.id === postcode_ref01_data.id)
 
 
   })

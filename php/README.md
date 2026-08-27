@@ -265,6 +265,7 @@ API path: `/postcodes/{postcode}/nearest`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: Load.
 
@@ -281,6 +282,7 @@ API path: `/outcodes/{outcode}`
 | `district_borough` | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | Type of district/borough administrative unit |
 | `eastings` | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` |  |
 | `latitude` | WGS84 latitude coordinate |
 | `local_type` | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | WGS84 longitude coordinate |
@@ -317,6 +319,7 @@ API path: `/places`
 | `eastings` | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | The European Electoral Region for this postcode. |
 | `icb` | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` |  |
 | `incode` | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | WGS84 latitude coordinate (north-south position). |
 | `lep1` | The primary Local Enterprise Partnership for this postcode. |
@@ -357,6 +360,7 @@ API path: `/postcodes`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `result` | Data for a given postcode |
 | `status` |  |
 
@@ -368,6 +372,7 @@ API path: `/scotland/postcodes/{postcode}`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `result` | Data for a given postcode |
 | `status` |  |
 
@@ -415,6 +420,12 @@ Create an instance: `$outcode = $client->Outcode();`
 | --- | --- |
 | `load(match)` | Load a single entity by match criteria. |
 
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
+
 #### Example: Load
 
 ```php
@@ -445,6 +456,7 @@ Create an instance: `$place = $client->Place();`
 | `district_borough` | `string` | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | `string` | Type of district/borough administrative unit |
 | `eastings` | `int` | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` | `string` |  |
 | `latitude` | `float` | WGS84 latitude coordinate |
 | `local_type` | `string` | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | `float` | WGS84 longitude coordinate |
@@ -504,6 +516,7 @@ Create an instance: `$postcode = $client->Postcode();`
 | `eastings` | `int` | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | `string` | The European Electoral Region for this postcode. |
 | `icb` | `string` | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` | `string` |  |
 | `incode` | `string` | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | `float` | WGS84 latitude coordinate (north-south position). |
 | `lep1` | `string` | The primary Local Enterprise Partnership for this postcode. |
@@ -598,6 +611,7 @@ Create an instance: `$scottish_postcode = $client->ScottishPostcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `result` | `array` | Data for a given postcode |
 | `status` | `int` |  |
 
@@ -623,6 +637,7 @@ Create an instance: `$terminated_postcode = $client->TerminatedPostcode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `result` | `array` | Data for a given postcode |
 | `status` | `int` |  |
 

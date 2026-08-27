@@ -48,9 +48,13 @@ class TestScottishPostcodeEntity:
 
         # LOAD
         scottish_postcode_ref01_ent = client.ScottishPostcode(None)
-        scottish_postcode_ref01_match_dt0 = {}
+        scottish_postcode_ref01_match_dt0 = {
+            "id": scottish_postcode_ref01_data["id"],
+        }
         scottish_postcode_ref01_data_dt0_loaded = scottish_postcode_ref01_ent.load(scottish_postcode_ref01_match_dt0, None)
-        assert scottish_postcode_ref01_data_dt0_loaded is not None
+        scottish_postcode_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(scottish_postcode_ref01_data_dt0_loaded))
+        assert scottish_postcode_ref01_data_dt0_load_result is not None
+        assert scottish_postcode_ref01_data_dt0_load_result["id"] == scottish_postcode_ref01_data["id"]
 
 
 

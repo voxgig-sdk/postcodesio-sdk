@@ -16,6 +16,7 @@ local function make_config()
         ["options"] = {
           ["active"] = false,
         },
+        ["transport"] = "base",
       },
     },
     options = {
@@ -101,7 +102,12 @@ local function make_config()
         },
       },
       ["outcode"] = {
-        ["fields"] = {},
+        ["fields"] = {
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+        },
         ["name"] = "outcode",
         ["op"] = {
           ["load"] = {
@@ -192,6 +198,10 @@ local function make_config()
             ["req"] = true,
             ["short"] = "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)",
             ["type"] = "`$INTEGER`",
+          },
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "latitude",
@@ -434,6 +444,10 @@ local function make_config()
           {
             ["name"] = "icb",
             ["short"] = "The NHS Integrated Care Board responsible for healthcare planning in this area.",
+            ["type"] = "`$STRING`",
+          },
+          {
+            ["name"] = "id",
             ["type"] = "`$STRING`",
           },
           {
@@ -790,6 +804,10 @@ local function make_config()
       ["scottish_postcode"] = {
         ["fields"] = {
           {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+          {
             ["name"] = "result",
             ["req"] = true,
             ["short"] = "Data for a given postcode",
@@ -851,6 +869,10 @@ local function make_config()
       },
       ["terminated_postcode"] = {
         ["fields"] = {
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
           {
             ["name"] = "result",
             ["req"] = true,

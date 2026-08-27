@@ -59,9 +59,12 @@ describe('OutcodeEntity', async () => {
 
     let outcode_ref01_data = Object.values(setup.data.existing.outcode)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
+    // LOAD
     const outcode_ref01_ent = client.Outcode()
+    const outcode_ref01_match_dt0: any = {}
+    outcode_ref01_match_dt0.id = outcode_ref01_data.id
+    const outcode_ref01_data_dt0 = (await outcode_ref01_ent.load(outcode_ref01_match_dt0)).data()
+    assert(outcode_ref01_data_dt0.id === outcode_ref01_data.id)
 
 
   })

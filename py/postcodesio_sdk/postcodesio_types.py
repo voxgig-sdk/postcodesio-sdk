@@ -25,8 +25,8 @@ class NearestListMatch(TypedDict):
     postcode_id: str
 
 
-class Outcode(TypedDict):
-    pass
+class Outcode(TypedDict, total=False):
+    id: str
 
 
 class OutcodeLoadMatch(TypedDict):
@@ -58,6 +58,7 @@ class PlaceRequired(TypedDict):
 
 class Place(PlaceRequired, total=False):
     district_borough_type: str
+    id: str
 
 
 class PlaceLoadMatch(TypedDict):
@@ -72,6 +73,7 @@ class PlaceListMatch(TypedDict, total=False):
     district_borough: str
     district_borough_type: str
     eastings: int
+    id: str
     latitude: float
     local_type: str
     longitude: float
@@ -122,6 +124,7 @@ class Postcode(PostcodeRequired, total=False):
     cancer_alliance: str
     date_of_introduction: str
     icb: str
+    id: str
     lep1: str
     lep2: str
     lsoa11: str
@@ -156,6 +159,7 @@ class PostcodeListMatch(TypedDict, total=False):
     eastings: int
     european_electoral_region: str
     icb: str
+    id: str
     incode: str
     latitude: float
     lep1: str
@@ -223,6 +227,7 @@ class PostcodeCreateData(PostcodeCreateDataRequired, total=False):
     cancer_alliance: str
     date_of_introduction: str
     icb: str
+    id: str
     lep1: str
     lep2: str
     lsoa11: str
@@ -239,18 +244,26 @@ class PostcodeCreateData(PostcodeCreateDataRequired, total=False):
     ttwa: str
 
 
-class ScottishPostcode(TypedDict):
+class ScottishPostcodeRequired(TypedDict):
     result: list
     status: int
+
+
+class ScottishPostcode(ScottishPostcodeRequired, total=False):
+    id: str
 
 
 class ScottishPostcodeLoadMatch(TypedDict):
     id: str
 
 
-class TerminatedPostcode(TypedDict):
+class TerminatedPostcodeRequired(TypedDict):
     result: list
     status: int
+
+
+class TerminatedPostcode(TerminatedPostcodeRequired, total=False):
+    id: str
 
 
 class TerminatedPostcodeLoadMatch(TypedDict):

@@ -48,9 +48,13 @@ class TestOutcodeEntity:
 
         # LOAD
         outcode_ref01_ent = client.Outcode(None)
-        outcode_ref01_match_dt0 = {}
+        outcode_ref01_match_dt0 = {
+            "id": outcode_ref01_data["id"],
+        }
         outcode_ref01_data_dt0_loaded = outcode_ref01_ent.load(outcode_ref01_match_dt0, None)
-        assert outcode_ref01_data_dt0_loaded is not None
+        outcode_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(outcode_ref01_data_dt0_loaded))
+        assert outcode_ref01_data_dt0_load_result is not None
+        assert outcode_ref01_data_dt0_load_result["id"] == outcode_ref01_data["id"]
 
 
 

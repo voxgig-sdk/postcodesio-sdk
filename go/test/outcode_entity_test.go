@@ -61,13 +61,19 @@ func TestOutcodeEntity(t *testing.T) {
 
 		// LOAD
 		outcodeRef01Ent := client.Outcode(nil)
-		outcodeRef01MatchDt0 := map[string]any{}
+		outcodeRef01MatchDt0 := map[string]any{
+			"id": outcodeRef01Data["id"],
+		}
 		outcodeRef01DataDt0Loaded, err := outcodeRef01Ent.Load(outcodeRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if outcodeRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		outcodeRef01DataDt0LoadResult := core.ToMapAny(entityData(outcodeRef01DataDt0Loaded))
+		if outcodeRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if outcodeRef01DataDt0LoadResult["id"] != outcodeRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

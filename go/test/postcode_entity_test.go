@@ -110,6 +110,9 @@ func TestPostcodeEntity(t *testing.T) {
 		if postcodeRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if postcodeRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
 		postcodeRef01Match := map[string]any{}
@@ -118,19 +121,30 @@ func TestPostcodeEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, postcodeRef01ListOk := postcodeRef01ListResult.([]any)
+		postcodeRef01List, postcodeRef01ListOk := postcodeRef01ListResult.([]any)
 		if !postcodeRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", postcodeRef01ListResult)
 		}
 
+		foundItem := vs.Select(entityListToData(postcodeRef01List), map[string]any{"id": postcodeRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
 		// LOAD
-		postcodeRef01MatchDt0 := map[string]any{}
+		postcodeRef01MatchDt0 := map[string]any{
+			"id": postcodeRef01Data["id"],
+		}
 		postcodeRef01DataDt0Loaded, err := postcodeRef01Ent.Load(postcodeRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if postcodeRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		postcodeRef01DataDt0LoadResult := core.ToMapAny(entityData(postcodeRef01DataDt0Loaded))
+		if postcodeRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if postcodeRef01DataDt0LoadResult["id"] != postcodeRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

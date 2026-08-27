@@ -40,7 +40,8 @@ class Config {
      test:     {
       "options": {
         "active": false
-      }
+      },
+      "transport": "base"
     },
 
   }
@@ -146,7 +147,12 @@ class Config {
       }
     },
     "outcode": {
-      "fields": [],
+      "fields": [
+        {
+          "name": "id",
+          "type": "`$STRING`"
+        }
+      ],
       "name": "outcode",
       "op": {
         "load": {
@@ -237,6 +243,10 @@ class Config {
           "req": true,
           "short": "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)",
           "type": "`$INTEGER`"
+        },
+        {
+          "name": "id",
+          "type": "`$STRING`"
         },
         {
           "name": "latitude",
@@ -479,6 +489,10 @@ class Config {
         {
           "name": "icb",
           "short": "The NHS Integrated Care Board responsible for healthcare planning in this area.",
+          "type": "`$STRING`"
+        },
+        {
+          "name": "id",
           "type": "`$STRING`"
         },
         {
@@ -835,6 +849,10 @@ class Config {
     "scottish_postcode": {
       "fields": [
         {
+          "name": "id",
+          "type": "`$STRING`"
+        },
+        {
           "name": "result",
           "req": true,
           "short": "Data for a given postcode",
@@ -896,6 +914,10 @@ class Config {
     },
     "terminated_postcode": {
       "fields": [
+        {
+          "name": "id",
+          "type": "`$STRING`"
+        },
         {
           "name": "result",
           "req": true,

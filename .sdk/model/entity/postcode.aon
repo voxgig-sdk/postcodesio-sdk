@@ -84,6 +84,11 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "incode"
       req: true
       short: "The second part of a postcode after the space (always 3 characters)."
@@ -269,6 +274,11 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "postcode"
   op: {

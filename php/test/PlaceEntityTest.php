@@ -93,9 +93,13 @@ class PlaceEntityTest extends TestCase
         $this->assertIsArray($place_ref01_list_result);
 
         // LOAD
-        $place_ref01_match_dt0 = [];
+        $place_ref01_match_dt0 = [
+            "id" => $place_ref01_data["id"],
+        ];
         $place_ref01_data_dt0_loaded = $place_ref01_ent->load($place_ref01_match_dt0, null);
-        $this->assertNotNull($place_ref01_data_dt0_loaded);
+        $place_ref01_data_dt0_load_result = Helpers::to_map(is_object($place_ref01_data_dt0_loaded) && method_exists($place_ref01_data_dt0_loaded, 'data_get') ? $place_ref01_data_dt0_loaded->data_get() : $place_ref01_data_dt0_loaded);
+        $this->assertNotNull($place_ref01_data_dt0_load_result);
+        $this->assertEquals($place_ref01_data_dt0_load_result["id"], $place_ref01_data["id"]);
 
     }
 }

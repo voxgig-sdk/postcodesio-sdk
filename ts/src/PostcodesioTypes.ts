@@ -15,6 +15,7 @@ export interface NearestListMatch {
 }
 
 export interface Outcode {
+  id?: string
 }
 
 export interface OutcodeLoadMatch {
@@ -29,6 +30,7 @@ export interface Place {
   district_borough: string
   district_borough_type?: string
   eastings: number
+  id?: string
   latitude: number
   local_type: string
   longitude: number
@@ -57,6 +59,7 @@ export interface PlaceListMatch {
   district_borough?: string
   district_borough_type?: string
   eastings?: number
+  id?: string
   latitude?: number
   local_type?: string
   longitude?: number
@@ -87,6 +90,7 @@ export interface Postcode {
   eastings: number
   european_electoral_region: string
   icb?: string
+  id?: string
   incode: string
   latitude: number
   lep1?: string
@@ -138,6 +142,7 @@ export interface PostcodeListMatch {
   eastings?: number
   european_electoral_region?: string
   icb?: string
+  id?: string
   incode?: string
   latitude?: number
   lep1?: string
@@ -185,6 +190,7 @@ export interface PostcodeCreateData {
   eastings: number
   european_electoral_region: string
   icb?: string
+  id?: string
   incode: string
   latitude: number
   lep1?: string
@@ -219,6 +225,7 @@ export interface PostcodeCreateData {
 }
 
 export interface ScottishPostcode {
+  id?: string
   result: any[]
   status: number
 }
@@ -228,6 +235,7 @@ export interface ScottishPostcodeLoadMatch {
 }
 
 export interface TerminatedPostcode {
+  id?: string
   result: any[]
   status: number
 }

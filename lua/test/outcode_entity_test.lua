@@ -44,10 +44,14 @@ describe("OutcodeEntity", function()
 
     -- LOAD
     local outcode_ref01_ent = client:Outcode(nil)
-    local outcode_ref01_match_dt0 = {}
+    local outcode_ref01_match_dt0 = {
+      id = outcode_ref01_data["id"],
+    }
     local outcode_ref01_data_dt0_loaded, err = outcode_ref01_ent:load(outcode_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(outcode_ref01_data_dt0_loaded)
+    local outcode_ref01_data_dt0_load_result = helpers.to_map(type(outcode_ref01_data_dt0_loaded) == 'table' and outcode_ref01_data_dt0_loaded.data_get and outcode_ref01_data_dt0_loaded:data_get() or outcode_ref01_data_dt0_loaded)
+    assert.is_not_nil(outcode_ref01_data_dt0_load_result)
+    assert.are.equal(outcode_ref01_data_dt0_load_result["id"], outcode_ref01_data["id"])
 
   end)
 end)

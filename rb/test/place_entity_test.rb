@@ -83,9 +83,13 @@ class PlaceEntityTest < Minitest::Test
     assert place_ref01_list_result.is_a?(Array)
 
     # LOAD
-    place_ref01_match_dt0 = {}
+    place_ref01_match_dt0 = {
+      "id" => place_ref01_data["id"],
+    }
     place_ref01_data_dt0_loaded = place_ref01_ent.load(place_ref01_match_dt0, nil)
-    assert !place_ref01_data_dt0_loaded.nil?
+    place_ref01_data_dt0_load_result = Helpers.to_map(place_ref01_data_dt0_loaded.respond_to?(:data_get) ? place_ref01_data_dt0_loaded.data_get : place_ref01_data_dt0_loaded)
+    assert !place_ref01_data_dt0_load_result.nil?
+    assert_equal place_ref01_data_dt0_load_result["id"], place_ref01_data["id"]
 
   end
 end

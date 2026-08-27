@@ -41,9 +41,13 @@ class OutcodeEntityTest < Minitest::Test
 
     # LOAD
     outcode_ref01_ent = client.Outcode(nil)
-    outcode_ref01_match_dt0 = {}
+    outcode_ref01_match_dt0 = {
+      "id" => outcode_ref01_data["id"],
+    }
     outcode_ref01_data_dt0_loaded = outcode_ref01_ent.load(outcode_ref01_match_dt0, nil)
-    assert !outcode_ref01_data_dt0_loaded.nil?
+    outcode_ref01_data_dt0_load_result = Helpers.to_map(outcode_ref01_data_dt0_loaded.respond_to?(:data_get) ? outcode_ref01_data_dt0_loaded.data_get : outcode_ref01_data_dt0_loaded)
+    assert !outcode_ref01_data_dt0_load_result.nil?
+    assert_equal outcode_ref01_data_dt0_load_result["id"], outcode_ref01_data["id"]
 
   end
 end

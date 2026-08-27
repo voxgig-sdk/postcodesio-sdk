@@ -14,6 +14,7 @@
 ---@field postcode_id string
 
 ---@class Outcode
+---@field id? string
 
 ---@class OutcodeLoadMatch
 ---@field id string
@@ -26,6 +27,7 @@
 ---@field district_borough string
 ---@field district_borough_type? string
 ---@field eastings number
+---@field id? string
 ---@field latitude number
 ---@field local_type string
 ---@field longitude number
@@ -52,6 +54,7 @@
 ---@field district_borough? string
 ---@field district_borough_type? string
 ---@field eastings? number
+---@field id? string
 ---@field latitude? number
 ---@field local_type? string
 ---@field longitude? number
@@ -81,6 +84,7 @@
 ---@field eastings number
 ---@field european_electoral_region string
 ---@field icb? string
+---@field id? string
 ---@field incode string
 ---@field latitude number
 ---@field lep1? string
@@ -130,6 +134,7 @@
 ---@field eastings? number
 ---@field european_electoral_region? string
 ---@field icb? string
+---@field id? string
 ---@field incode? string
 ---@field latitude? number
 ---@field lep1? string
@@ -176,6 +181,7 @@
 ---@field eastings number
 ---@field european_electoral_region string
 ---@field icb? string
+---@field id? string
 ---@field incode string
 ---@field latitude number
 ---@field lep1? string
@@ -209,6 +215,7 @@
 ---@field ttwa? string
 
 ---@class ScottishPostcode
+---@field id? string
 ---@field result table
 ---@field status number
 
@@ -216,6 +223,7 @@
 ---@field id string
 
 ---@class TerminatedPostcode
+---@field id? string
 ---@field result table
 ---@field status number
 

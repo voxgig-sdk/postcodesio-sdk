@@ -48,9 +48,13 @@ class OutcodeEntityTest extends TestCase
 
         // LOAD
         $outcode_ref01_ent = $client->Outcode(null);
-        $outcode_ref01_match_dt0 = [];
+        $outcode_ref01_match_dt0 = [
+            "id" => $outcode_ref01_data["id"],
+        ];
         $outcode_ref01_data_dt0_loaded = $outcode_ref01_ent->load($outcode_ref01_match_dt0, null);
-        $this->assertNotNull($outcode_ref01_data_dt0_loaded);
+        $outcode_ref01_data_dt0_load_result = Helpers::to_map(is_object($outcode_ref01_data_dt0_loaded) && method_exists($outcode_ref01_data_dt0_loaded, 'data_get') ? $outcode_ref01_data_dt0_loaded->data_get() : $outcode_ref01_data_dt0_loaded);
+        $this->assertNotNull($outcode_ref01_data_dt0_load_result);
+        $this->assertEquals($outcode_ref01_data_dt0_load_result["id"], $outcode_ref01_data["id"]);
 
     }
 }

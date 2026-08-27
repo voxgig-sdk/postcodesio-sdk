@@ -223,6 +223,12 @@ Return a copy of the entity options.
 const outcode = client.Outcode()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
@@ -278,6 +284,7 @@ const place = client.Place()
 | `district_borough` | `string` | Yes | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | `string` | No | Type of district/borough administrative unit |
 | `eastings` | `number` | Yes | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` | `string` | No |  |
 | `latitude` | `number` | Yes | WGS84 latitude coordinate |
 | `local_type` | `string` | Yes | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | `number` | Yes | WGS84 longitude coordinate |
@@ -362,6 +369,7 @@ const postcode = client.Postcode()
 | `eastings` | `number` | Yes | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | `string` | Yes | The European Electoral Region for this postcode. |
 | `icb` | `string` | No | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` | `string` | No |  |
 | `incode` | `string` | Yes | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | `number` | Yes | WGS84 latitude coordinate (north-south position). |
 | `lep1` | `string` | No | The primary Local Enterprise Partnership for this postcode. |
@@ -485,6 +493,7 @@ const scottish_postcode = client.ScottishPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `result` | `any[]` | Yes | Data for a given postcode |
 | `status` | `number` | Yes |  |
 
@@ -536,6 +545,7 @@ const terminated_postcode = client.TerminatedPostcode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `result` | `any[]` | Yes | Data for a given postcode |
 | `status` | `number` | Yes |  |
 

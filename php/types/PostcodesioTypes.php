@@ -28,6 +28,7 @@ class NearestListMatch
 /** Outcode entity data model. */
 class Outcode
 {
+    public ?string $id = null;
 }
 
 /** Request payload for Outcode#load. */
@@ -46,6 +47,7 @@ class Place
     public string $district_borough;
     public ?string $district_borough_type = null;
     public int $eastings;
+    public ?string $id = null;
     public float $latitude;
     public string $local_type;
     public float $longitude;
@@ -78,6 +80,7 @@ class PlaceListMatch
     public ?string $district_borough = null;
     public ?string $district_borough_type = null;
     public ?int $eastings = null;
+    public ?string $id = null;
     public ?float $latitude = null;
     public ?string $local_type = null;
     public ?float $longitude = null;
@@ -110,6 +113,7 @@ class Postcode
     public int $eastings;
     public string $european_electoral_region;
     public ?string $icb = null;
+    public ?string $id = null;
     public string $incode;
     public float $latitude;
     public ?string $lep1 = null;
@@ -165,6 +169,7 @@ class PostcodeListMatch
     public ?int $eastings = null;
     public ?string $european_electoral_region = null;
     public ?string $icb = null;
+    public ?string $id = null;
     public ?string $incode = null;
     public ?float $latitude = null;
     public ?string $lep1 = null;
@@ -214,6 +219,7 @@ class PostcodeCreateData
     public int $eastings;
     public string $european_electoral_region;
     public ?string $icb = null;
+    public ?string $id = null;
     public string $incode;
     public float $latitude;
     public ?string $lep1 = null;
@@ -250,6 +256,7 @@ class PostcodeCreateData
 /** ScottishPostcode entity data model. */
 class ScottishPostcode
 {
+    public ?string $id = null;
     public array $result;
     public int $status;
 }
@@ -263,6 +270,7 @@ class ScottishPostcodeLoadMatch
 /** TerminatedPostcode entity data model. */
 class TerminatedPostcode
 {
+    public ?string $id = null;
     public array $result;
     public int $status;
 }

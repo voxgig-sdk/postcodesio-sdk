@@ -84,6 +84,7 @@ describe("PostcodeEntity", function()
     assert.is_nil(err)
     postcode_ref01_data = helpers.to_map(type(postcode_ref01_data_result) == 'table' and postcode_ref01_data_result.data_get and postcode_ref01_data_result:data_get() or postcode_ref01_data_result)
     assert.is_not_nil(postcode_ref01_data)
+    assert.is_not_nil(postcode_ref01_data["id"])
 
     -- LIST
     local postcode_ref01_match = {}
@@ -92,11 +93,20 @@ describe("PostcodeEntity", function()
     assert.is_nil(err)
     assert.is_table(postcode_ref01_list_result)
 
+    local found_item = vs.select(
+      runner.entity_list_to_data(postcode_ref01_list_result),
+      { id = postcode_ref01_data["id"] })
+    assert.is_false(vs.isempty(found_item))
+
     -- LOAD
-    local postcode_ref01_match_dt0 = {}
+    local postcode_ref01_match_dt0 = {
+      id = postcode_ref01_data["id"],
+    }
     local postcode_ref01_data_dt0_loaded, err = postcode_ref01_ent:load(postcode_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(postcode_ref01_data_dt0_loaded)
+    local postcode_ref01_data_dt0_load_result = helpers.to_map(type(postcode_ref01_data_dt0_loaded) == 'table' and postcode_ref01_data_dt0_loaded.data_get and postcode_ref01_data_dt0_loaded:data_get() or postcode_ref01_data_dt0_loaded)
+    assert.is_not_nil(postcode_ref01_data_dt0_load_result)
+    assert.are.equal(postcode_ref01_data_dt0_load_result["id"], postcode_ref01_data["id"])
 
   end)
 end)

@@ -41,9 +41,13 @@ class ScottishPostcodeEntityTest < Minitest::Test
 
     # LOAD
     scottish_postcode_ref01_ent = client.ScottishPostcode(nil)
-    scottish_postcode_ref01_match_dt0 = {}
+    scottish_postcode_ref01_match_dt0 = {
+      "id" => scottish_postcode_ref01_data["id"],
+    }
     scottish_postcode_ref01_data_dt0_loaded = scottish_postcode_ref01_ent.load(scottish_postcode_ref01_match_dt0, nil)
-    assert !scottish_postcode_ref01_data_dt0_loaded.nil?
+    scottish_postcode_ref01_data_dt0_load_result = Helpers.to_map(scottish_postcode_ref01_data_dt0_loaded.respond_to?(:data_get) ? scottish_postcode_ref01_data_dt0_loaded.data_get : scottish_postcode_ref01_data_dt0_loaded)
+    assert !scottish_postcode_ref01_data_dt0_load_result.nil?
+    assert_equal scottish_postcode_ref01_data_dt0_load_result["id"], scottish_postcode_ref01_data["id"]
 
   end
 end

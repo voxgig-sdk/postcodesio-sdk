@@ -48,6 +48,11 @@ main: kit: entity: place: {
       type: "`$INTEGER`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "latitude"
       req: true
       short: "WGS84 latitude coordinate"
@@ -132,6 +137,11 @@ main: kit: entity: place: {
       type: "`$STRING`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "place"
   op: {

@@ -48,9 +48,13 @@ class ScottishPostcodeEntityTest extends TestCase
 
         // LOAD
         $scottish_postcode_ref01_ent = $client->ScottishPostcode(null);
-        $scottish_postcode_ref01_match_dt0 = [];
+        $scottish_postcode_ref01_match_dt0 = [
+            "id" => $scottish_postcode_ref01_data["id"],
+        ];
         $scottish_postcode_ref01_data_dt0_loaded = $scottish_postcode_ref01_ent->load($scottish_postcode_ref01_match_dt0, null);
-        $this->assertNotNull($scottish_postcode_ref01_data_dt0_loaded);
+        $scottish_postcode_ref01_data_dt0_load_result = Helpers::to_map(is_object($scottish_postcode_ref01_data_dt0_loaded) && method_exists($scottish_postcode_ref01_data_dt0_loaded, 'data_get') ? $scottish_postcode_ref01_data_dt0_loaded->data_get() : $scottish_postcode_ref01_data_dt0_loaded);
+        $this->assertNotNull($scottish_postcode_ref01_data_dt0_load_result);
+        $this->assertEquals($scottish_postcode_ref01_data_dt0_load_result["id"], $scottish_postcode_ref01_data["id"]);
 
     }
 }

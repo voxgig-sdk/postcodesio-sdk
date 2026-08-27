@@ -6,6 +6,11 @@ main: kit: entity: terminated_postcode: {
 
   fields: [
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "result"
       req: true
       short: "Data for a given postcode"
@@ -17,6 +22,11 @@ main: kit: entity: terminated_postcode: {
       type: "`$INTEGER`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "terminated_postcode"
   op: {

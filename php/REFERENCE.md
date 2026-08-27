@@ -161,6 +161,12 @@ Return the entity name.
 $outcode = $client->Outcode();
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -218,6 +224,7 @@ $place = $client->Place();
 | `district_borough` | `string` | Yes | District, Metropolitan District or London Borough containing this place |
 | `district_borough_type` | `string` | No | Type of district/borough administrative unit |
 | `eastings` | `int` | Yes | Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man) |
+| `id` | `string` | No |  |
 | `latitude` | `float` | Yes | WGS84 latitude coordinate |
 | `local_type` | `string` | Yes | Ordnance Survey classification (City, Town, Village, Hamlet, etc.) |
 | `longitude` | `float` | Yes | WGS84 longitude coordinate |
@@ -304,6 +311,7 @@ $postcode = $client->Postcode();
 | `eastings` | `int` | Yes | The OS grid reference easting (X-coordinate) to 1 metre resolution. |
 | `european_electoral_region` | `string` | Yes | The European Electoral Region for this postcode. |
 | `icb` | `string` | No | The NHS Integrated Care Board responsible for healthcare planning in this area. |
+| `id` | `string` | No |  |
 | `incode` | `string` | Yes | The second part of a postcode after the space (always 3 characters). |
 | `latitude` | `float` | Yes | WGS84 latitude coordinate (north-south position). |
 | `lep1` | `string` | No | The primary Local Enterprise Partnership for this postcode. |
@@ -429,6 +437,7 @@ $scottish_postcode = $client->ScottishPostcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `result` | `array` | Yes | Data for a given postcode |
 | `status` | `int` | Yes |  |
 
@@ -482,6 +491,7 @@ $terminated_postcode = $client->TerminatedPostcode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `result` | `array` | Yes | Data for a given postcode |
 | `status` | `int` | Yes |  |
 

@@ -75,6 +75,7 @@ class PostcodeEntityTest < Minitest::Test
     postcode_ref01_data_result = postcode_ref01_ent.create(postcode_ref01_data, nil)
     postcode_ref01_data = Helpers.to_map(postcode_ref01_data_result.respond_to?(:data_get) ? postcode_ref01_data_result.data_get : postcode_ref01_data_result)
     assert !postcode_ref01_data.nil?
+    assert !postcode_ref01_data["id"].nil?
 
     # LIST
     postcode_ref01_match = {}
@@ -82,10 +83,19 @@ class PostcodeEntityTest < Minitest::Test
     postcode_ref01_list_result = postcode_ref01_ent.list(postcode_ref01_match, nil)
     assert postcode_ref01_list_result.is_a?(Array)
 
+    found_item = Vs.select(
+      Runner.entity_list_to_data(postcode_ref01_list_result),
+      { "id" => postcode_ref01_data["id"] })
+    assert !Vs.isempty(found_item)
+
     # LOAD
-    postcode_ref01_match_dt0 = {}
+    postcode_ref01_match_dt0 = {
+      "id" => postcode_ref01_data["id"],
+    }
     postcode_ref01_data_dt0_loaded = postcode_ref01_ent.load(postcode_ref01_match_dt0, nil)
-    assert !postcode_ref01_data_dt0_loaded.nil?
+    postcode_ref01_data_dt0_load_result = Helpers.to_map(postcode_ref01_data_dt0_loaded.respond_to?(:data_get) ? postcode_ref01_data_dt0_loaded.data_get : postcode_ref01_data_dt0_loaded)
+    assert !postcode_ref01_data_dt0_load_result.nil?
+    assert_equal postcode_ref01_data_dt0_load_result["id"], postcode_ref01_data["id"]
 
   end
 end
