@@ -439,186 +439,34 @@ PostcodeLoadMatch = Struct.new(
 
 # Request payload for Postcode#list.
 #
-# @!attribute [rw] admin_county
-#   @return [String, nil]
-#
-# @!attribute [rw] admin_district
-#   @return [String, nil]
-#
-# @!attribute [rw] admin_ward
-#   @return [String, nil]
-#
-# @!attribute [rw] bua
-#   @return [String, nil]
-#
-# @!attribute [rw] cancer_alliance
-#   @return [String, nil]
-#
-# @!attribute [rw] ccg
-#   @return [String, nil]
-#
-# @!attribute [rw] ced
-#   @return [String, nil]
-#
-# @!attribute [rw] codes
-#   @return [Hash, nil]
-#
-# @!attribute [rw] country
-#   @return [String, nil]
-#
-# @!attribute [rw] date_of_introduction
-#   @return [String, nil]
-#
-# @!attribute [rw] eastings
-#   @return [Integer, nil]
-#
-# @!attribute [rw] european_electoral_region
-#   @return [String, nil]
-#
-# @!attribute [rw] icb
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] incode
+# @!attribute [rw] filter
 #   @return [String, nil]
 #
 # @!attribute [rw] latitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] lep1
-#   @return [String, nil]
-#
-# @!attribute [rw] lep2
-#   @return [String, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
 # @!attribute [rw] longitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] lsoa
-#   @return [String, nil]
+# @!attribute [rw] query
+#   @return [Object, nil]
 #
-# @!attribute [rw] lsoa11
-#   @return [String, nil]
-#
-# @!attribute [rw] lsoa21
-#   @return [String, nil]
-#
-# @!attribute [rw] msoa
-#   @return [String, nil]
-#
-# @!attribute [rw] msoa11
-#   @return [String, nil]
-#
-# @!attribute [rw] msoa21
-#   @return [String, nil]
-#
-# @!attribute [rw] national_park
-#   @return [String, nil]
-#
-# @!attribute [rw] nhs_ha
-#   @return [String, nil]
-#
-# @!attribute [rw] nhs_region
-#   @return [String, nil]
-#
-# @!attribute [rw] northings
+# @!attribute [rw] radius
 #   @return [Integer, nil]
 #
-# @!attribute [rw] nuts
-#   @return [String, nil]
-#
-# @!attribute [rw] oa21
-#   @return [String, nil]
-#
-# @!attribute [rw] outcode
-#   @return [String, nil]
-#
-# @!attribute [rw] parish
-#   @return [String, nil]
-#
-# @!attribute [rw] parliamentary_constituency
-#   @return [String, nil]
-#
-# @!attribute [rw] parliamentary_constituency_2024
-#   @return [String, nil]
-#
-# @!attribute [rw] pfa
-#   @return [String, nil]
-#
-# @!attribute [rw] postcode
-#   @return [String, nil]
-#
-# @!attribute [rw] primary_care_trust
-#   @return [String, nil]
-#
-# @!attribute [rw] quality
-#   @return [Integer, nil]
-#
-# @!attribute [rw] region
-#   @return [String, nil]
-#
-# @!attribute [rw] result
-#   @return [Array, nil]
-#
-# @!attribute [rw] ruc11
-#   @return [String, nil]
-#
-# @!attribute [rw] ruc21
-#   @return [String, nil]
-#
-# @!attribute [rw] status
-#   @return [Integer, nil]
-#
-# @!attribute [rw] ttwa
-#   @return [String, nil]
+# @!attribute [rw] widesearch
+#   @return [Boolean, nil]
 PostcodeListMatch = Struct.new(
-  :admin_county,
-  :admin_district,
-  :admin_ward,
-  :bua,
-  :cancer_alliance,
-  :ccg,
-  :ced,
-  :codes,
-  :country,
-  :date_of_introduction,
-  :eastings,
-  :european_electoral_region,
-  :icb,
-  :id,
-  :incode,
+  :filter,
   :latitude,
-  :lep1,
-  :lep2,
+  :limit,
   :longitude,
-  :lsoa,
-  :lsoa11,
-  :lsoa21,
-  :msoa,
-  :msoa11,
-  :msoa21,
-  :national_park,
-  :nhs_ha,
-  :nhs_region,
-  :northings,
-  :nuts,
-  :oa21,
-  :outcode,
-  :parish,
-  :parliamentary_constituency,
-  :parliamentary_constituency_2024,
-  :pfa,
-  :postcode,
-  :primary_care_trust,
-  :quality,
-  :region,
-  :result,
-  :ruc11,
-  :ruc21,
-  :status,
-  :ttwa,
+  :query,
+  :radius,
+  :widesearch,
   keyword_init: true
 )
 

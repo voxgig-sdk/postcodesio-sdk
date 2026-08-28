@@ -146,51 +146,13 @@ class PostcodeLoadMatch(TypedDict):
 
 
 class PostcodeListMatch(TypedDict, total=False):
-    admin_county: str
-    admin_district: str
-    admin_ward: str
-    bua: str
-    cancer_alliance: str
-    ccg: str
-    ced: str
-    codes: dict
-    country: str
-    date_of_introduction: str
-    eastings: int
-    european_electoral_region: str
-    icb: str
-    id: str
-    incode: str
+    filter: str
     latitude: float
-    lep1: str
-    lep2: str
+    limit: int
     longitude: float
-    lsoa: str
-    lsoa11: str
-    lsoa21: str
-    msoa: str
-    msoa11: str
-    msoa21: str
-    national_park: str
-    nhs_ha: str
-    nhs_region: str
-    northings: int
-    nuts: str
-    oa21: str
-    outcode: str
-    parish: str
-    parliamentary_constituency: str
-    parliamentary_constituency_2024: str
-    pfa: str
-    postcode: str
-    primary_care_trust: str
-    quality: int
-    region: str
-    result: list
-    ruc11: str
-    ruc21: str
-    status: int
-    ttwa: str
+    query: Any
+    radius: int
+    widesearch: bool
 
 
 class PostcodeCreateDataRequired(TypedDict):

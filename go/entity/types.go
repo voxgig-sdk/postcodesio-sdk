@@ -146,51 +146,13 @@ type PostcodeLoadMatch struct {
 
 // PostcodeListMatch is the typed request payload for Postcode.ListTyped.
 type PostcodeListMatch struct {
-	AdminCounty *string `json:"admin_county,omitempty"`
-	AdminDistrict *string `json:"admin_district,omitempty"`
-	AdminWard *string `json:"admin_ward,omitempty"`
-	Bua *string `json:"bua,omitempty"`
-	CancerAlliance *string `json:"cancer_alliance,omitempty"`
-	Ccg *string `json:"ccg,omitempty"`
-	Ced *string `json:"ced,omitempty"`
-	Codes *map[string]any `json:"codes,omitempty"`
-	Country *string `json:"country,omitempty"`
-	DateOfIntroduction *string `json:"date_of_introduction,omitempty"`
-	Eastings *int `json:"eastings,omitempty"`
-	EuropeanElectoralRegion *string `json:"european_electoral_region,omitempty"`
-	Icb *string `json:"icb,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Incode *string `json:"incode,omitempty"`
+	Filter *string `json:"filter,omitempty"`
 	Latitude *float64 `json:"latitude,omitempty"`
-	Lep1 *string `json:"lep1,omitempty"`
-	Lep2 *string `json:"lep2,omitempty"`
+	Limit *int `json:"limit,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
-	Lsoa *string `json:"lsoa,omitempty"`
-	Lsoa11 *string `json:"lsoa11,omitempty"`
-	Lsoa21 *string `json:"lsoa21,omitempty"`
-	Msoa *string `json:"msoa,omitempty"`
-	Msoa11 *string `json:"msoa11,omitempty"`
-	Msoa21 *string `json:"msoa21,omitempty"`
-	NationalPark *string `json:"national_park,omitempty"`
-	NhsHa *string `json:"nhs_ha,omitempty"`
-	NhsRegion *string `json:"nhs_region,omitempty"`
-	Northings *int `json:"northings,omitempty"`
-	Nuts *string `json:"nuts,omitempty"`
-	Oa21 *string `json:"oa21,omitempty"`
-	Outcode *string `json:"outcode,omitempty"`
-	Parish *string `json:"parish,omitempty"`
-	ParliamentaryConstituency *string `json:"parliamentary_constituency,omitempty"`
-	ParliamentaryConstituency2024 *string `json:"parliamentary_constituency_2024,omitempty"`
-	Pfa *string `json:"pfa,omitempty"`
-	Postcode *string `json:"postcode,omitempty"`
-	PrimaryCareTrust *string `json:"primary_care_trust,omitempty"`
-	Quality *int `json:"quality,omitempty"`
-	Region *string `json:"region,omitempty"`
-	Result *[]any `json:"result,omitempty"`
-	Ruc11 *string `json:"ruc11,omitempty"`
-	Ruc21 *string `json:"ruc21,omitempty"`
-	Status *int `json:"status,omitempty"`
-	Ttwa *string `json:"ttwa,omitempty"`
+	Query *any `json:"query,omitempty"`
+	Radius *int `json:"radius,omitempty"`
+	Widesearch *bool `json:"widesearch,omitempty"`
 }
 
 // PostcodeCreateData is the typed request payload for Postcode.CreateTyped.

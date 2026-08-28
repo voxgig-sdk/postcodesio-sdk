@@ -121,51 +121,13 @@
 ---@field id string
 
 ---@class PostcodeListMatch
----@field admin_county? string
----@field admin_district? string
----@field admin_ward? string
----@field bua? string
----@field cancer_alliance? string
----@field ccg? string
----@field ced? string
----@field codes? table
----@field country? string
----@field date_of_introduction? string
----@field eastings? number
----@field european_electoral_region? string
----@field icb? string
----@field id? string
----@field incode? string
+---@field filter? string
 ---@field latitude? number
----@field lep1? string
----@field lep2? string
+---@field limit? number
 ---@field longitude? number
----@field lsoa? string
----@field lsoa11? string
----@field lsoa21? string
----@field msoa? string
----@field msoa11? string
----@field msoa21? string
----@field national_park? string
----@field nhs_ha? string
----@field nhs_region? string
----@field northings? number
----@field nuts? string
----@field oa21? string
----@field outcode? string
----@field parish? string
----@field parliamentary_constituency? string
----@field parliamentary_constituency_2024? string
----@field pfa? string
----@field postcode? string
----@field primary_care_trust? string
----@field quality? number
----@field region? string
----@field result? table
----@field ruc11? string
----@field ruc21? string
----@field status? number
----@field ttwa? string
+---@field query? any
+---@field radius? number
+---@field widesearch? boolean
 
 ---@class PostcodeCreateData
 ---@field admin_county string

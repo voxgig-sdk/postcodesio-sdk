@@ -129,51 +129,13 @@ export interface PostcodeLoadMatch {
 }
 
 export interface PostcodeListMatch {
-  admin_county?: string
-  admin_district?: string
-  admin_ward?: string
-  bua?: string
-  cancer_alliance?: string
-  ccg?: string
-  ced?: string
-  codes?: Record<string, any>
-  country?: string
-  date_of_introduction?: string
-  eastings?: number
-  european_electoral_region?: string
-  icb?: string
-  id?: string
-  incode?: string
+  filter?: string
   latitude?: number
-  lep1?: string
-  lep2?: string
+  limit?: number
   longitude?: number
-  lsoa?: string
-  lsoa11?: string
-  lsoa21?: string
-  msoa?: string
-  msoa11?: string
-  msoa21?: string
-  national_park?: string
-  nhs_ha?: string
-  nhs_region?: string
-  northings?: number
-  nuts?: string
-  oa21?: string
-  outcode?: string
-  parish?: string
-  parliamentary_constituency?: string
-  parliamentary_constituency_2024?: string
-  pfa?: string
-  postcode?: string
-  primary_care_trust?: string
-  quality?: number
-  region?: string
-  result?: any[]
-  ruc11?: string
-  ruc21?: string
-  status?: number
-  ttwa?: string
+  query?: any
+  radius?: number
+  widesearch?: boolean
 }
 
 export interface PostcodeCreateData {

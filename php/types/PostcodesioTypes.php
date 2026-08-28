@@ -156,51 +156,13 @@ class PostcodeLoadMatch
 /** Request payload for Postcode#list. */
 class PostcodeListMatch
 {
-    public ?string $admin_county = null;
-    public ?string $admin_district = null;
-    public ?string $admin_ward = null;
-    public ?string $bua = null;
-    public ?string $cancer_alliance = null;
-    public ?string $ccg = null;
-    public ?string $ced = null;
-    public ?array $codes = null;
-    public ?string $country = null;
-    public ?string $date_of_introduction = null;
-    public ?int $eastings = null;
-    public ?string $european_electoral_region = null;
-    public ?string $icb = null;
-    public ?string $id = null;
-    public ?string $incode = null;
+    public ?string $filter = null;
     public ?float $latitude = null;
-    public ?string $lep1 = null;
-    public ?string $lep2 = null;
+    public ?int $limit = null;
     public ?float $longitude = null;
-    public ?string $lsoa = null;
-    public ?string $lsoa11 = null;
-    public ?string $lsoa21 = null;
-    public ?string $msoa = null;
-    public ?string $msoa11 = null;
-    public ?string $msoa21 = null;
-    public ?string $national_park = null;
-    public ?string $nhs_ha = null;
-    public ?string $nhs_region = null;
-    public ?int $northings = null;
-    public ?string $nuts = null;
-    public ?string $oa21 = null;
-    public ?string $outcode = null;
-    public ?string $parish = null;
-    public ?string $parliamentary_constituency = null;
-    public ?string $parliamentary_constituency_2024 = null;
-    public ?string $pfa = null;
-    public ?string $postcode = null;
-    public ?string $primary_care_trust = null;
-    public ?int $quality = null;
-    public ?string $region = null;
-    public ?array $result = null;
-    public ?string $ruc11 = null;
-    public ?string $ruc21 = null;
-    public ?int $status = null;
-    public ?string $ttwa = null;
+    public mixed $query = null;
+    public ?int $radius = null;
+    public ?bool $widesearch = null;
 }
 
 /** Request payload for Postcode#create. */
