@@ -17,6 +17,7 @@ main: kit: entity: terminated_postcode: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "status"
       req: true
       type: "`$INTEGER`"
@@ -47,15 +48,19 @@ main: kit: entity: terminated_postcode: {
           }
           method: "GET"
           orig: "/terminated_postcodes/{postcode}"
-          parts: [
-            "terminated_postcodes"
-            "{id}"
-          ]
           rename: {
             param: {
               postcode: "id"
             }
           }
+          segments: [
+            {
+              lit: "terminated_postcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

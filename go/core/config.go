@@ -47,6 +47,7 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
@@ -74,14 +75,20 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/postcodes/{postcode}/nearest",
-								"parts": []any{
-									"postcodes",
-									"{postcode_id}",
-									"nearest",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"postcode": "postcode_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "postcodes",
+									},
+									map[string]any{
+										"var": "postcode_id",
+									},
+									map[string]any{
+										"lit": "nearest",
 									},
 								},
 								"select": map[string]any{
@@ -92,6 +99,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"postcodes",
+									"{postcode_id}",
+									"nearest",
 								},
 							},
 						},
@@ -111,6 +123,10 @@ func MakeConfig() map[string]any {
 						"name": "id",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "outcode",
 				"op": map[string]any{
@@ -134,13 +150,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/outcodes/{outcode}",
-								"parts": []any{
-									"outcodes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"outcode": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "outcodes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -151,6 +171,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"outcodes",
+									"{id}",
 								},
 							},
 						},
@@ -208,6 +232,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "double",
 						"name": "latitude",
 						"req": true,
 						"short": "WGS84 latitude coordinate",
@@ -220,6 +245,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "double",
 						"name": "longitude",
 						"req": true,
 						"short": "WGS84 longitude coordinate",
@@ -292,6 +318,10 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
 				"name": "place",
 				"op": map[string]any{
 					"list": map[string]any{
@@ -303,13 +333,18 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/places",
-								"parts": []any{
-									"places",
+								"segments": []any{
+									map[string]any{
+										"lit": "places",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"places",
 								},
 							},
 						},
@@ -333,13 +368,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/places/{code}",
-								"parts": []any{
-									"places",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"code": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "places",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -351,20 +390,32 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
+								"parts": []any{
+									"places",
+									"{id}",
+								},
 							},
 							map[string]any{
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/random/places",
-								"parts": []any{
-									"random",
-									"places",
+								"segments": []any{
+									map[string]any{
+										"lit": "random",
+									},
+									map[string]any{
+										"lit": "places",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"random",
+									"places",
 								},
 							},
 						},
@@ -434,6 +485,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "eastings",
 						"req": true,
 						"short": "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
@@ -461,6 +513,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "double",
 						"name": "latitude",
 						"req": true,
 						"short": "WGS84 latitude coordinate (north-south position).",
@@ -477,6 +530,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "double",
 						"name": "longitude",
 						"req": true,
 						"short": "WGS84 longitude coordinate (east-west position).",
@@ -531,6 +585,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "northings",
 						"req": true,
 						"short": "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
@@ -616,6 +671,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
@@ -625,6 +681,10 @@ func MakeConfig() map[string]any {
 						"short": "The Travel to Work Area for this postcode.",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "postcode",
 				"op": map[string]any{
@@ -637,13 +697,18 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/postcodes",
-								"parts": []any{
-									"postcodes",
+								"segments": []any{
+									map[string]any{
+										"lit": "postcodes",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"postcodes",
 								},
 							},
 						},
@@ -709,8 +774,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/postcodes",
-								"parts": []any{
-									"postcodes",
+								"segments": []any{
+									map[string]any{
+										"lit": "postcodes",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -726,6 +793,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"postcodes",
 								},
 							},
 						},
@@ -750,13 +820,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/postcodes/{postcode}",
-								"parts": []any{
-									"postcodes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"postcode": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "postcodes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -767,6 +841,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"postcodes",
+									"{id}",
 								},
 							},
 							map[string]any{
@@ -784,9 +862,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/random/postcodes",
-								"parts": []any{
-									"random",
-									"postcodes",
+								"segments": []any{
+									map[string]any{
+										"lit": "random",
+									},
+									map[string]any{
+										"lit": "postcodes",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -796,6 +878,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
+								},
+								"parts": []any{
+									"random",
+									"postcodes",
 								},
 							},
 						},
@@ -818,10 +904,15 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "scottish_postcode",
 				"op": map[string]any{
@@ -844,14 +935,20 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/scotland/postcodes/{postcode}",
-								"parts": []any{
-									"scotland",
-									"postcodes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"postcode": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "scotland",
+									},
+									map[string]any{
+										"lit": "postcodes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -862,6 +959,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"scotland",
+									"postcodes",
+									"{id}",
 								},
 							},
 						},
@@ -884,10 +986,15 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "status",
 						"req": true,
 						"type": "`$INTEGER`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "terminated_postcode",
 				"op": map[string]any{
@@ -910,13 +1017,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/terminated_postcodes/{postcode}",
-								"parts": []any{
-									"terminated_postcodes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"postcode": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "terminated_postcodes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -928,6 +1039,10 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"parts": []any{
+									"terminated_postcodes",
+									"{id}",
+								},
 							},
 						},
 					},
@@ -938,6 +1053,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

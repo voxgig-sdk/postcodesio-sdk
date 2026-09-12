@@ -37,15 +37,19 @@ main: kit: entity: outcode: {
           }
           method: "GET"
           orig: "/outcodes/{outcode}"
-          parts: [
-            "outcodes"
-            "{id}"
-          ]
           rename: {
             param: {
               outcode: "id"
             }
           }
+          segments: [
+            {
+              lit: "outcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

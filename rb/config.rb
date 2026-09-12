@@ -55,6 +55,7 @@ module PostcodesioConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "int32",
               "name" => "status",
               "req" => true,
               "type" => "`$INTEGER`",
@@ -82,16 +83,22 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/postcodes/{postcode}/nearest",
-                  "parts" => [
-                    "postcodes",
-                    "{postcode_id}",
-                    "nearest",
-                  ],
                   "rename" => {
                     "param" => {
                       "postcode" => "postcode_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "postcodes",
+                    },
+                    {
+                      "var" => "postcode_id",
+                    },
+                    {
+                      "lit" => "nearest",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "postcode_id",
@@ -101,6 +108,11 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "postcodes",
+                    "{postcode_id}",
+                    "nearest",
+                  ],
                 },
               ],
             },
@@ -120,6 +132,10 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "outcode",
           "op" => {
             "load" => {
@@ -142,15 +158,19 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/outcodes/{outcode}",
-                  "parts" => [
-                    "outcodes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "outcode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "outcodes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -160,6 +180,10 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "outcodes",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -216,6 +240,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "short" => "WGS84 latitude coordinate",
@@ -228,6 +253,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "short" => "WGS84 longitude coordinate",
@@ -300,6 +326,10 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "place",
           "op" => {
             "list" => {
@@ -311,14 +341,19 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/places",
-                  "parts" => [
-                    "places",
+                  "segments" => [
+                    {
+                      "lit" => "places",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "places",
+                  ],
                 },
               ],
             },
@@ -341,15 +376,19 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/places/{code}",
-                  "parts" => [
-                    "places",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "code" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "places",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -359,21 +398,33 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "places",
+                    "{id}",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/random/places",
-                  "parts" => [
-                    "random",
-                    "places",
+                  "segments" => [
+                    {
+                      "lit" => "random",
+                    },
+                    {
+                      "lit" => "places",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "random",
+                    "places",
+                  ],
                 },
               ],
             },
@@ -442,6 +493,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "int32",
               "name" => "eastings",
               "req" => true,
               "short" => "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
@@ -469,6 +521,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "short" => "WGS84 latitude coordinate (north-south position).",
@@ -485,6 +538,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "short" => "WGS84 longitude coordinate (east-west position).",
@@ -539,6 +593,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "int32",
               "name" => "northings",
               "req" => true,
               "short" => "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
@@ -624,6 +679,7 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "int32",
               "name" => "status",
               "req" => true,
               "type" => "`$INTEGER`",
@@ -634,6 +690,10 @@ module PostcodesioConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "postcode",
           "op" => {
             "create" => {
@@ -645,14 +705,19 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/postcodes",
-                  "parts" => [
-                    "postcodes",
+                  "segments" => [
+                    {
+                      "lit" => "postcodes",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "postcodes",
+                  ],
                 },
               ],
             },
@@ -717,8 +782,10 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/postcodes",
-                  "parts" => [
-                    "postcodes",
+                  "segments" => [
+                    {
+                      "lit" => "postcodes",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -735,6 +802,9 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "postcodes",
+                  ],
                 },
               ],
             },
@@ -758,15 +828,19 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/postcodes/{postcode}",
-                  "parts" => [
-                    "postcodes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "postcode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "postcodes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -776,6 +850,10 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "postcodes",
+                    "{id}",
+                  ],
                 },
                 {
                   "args" => {
@@ -792,9 +870,13 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/random/postcodes",
-                  "parts" => [
-                    "random",
-                    "postcodes",
+                  "segments" => [
+                    {
+                      "lit" => "random",
+                    },
+                    {
+                      "lit" => "postcodes",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -805,6 +887,10 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body.result`",
                   },
+                  "parts" => [
+                    "random",
+                    "postcodes",
+                  ],
                 },
               ],
             },
@@ -826,11 +912,16 @@ module PostcodesioConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "int32",
               "name" => "status",
               "req" => true,
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "scottish_postcode",
           "op" => {
             "load" => {
@@ -852,16 +943,22 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/scotland/postcodes/{postcode}",
-                  "parts" => [
-                    "scotland",
-                    "postcodes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "postcode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "scotland",
+                    },
+                    {
+                      "lit" => "postcodes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -871,6 +968,11 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "scotland",
+                    "postcodes",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -892,11 +994,16 @@ module PostcodesioConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "int32",
               "name" => "status",
               "req" => true,
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "terminated_postcode",
           "op" => {
             "load" => {
@@ -918,15 +1025,19 @@ module PostcodesioConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/terminated_postcodes/{postcode}",
-                  "parts" => [
-                    "terminated_postcodes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "postcode" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "terminated_postcodes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -936,6 +1047,10 @@ module PostcodesioConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "terminated_postcodes",
+                    "{id}",
+                  ],
                 },
               ],
             },

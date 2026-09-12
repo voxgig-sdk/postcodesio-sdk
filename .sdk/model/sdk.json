@@ -41,6 +41,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "status",
               "req": true,
               "type": "`$INTEGER`"
@@ -70,16 +71,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/postcodes/{postcode}/nearest",
-                  "parts": [
-                    "postcodes",
-                    "{postcode_id}",
-                    "nearest"
-                  ],
                   "rename": {
                     "param": {
                       "postcode": "postcode_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "postcodes"
+                    },
+                    {
+                      "var": "postcode_id"
+                    },
+                    {
+                      "lit": "nearest"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "postcode_id"
@@ -142,15 +149,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/outcodes/{outcode}",
-                  "parts": [
-                    "outcodes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "outcode": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "outcodes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -231,6 +242,7 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "short": "WGS84 latitude coordinate",
@@ -245,6 +257,7 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "short": "WGS84 longitude coordinate",
@@ -344,8 +357,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/places",
-                  "parts": [
-                    "places"
+                  "segments": [
+                    {
+                      "lit": "places"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -376,15 +391,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/places/{code}",
-                  "parts": [
-                    "places",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "code": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "places"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -401,9 +420,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/random/places",
-                  "parts": [
-                    "random",
-                    "places"
+                  "segments": [
+                    {
+                      "lit": "random"
+                    },
+                    {
+                      "lit": "places"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -496,6 +519,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "eastings",
               "req": true,
               "short": "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
@@ -530,6 +554,7 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "short": "WGS84 latitude coordinate (north-south position).",
@@ -551,6 +576,7 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "short": "WGS84 longitude coordinate (east-west position).",
@@ -621,6 +647,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "northings",
               "req": true,
               "short": "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
@@ -726,6 +753,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "status",
               "req": true,
               "type": "`$INTEGER`"
@@ -754,8 +782,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/postcodes",
-                  "parts": [
-                    "postcodes"
+                  "segments": [
+                    {
+                      "lit": "postcodes"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -841,8 +871,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/postcodes",
-                  "parts": [
-                    "postcodes"
+                  "segments": [
+                    {
+                      "lit": "postcodes"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -884,15 +916,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/postcodes/{postcode}",
-                  "parts": [
-                    "postcodes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "postcode": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "postcodes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -921,9 +957,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/random/postcodes",
-                  "parts": [
-                    "random",
-                    "postcodes"
+                  "segments": [
+                    {
+                      "lit": "random"
+                    },
+                    {
+                      "lit": "postcodes"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -963,6 +1003,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "status",
               "req": true,
               "type": "`$INTEGER`"
@@ -995,16 +1036,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/scotland/postcodes/{postcode}",
-                  "parts": [
-                    "scotland",
-                    "postcodes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "postcode": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "scotland"
+                    },
+                    {
+                      "lit": "postcodes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -1043,6 +1090,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "status",
               "req": true,
               "type": "`$INTEGER`"
@@ -1075,15 +1123,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/terminated_postcodes/{postcode}",
-                  "parts": [
-                    "terminated_postcodes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "postcode": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "terminated_postcodes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -1166,8 +1218,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -1493,6 +1548,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1518,6 +1576,10 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -1569,6 +1631,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1593,6 +1656,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -1644,6 +1708,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1668,6 +1733,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -1708,6 +1774,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1733,6 +1802,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -1767,6 +1839,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1792,6 +1867,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -1832,6 +1910,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1857,6 +1938,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -1902,6 +1986,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1927,6 +2014,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -1944,11 +2034,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -1977,6 +2062,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2001,6 +2089,14 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

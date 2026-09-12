@@ -12,6 +12,7 @@ main: kit: entity: nearest: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "status"
       req: true
       type: "`$INTEGER`"
@@ -38,16 +39,22 @@ main: kit: entity: nearest: {
           }
           method: "GET"
           orig: "/postcodes/{postcode}/nearest"
-          parts: [
-            "postcodes"
-            "{postcode_id}"
-            "nearest"
-          ]
           rename: {
             param: {
               postcode: "postcode_id"
             }
           }
+          segments: [
+            {
+              lit: "postcodes"
+            }
+            {
+              var: "postcode_id"
+            }
+            {
+              lit: "nearest"
+            }
+          ]
           select: {
             exist: [
               "postcode_id"

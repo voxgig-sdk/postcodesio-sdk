@@ -1,6 +1,14 @@
 # Postcodesio SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -64,6 +72,7 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "int32",
             "name": "status",
             "req": True,
             "type": "`$INTEGER`",
@@ -91,16 +100,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/postcodes/{postcode}/nearest",
-                "parts": [
-                  "postcodes",
-                  "{postcode_id}",
-                  "nearest",
-                ],
                 "rename": {
                   "param": {
                     "postcode": "postcode_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "postcodes",
+                  },
+                  {
+                    "var": "postcode_id",
+                  },
+                  {
+                    "lit": "nearest",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "postcode_id",
@@ -110,6 +125,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "postcodes",
+                  "{postcode_id}",
+                  "nearest",
+                ],
               },
             ],
           },
@@ -129,6 +149,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "outcode",
         "op": {
           "load": {
@@ -151,15 +175,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/outcodes/{outcode}",
-                "parts": [
-                  "outcodes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "outcode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "outcodes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -169,6 +197,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "outcodes",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -225,6 +257,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "short": "WGS84 latitude coordinate",
@@ -237,6 +270,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "short": "WGS84 longitude coordinate",
@@ -309,6 +343,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "place",
         "op": {
           "list": {
@@ -320,14 +358,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/places",
-                "parts": [
-                  "places",
+                "segments": [
+                  {
+                    "lit": "places",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "places",
+                ],
               },
             ],
           },
@@ -350,15 +393,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/places/{code}",
-                "parts": [
-                  "places",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "code": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "places",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -368,21 +415,33 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "places",
+                  "{id}",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/random/places",
-                "parts": [
-                  "random",
-                  "places",
+                "segments": [
+                  {
+                    "lit": "random",
+                  },
+                  {
+                    "lit": "places",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "random",
+                  "places",
+                ],
               },
             ],
           },
@@ -451,6 +510,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "eastings",
             "req": True,
             "short": "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
@@ -478,6 +538,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "short": "WGS84 latitude coordinate (north-south position).",
@@ -494,6 +555,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "short": "WGS84 longitude coordinate (east-west position).",
@@ -548,6 +610,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "northings",
             "req": True,
             "short": "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
@@ -633,6 +696,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "status",
             "req": True,
             "type": "`$INTEGER`",
@@ -643,6 +707,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "postcode",
         "op": {
           "create": {
@@ -654,14 +722,19 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/postcodes",
-                "parts": [
-                  "postcodes",
+                "segments": [
+                  {
+                    "lit": "postcodes",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "postcodes",
+                ],
               },
             ],
           },
@@ -726,8 +799,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/postcodes",
-                "parts": [
-                  "postcodes",
+                "segments": [
+                  {
+                    "lit": "postcodes",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -744,6 +819,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "postcodes",
+                ],
               },
             ],
           },
@@ -767,15 +845,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/postcodes/{postcode}",
-                "parts": [
-                  "postcodes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "postcode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "postcodes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -785,6 +867,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "postcodes",
+                  "{id}",
+                ],
               },
               {
                 "args": {
@@ -801,9 +887,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/random/postcodes",
-                "parts": [
-                  "random",
-                  "postcodes",
+                "segments": [
+                  {
+                    "lit": "random",
+                  },
+                  {
+                    "lit": "postcodes",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -814,6 +904,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.result`",
                 },
+                "parts": [
+                  "random",
+                  "postcodes",
+                ],
               },
             ],
           },
@@ -835,11 +929,16 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "int32",
             "name": "status",
             "req": True,
             "type": "`$INTEGER`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "scottish_postcode",
         "op": {
           "load": {
@@ -861,16 +960,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/scotland/postcodes/{postcode}",
-                "parts": [
-                  "scotland",
-                  "postcodes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "postcode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "scotland",
+                  },
+                  {
+                    "lit": "postcodes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -880,6 +985,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "scotland",
+                  "postcodes",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -901,11 +1011,16 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "int32",
             "name": "status",
             "req": True,
             "type": "`$INTEGER`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "terminated_postcode",
         "op": {
           "load": {
@@ -927,15 +1042,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/terminated_postcodes/{postcode}",
-                "parts": [
-                  "terminated_postcodes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "postcode": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "terminated_postcodes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -945,6 +1064,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "terminated_postcodes",
+                  "{id}",
+                ],
               },
             ],
           },

@@ -53,6 +53,7 @@ main: kit: entity: place: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "latitude"
       req: true
       short: "WGS84 latitude coordinate"
@@ -65,6 +66,7 @@ main: kit: entity: place: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "longitude"
       req: true
       short: "WGS84 longitude coordinate"
@@ -151,8 +153,10 @@ main: kit: entity: place: {
         {
           method: "GET"
           orig: "/places"
-          parts: [
-            "places"
+          segments: [
+            {
+              lit: "places"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -178,15 +182,19 @@ main: kit: entity: place: {
           }
           method: "GET"
           orig: "/places/{code}"
-          parts: [
-            "places"
-            "{id}"
-          ]
           rename: {
             param: {
               code: "id"
             }
           }
+          segments: [
+            {
+              lit: "places"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -200,9 +208,13 @@ main: kit: entity: place: {
         {
           method: "GET"
           orig: "/random/places"
-          parts: [
-            "random"
-            "places"
+          segments: [
+            {
+              lit: "random"
+            }
+            {
+              lit: "places"
+            }
           ]
           transform: {
             req: "`reqdata`"

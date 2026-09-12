@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -88,6 +99,7 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "int32",
           "name": "status",
           "req": true,
           "type": "`$INTEGER`"
@@ -115,16 +127,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/postcodes/{postcode}/nearest",
-              "parts": [
-                "postcodes",
-                "{postcode_id}",
-                "nearest"
-              ],
               "rename": {
                 "param": {
                   "postcode": "postcode_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "postcodes"
+                },
+                {
+                  "var": "postcode_id"
+                },
+                {
+                  "lit": "nearest"
+                }
+              ],
               "select": {
                 "exist": [
                   "postcode_id"
@@ -133,7 +151,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "postcodes",
+                "{postcode_id}",
+                "nearest"
+              ]
             }
           ]
         }
@@ -153,6 +176,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "outcode",
       "op": {
         "load": {
@@ -175,15 +202,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/outcodes/{outcode}",
-              "parts": [
-                "outcodes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "outcode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "outcodes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -192,7 +223,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "outcodes",
+                "{id}"
+              ]
             }
           ]
         }
@@ -249,6 +284,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "short": "WGS84 latitude coordinate",
@@ -261,6 +297,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "short": "WGS84 longitude coordinate",
@@ -333,6 +370,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "place",
       "op": {
         "list": {
@@ -344,14 +385,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/places",
-              "parts": [
-                "places"
+              "segments": [
+                {
+                  "lit": "places"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "places"
+              ]
             }
           ]
         },
@@ -374,15 +420,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/places/{code}",
-              "parts": [
-                "places",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "code": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "places"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -391,22 +441,34 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "places",
+                "{id}"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/random/places",
-              "parts": [
-                "random",
-                "places"
+              "segments": [
+                {
+                  "lit": "random"
+                },
+                {
+                  "lit": "places"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "random",
+                "places"
+              ]
             }
           ]
         }
@@ -475,6 +537,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "int32",
           "name": "eastings",
           "req": true,
           "short": "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
@@ -502,6 +565,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "short": "WGS84 latitude coordinate (north-south position).",
@@ -518,6 +582,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "short": "WGS84 longitude coordinate (east-west position).",
@@ -572,6 +637,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "int32",
           "name": "northings",
           "req": true,
           "short": "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
@@ -657,6 +723,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "int32",
           "name": "status",
           "req": true,
           "type": "`$INTEGER`"
@@ -667,6 +734,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "postcode",
       "op": {
         "create": {
@@ -678,14 +749,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/postcodes",
-              "parts": [
-                "postcodes"
+              "segments": [
+                {
+                  "lit": "postcodes"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "postcodes"
+              ]
             }
           ]
         },
@@ -750,8 +826,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/postcodes",
-              "parts": [
-                "postcodes"
+              "segments": [
+                {
+                  "lit": "postcodes"
+                }
               ],
               "select": {
                 "exist": [
@@ -767,7 +845,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "postcodes"
+              ]
             }
           ]
         },
@@ -791,15 +872,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/postcodes/{postcode}",
-              "parts": [
-                "postcodes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "postcode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "postcodes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -808,7 +893,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "postcodes",
+                "{id}"
+              ]
             },
             {
               "args": {
@@ -825,9 +914,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/random/postcodes",
-              "parts": [
-                "random",
-                "postcodes"
+              "segments": [
+                {
+                  "lit": "random"
+                },
+                {
+                  "lit": "postcodes"
+                }
               ],
               "select": {
                 "exist": [
@@ -837,7 +930,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.result`"
-              }
+              },
+              "parts": [
+                "random",
+                "postcodes"
+              ]
             }
           ]
         }
@@ -859,11 +956,16 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "int32",
           "name": "status",
           "req": true,
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "scottish_postcode",
       "op": {
         "load": {
@@ -885,16 +987,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/scotland/postcodes/{postcode}",
-              "parts": [
-                "scotland",
-                "postcodes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "postcode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "scotland"
+                },
+                {
+                  "lit": "postcodes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -903,7 +1011,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "scotland",
+                "postcodes",
+                "{id}"
+              ]
             }
           ]
         }
@@ -925,11 +1038,16 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "int32",
           "name": "status",
           "req": true,
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "terminated_postcode",
       "op": {
         "load": {
@@ -951,15 +1069,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/terminated_postcodes/{postcode}",
-              "parts": [
-                "terminated_postcodes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "postcode": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "terminated_postcodes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -968,7 +1090,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "terminated_postcodes",
+                "{id}"
+              ]
             }
           ]
         }
@@ -984,6 +1110,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

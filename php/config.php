@@ -69,6 +69,7 @@ class PostcodesioConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'status',
               'req' => true,
               'type' => '`$INTEGER`',
@@ -96,14 +97,20 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/postcodes/{postcode}/nearest',
-                  'parts' => [
-                    'postcodes',
-                    '{postcode_id}',
-                    'nearest',
-                  ],
                   'rename' => [
                     'param' => [
                       'postcode' => 'postcode_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'postcodes',
+                    ],
+                    [
+                      'var' => 'postcode_id',
+                    ],
+                    [
+                      'lit' => 'nearest',
                     ],
                   ],
                   'select' => [
@@ -114,6 +121,11 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'postcodes',
+                    '{postcode_id}',
+                    'nearest',
                   ],
                 ],
               ],
@@ -133,6 +145,10 @@ class PostcodesioConfig
               'name' => 'id',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'outcode',
           'op' => [
@@ -156,13 +172,17 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/outcodes/{outcode}',
-                  'parts' => [
-                    'outcodes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'outcode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'outcodes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -173,6 +193,10 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'outcodes',
+                    '{id}',
                   ],
                 ],
               ],
@@ -230,6 +254,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'double',
               'name' => 'latitude',
               'req' => true,
               'short' => 'WGS84 latitude coordinate',
@@ -242,6 +267,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'double',
               'name' => 'longitude',
               'req' => true,
               'short' => 'WGS84 longitude coordinate',
@@ -314,6 +340,10 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'place',
           'op' => [
             'list' => [
@@ -325,13 +355,18 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/places',
-                  'parts' => [
-                    'places',
+                  'segments' => [
+                    [
+                      'lit' => 'places',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'places',
                   ],
                 ],
               ],
@@ -355,13 +390,17 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/places/{code}',
-                  'parts' => [
-                    'places',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'code' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'places',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -373,20 +412,32 @@ class PostcodesioConfig
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
                   ],
+                  'parts' => [
+                    'places',
+                    '{id}',
+                  ],
                 ],
                 [
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/random/places',
-                  'parts' => [
-                    'random',
-                    'places',
+                  'segments' => [
+                    [
+                      'lit' => 'random',
+                    ],
+                    [
+                      'lit' => 'places',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'random',
+                    'places',
                   ],
                 ],
               ],
@@ -456,6 +507,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'eastings',
               'req' => true,
               'short' => 'The OS grid reference easting (X-coordinate) to 1 metre resolution.',
@@ -483,6 +535,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'double',
               'name' => 'latitude',
               'req' => true,
               'short' => 'WGS84 latitude coordinate (north-south position).',
@@ -499,6 +552,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'double',
               'name' => 'longitude',
               'req' => true,
               'short' => 'WGS84 longitude coordinate (east-west position).',
@@ -553,6 +607,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'northings',
               'req' => true,
               'short' => 'The OS grid reference northing (Y-coordinate) to 1 metre resolution.',
@@ -638,6 +693,7 @@ class PostcodesioConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'status',
               'req' => true,
               'type' => '`$INTEGER`',
@@ -647,6 +703,10 @@ class PostcodesioConfig
               'short' => 'The Travel to Work Area for this postcode.',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'postcode',
           'op' => [
@@ -659,13 +719,18 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/postcodes',
-                  'parts' => [
-                    'postcodes',
+                  'segments' => [
+                    [
+                      'lit' => 'postcodes',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'postcodes',
                   ],
                 ],
               ],
@@ -731,8 +796,10 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/postcodes',
-                  'parts' => [
-                    'postcodes',
+                  'segments' => [
+                    [
+                      'lit' => 'postcodes',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -748,6 +815,9 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'postcodes',
                   ],
                 ],
               ],
@@ -772,13 +842,17 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/postcodes/{postcode}',
-                  'parts' => [
-                    'postcodes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'postcode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'postcodes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -789,6 +863,10 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'postcodes',
+                    '{id}',
                   ],
                 ],
                 [
@@ -806,9 +884,13 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/random/postcodes',
-                  'parts' => [
-                    'random',
-                    'postcodes',
+                  'segments' => [
+                    [
+                      'lit' => 'random',
+                    ],
+                    [
+                      'lit' => 'postcodes',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -818,6 +900,10 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.result`',
+                  ],
+                  'parts' => [
+                    'random',
+                    'postcodes',
                   ],
                 ],
               ],
@@ -840,10 +926,15 @@ class PostcodesioConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'status',
               'req' => true,
               'type' => '`$INTEGER`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'scottish_postcode',
           'op' => [
@@ -866,14 +957,20 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/scotland/postcodes/{postcode}',
-                  'parts' => [
-                    'scotland',
-                    'postcodes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'postcode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'scotland',
+                    ],
+                    [
+                      'lit' => 'postcodes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -884,6 +981,11 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'scotland',
+                    'postcodes',
+                    '{id}',
                   ],
                 ],
               ],
@@ -906,10 +1008,15 @@ class PostcodesioConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'status',
               'req' => true,
               'type' => '`$INTEGER`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'terminated_postcode',
           'op' => [
@@ -932,13 +1039,17 @@ class PostcodesioConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/terminated_postcodes/{postcode}',
-                  'parts' => [
-                    'terminated_postcodes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'postcode' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'terminated_postcodes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -949,6 +1060,10 @@ class PostcodesioConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'terminated_postcodes',
+                    '{id}',
                   ],
                 ],
               ],

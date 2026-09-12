@@ -17,6 +17,7 @@ main: kit: entity: scottish_postcode: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "status"
       req: true
       type: "`$INTEGER`"
@@ -47,16 +48,22 @@ main: kit: entity: scottish_postcode: {
           }
           method: "GET"
           orig: "/scotland/postcodes/{postcode}"
-          parts: [
-            "scotland"
-            "postcodes"
-            "{id}"
-          ]
           rename: {
             param: {
               postcode: "id"
             }
           }
+          segments: [
+            {
+              lit: "scotland"
+            }
+            {
+              lit: "postcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

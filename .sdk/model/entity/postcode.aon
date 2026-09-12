@@ -66,6 +66,7 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "eastings"
       req: true
       short: "The OS grid reference easting (X-coordinate) to 1 metre resolution."
@@ -95,6 +96,7 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "latitude"
       req: true
       short: "WGS84 latitude coordinate (north-south position)."
@@ -113,6 +115,7 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "longitude"
       req: true
       short: "WGS84 longitude coordinate (east-west position)."
@@ -173,6 +176,7 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "northings"
       req: true
       short: "The OS grid reference northing (Y-coordinate) to 1 metre resolution."
@@ -263,6 +267,7 @@ main: kit: entity: postcode: {
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "status"
       req: true
       type: "`$INTEGER`"
@@ -288,8 +293,10 @@ main: kit: entity: postcode: {
         {
           method: "POST"
           orig: "/postcodes"
-          parts: [
-            "postcodes"
+          segments: [
+            {
+              lit: "postcodes"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -364,8 +371,10 @@ main: kit: entity: postcode: {
           }
           method: "GET"
           orig: "/postcodes"
-          parts: [
-            "postcodes"
+          segments: [
+            {
+              lit: "postcodes"
+            }
           ]
           select: {
             exist: [
@@ -403,15 +412,19 @@ main: kit: entity: postcode: {
           }
           method: "GET"
           orig: "/postcodes/{postcode}"
-          parts: [
-            "postcodes"
-            "{id}"
-          ]
           rename: {
             param: {
               postcode: "id"
             }
           }
+          segments: [
+            {
+              lit: "postcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -437,9 +450,13 @@ main: kit: entity: postcode: {
           }
           method: "GET"
           orig: "/random/postcodes"
-          parts: [
-            "random"
-            "postcodes"
+          segments: [
+            {
+              lit: "random"
+            }
+            {
+              lit: "postcodes"
+            }
           ]
           select: {
             exist: [
