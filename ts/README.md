@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
+import { PostcodesioSDK } from '@voxgig-sdk/postcodesio-sdk'
 
 const client = new PostcodesioSDK()
 ```
@@ -764,7 +764,7 @@ postcodesio/
 Import the SDK from the package root:
 
 ```ts
-import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
+import { PostcodesioSDK } from '@voxgig-sdk/postcodesio-sdk'
 ```
 
 ### Entity state

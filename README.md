@@ -105,7 +105,7 @@ local results, err = client:Nearest():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
+| TypeScript | `@voxgig-sdk/postcodesio-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
 | Python | `voxgig-sdk-postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
 | PHP | `voxgig-sdk/postcodesio` | publish pending — [install from git tag](https://github.com/voxgig-sdk/postcodesio-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/postcodesio-sdk/go` | `go get github.com/voxgig-sdk/postcodesio-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Nearest():list()
 ### TypeScript
 
 ```ts
-import { PostcodesioSDK } from '@voxgig-sdk/postcodesio'
+import { PostcodesioSDK } from '@voxgig-sdk/postcodesio-sdk'
 
 const client = new PostcodesioSDK()
 
