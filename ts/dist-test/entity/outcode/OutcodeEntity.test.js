@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.POSTCODESIO_TEST_LIVE;
         for (const op of ['load']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'outcode.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'outcode.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set POSTCODESIO_TEST_OUTCODE_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "id", "req": false, "type": "`$STRING`", "index$": 0 }], "id": { "field": "id", "name": "id" }, "name": "outcode", "op": { "load": { "input": "data", "name": "load", "points": [{ "active": true, "args": { "params": [{ "active": true, "example": "SW1A", "kind": "param", "name": "id", "orig": "outcode", "reqd": true, "type": "`$STRING`", "index$": 0 }] }, "contract": { "id": "GET /outcodes/{outcode}", "json": "{\"operationId\":\"FindOutcode\",\"parameters\":[{\"description\":\"Specifies the outward code you wish to query.\",\"example\":\"SW1A\",\"explode\":false,\"in\":\"path\",\"name\":\"outcode\",\"required\":true,\"schema\":{\"type\":\"string\"},\"style\":\"simple\"}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"result\":{\"description\":\"Comprehensive geographical and administrative data for the specified outcode, including location coordinates, administrative boundaries, and related postal information\",\"oneOf\":[{\"properties\":{\"admin_county\":{\"description\":\"Administrative counties within this outcode.\",\"example\":[],\"items\":{\"type\":\"string\"},\"title\":\"Administrative County\",\"type\":\"array\"},\"admin_district\":{\"description\":\"District/unitary authorities within this outcode.\",\"example\":[\"Westminster\",\"Wandsworth\"],\"items\":{\"type\":\"string\"},\"title\":\"District\",\"type\":\"array\"},\"admin_ward\":{\"description\":\"Administrative/electoral wards within this outcode.\",\"example\":[\"Nine Elms\",\"St. James's\"],\"items\":{\"type\":\"string\"},\"title\":\"Ward\",\"type\":\"array\"},\"country\":{\"description\":\"Countries within this outcode.\",\"example\":[\"England\"],\"items\":{\"type\":\"string\"},\"title\":\"Country\",\"type\":\"array\"},\"eastings\":{\"description\":\"Ordnance Survey eastings coordinate (1m resolution). Returns 0 if location unavailable.\",\"example\":529740,\"format\":\"int32\",\"nullable\":true,\"title\":\"Eastings\",\"type\":\"number\"},\"latitude\":{\"description\":\"WGS84 latitude coordinate. May be null if location unavailable.\",\"example\":51.50464,\"format\":\"double\",\"nullable\":true,\"title\":\"Latitude\",\"type\":\"number\"},\"longitude\":{\"description\":\"WGS84 longitude coordinate. May be null if location unavailable.\",\"example\":-0.132066,\"format\":\"double\",\"nullable\":true,\"title\":\"Longitude\",\"type\":\"number\"},\"northings\":{\"description\":\"Ordnance Survey northings coordinate (1m resolution). Returns 0 if location unavailable.\",\"example\":180066,\"format\":\"int32\",\"nullable\":true,\"title\":\"Northings\",\"type\":\"number\"},\"outcode\":{\"description\":\"First part of the postcode before the space (e.g., \\\"SW1A\\\" in \\\"SW1A 1AA\\\"). Usually 2-4 characters.\",\"example\":\"SW1A\",\"title\":\"Outcode\",\"type\":\"string\"},\"parish\":{\"description\":\"Parishes (England) or communities (Wales) within this outcode.\",\"example\":[\"Wandsworth, unparished area\",\"Westminster, unparished area\"],\"items\":{\"type\":\"string\"},\"title\":\"Parish\",\"type\":\"array\"}},\"required\":[\"outcode\",\"eastings\",\"northings\",\"admin_county\",\"admin_district\",\"admin_ward\",\"longitude\",\"latitude\",\"country\",\"parish\"]}]},\"status\":{\"enum\":[200],\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"status\",\"result\"],\"title\":\"Outcode Response\",\"type\":\"object\"}}},\"description\":\"Success\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/outcodes/{outcode}", "rename": { "param": { "outcode": "id" } }, "segments": [{ "lit": "outcodes" }, { "var": "id" }], "select": { "exist": ["id"] }, "transform": { "req": "`reqdata`", "res": "`body.result`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "outcode", "name__orig": "outcode", "Name": "Outcode", "name_": "outcode", "name-": "outcode", "NAME": "OUTCODE", "index$": 1 }, { "active": true, "entity": "outcode", "key$": "BasicOutcodeFlow", "kind": "basic", "name": "BasicOutcodeFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": { "ref": "outcode_ref01", "srcdatavar": "outcode_ref01_data", "suffix": "_dt0" }, "match": { "id": "outcode01" }, "op": "load", "spec": [], "valid": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-outcode_ref01" } }], "index$": 0 }] }, 'Outcode');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -103,12 +101,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['POSTCODESIO_TEST_OUTCODE_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'POSTCODESIO_TEST_OUTCODE_ENTID': idmap,
         'POSTCODESIO_TEST_LIVE': 'FALSE',
@@ -116,7 +108,13 @@ function basicSetup(extra) {
     });
     idmap = env['POSTCODESIO_TEST_OUTCODE_ENTID'];
     const live = 'TRUE' === env.POSTCODESIO_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['POSTCODESIO_TEST_OUTCODE_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.PostcodesioSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -127,7 +125,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -139,7 +138,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.POSTCODESIO_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

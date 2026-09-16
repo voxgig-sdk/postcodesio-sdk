@@ -16,5 +16,170 @@
     "outcode": {
       "outcode_ref01": {}
     }
+  },
+  "requests": {
+    "GET /outcodes/{outcode}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "FindOutcode",
+        "parameters": [
+          {
+            "description": "Specifies the outward code you wish to query.",
+            "example": "SW1A",
+            "explode": false,
+            "in": "path",
+            "name": "outcode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "result": {
+                      "description": "Comprehensive geographical and administrative data for the specified outcode, including location coordinates, administrative boundaries, and related postal information",
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "admin_county": {
+                              "description": "Administrative counties within this outcode.",
+                              "example": [],
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Administrative County",
+                              "type": "array"
+                            },
+                            "admin_district": {
+                              "description": "District/unitary authorities within this outcode.",
+                              "example": [
+                                "Westminster",
+                                "Wandsworth"
+                              ],
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "District",
+                              "type": "array"
+                            },
+                            "admin_ward": {
+                              "description": "Administrative/electoral wards within this outcode.",
+                              "example": [
+                                "Nine Elms",
+                                "St. James's"
+                              ],
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Ward",
+                              "type": "array"
+                            },
+                            "country": {
+                              "description": "Countries within this outcode.",
+                              "example": [
+                                "England"
+                              ],
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Country",
+                              "type": "array"
+                            },
+                            "eastings": {
+                              "description": "Ordnance Survey eastings coordinate (1m resolution). Returns 0 if location unavailable.",
+                              "example": 529740,
+                              "format": "int32",
+                              "nullable": true,
+                              "title": "Eastings",
+                              "type": "number"
+                            },
+                            "latitude": {
+                              "description": "WGS84 latitude coordinate. May be null if location unavailable.",
+                              "example": 51.50464,
+                              "format": "double",
+                              "nullable": true,
+                              "title": "Latitude",
+                              "type": "number"
+                            },
+                            "longitude": {
+                              "description": "WGS84 longitude coordinate. May be null if location unavailable.",
+                              "example": -0.132066,
+                              "format": "double",
+                              "nullable": true,
+                              "title": "Longitude",
+                              "type": "number"
+                            },
+                            "northings": {
+                              "description": "Ordnance Survey northings coordinate (1m resolution). Returns 0 if location unavailable.",
+                              "example": 180066,
+                              "format": "int32",
+                              "nullable": true,
+                              "title": "Northings",
+                              "type": "number"
+                            },
+                            "outcode": {
+                              "description": "First part of the postcode before the space (e.g., \"SW1A\" in \"SW1A 1AA\"). Usually 2-4 characters.",
+                              "example": "SW1A",
+                              "title": "Outcode",
+                              "type": "string"
+                            },
+                            "parish": {
+                              "description": "Parishes (England) or communities (Wales) within this outcode.",
+                              "example": [
+                                "Wandsworth, unparished area",
+                                "Westminster, unparished area"
+                              ],
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Parish",
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "outcode",
+                            "eastings",
+                            "northings",
+                            "admin_county",
+                            "admin_district",
+                            "admin_ward",
+                            "longitude",
+                            "latitude",
+                            "country",
+                            "parish"
+                          ]
+                        }
+                      ]
+                    },
+                    "status": {
+                      "enum": [
+                        200
+                      ],
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "result"
+                  ],
+                  "title": "Outcode Response",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

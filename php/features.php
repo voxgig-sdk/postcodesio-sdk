@@ -4,7 +4,10 @@ declare(strict_types=1);
 // Postcodesio SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class PostcodesioFeatures
@@ -14,8 +17,14 @@ class PostcodesioFeatures
         switch ($name) {
             case "base":
                 return new PostcodesioBaseFeature();
+            case "ratelimit":
+                return new PostcodesioRatelimitFeature();
+            case "retry":
+                return new PostcodesioRetryFeature();
             case "test":
                 return new PostcodesioTestFeature();
+            case "timeout":
+                return new PostcodesioTimeoutFeature();
             default:
                 return new PostcodesioBaseFeature();
         }
@@ -31,7 +40,10 @@ class PostcodesioFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

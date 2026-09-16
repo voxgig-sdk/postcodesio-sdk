@@ -1,12 +1,18 @@
 # Postcodesio SDK feature factory
 
 from postcodesio_sdk.feature.base_feature import PostcodesioBaseFeature
+from postcodesio_sdk.feature.ratelimit_feature import PostcodesioRatelimitFeature
+from postcodesio_sdk.feature.retry_feature import PostcodesioRetryFeature
 from postcodesio_sdk.feature.test_feature import PostcodesioTestFeature
+from postcodesio_sdk.feature.timeout_feature import PostcodesioTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: PostcodesioBaseFeature(),
+    "ratelimit": lambda: PostcodesioRatelimitFeature(),
+    "retry": lambda: PostcodesioRetryFeature(),
     "test": lambda: PostcodesioTestFeature(),
+    "timeout": lambda: PostcodesioTimeoutFeature(),
 }
 
 

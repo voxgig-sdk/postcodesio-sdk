@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { PostcodesioSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('ScottishPostcodeEntity', async () => {
 
     const live = 'TRUE' === process.env.POSTCODESIO_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'scottish_postcode.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'scottish_postcode.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set POSTCODESIO_TEST_SCOTTISH_POSTCODE_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":0},{"active":true,"name":"result","req":true,"short":"Data for a given postcode","type":"`$ARRAY`","index$":1},{"active":true,"format":"int32","name":"status","req":true,"type":"`$INTEGER`","index$":2}],"id":{"field":"id","name":"id"},"name":"scottish_postcode","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"postcode","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /scotland/postcodes/{postcode}","json":"{\"operationId\":\"getScottishPostcode\",\"parameters\":[{\"description\":\"Specifies the postcode you wish to query\",\"explode\":false,\"in\":\"path\",\"name\":\"postcode\",\"required\":true,\"schema\":{\"type\":\"string\"},\"style\":\"simple\"}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"result\":{\"description\":\"Data for a given postcode\",\"items\":{\"properties\":{\"codes\":{\"description\":\"Official identification codes associated with this postcode location\",\"properties\":{\"scottish_parliamentary_constituency\":{\"description\":\"The 9-character GSS/ONS code identifying the 2014 Scottish Parliamentary Constituency (format: S#######)\",\"example\":\"S16000125\",\"pattern\":\"^S[0-9]{8}$\",\"title\":\"Scottish Parliamentary Constituency Code\",\"type\":\"string\"}},\"title\":\"Location Codes\",\"type\":\"object\"},\"postcode\":{\"description\":\"The Royal Mail postcode associated with this location (e.g., IV2 7JB)\",\"example\":\"IV2 7JB\",\"pattern\":\"^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$\",\"title\":\"Postcode\",\"type\":\"string\"},\"scottish_parliamentary_constituency\":{\"description\":\"The name of the 2014 Scottish Parliamentary Constituency for this location\",\"example\":\"Inverness and Nairn\",\"title\":\"Scottish Parliamentary Constituency\",\"type\":\"string\"}},\"required\":[\"postcode\",\"scottish_parliamentary_constituency\",\"codes\"]},\"type\":\"array\"},\"status\":{\"enum\":[200],\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"status\",\"result\"],\"title\":\"Scottish Postcodes Response\",\"type\":\"object\"}}},\"description\":\"Success\"},\"404\":{\"description\":\"Postcode not found\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/scotland/postcodes/{postcode}","rename":{"param":{"postcode":"id"}},"segments":[{"lit":"scotland"},{"lit":"postcodes"},{"var":"id"}],"select":{"exist":["id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"scottish_postcode","name__orig":"scottish_postcode","Name":"ScottishPostcode","name_":"scottish_postcode","name-":"scottish-postcode","NAME":"SCOTTISH_POSTCODE","index$":4}, {"active":true,"entity":"scottish_postcode","key$":"BasicScottishPostcodeFlow","kind":"basic","name":"BasicScottishPostcodeFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"scottish_postcode_ref01","srcdatavar":"scottish_postcode_ref01_data","suffix":"_dt0"},"match":{"id":"scottish_postcode01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-scottish_postcode_ref01"}}],"index$":0}]}, 'ScottishPostcode')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['POSTCODESIO_TEST_SCOTTISH_POSTCODE_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'POSTCODESIO_TEST_SCOTTISH_POSTCODE_ENTID': idmap,
     'POSTCODESIO_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.POSTCODESIO_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['POSTCODESIO_TEST_SCOTTISH_POSTCODE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new PostcodesioSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -139,7 +137,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -152,7 +151,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.POSTCODESIO_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
