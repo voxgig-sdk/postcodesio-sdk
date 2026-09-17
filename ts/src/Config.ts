@@ -127,24 +127,24 @@ class Config {
 
     entity: {
       
-      nearest: {
-      },
-
-      outcode: {
-      },
-
-      place: {
-      },
-
-      postcode: {
-      },
-
-      scottish_postcode: {
-      },
-
-      terminated_postcode: {
-      },
-
+        nearest: {
+        },
+  
+        outcode: {
+        },
+  
+        place: {
+        },
+  
+        postcode: {
+        },
+  
+        scottish_postcode: {
+        },
+  
+        terminated_postcode: {
+        },
+  
     }
   }
 
