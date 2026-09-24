@@ -1,0 +1,32 @@
+# BasicTerminatedPostcodeFlow
+
+main: kit: flow: BasicTerminatedPostcodeFlow:
+{
+  entity: "terminated_postcode",
+  kind: "basic",
+  name: "BasicTerminatedPostcodeFlow",
+  step: [
+    {
+      i: {
+        ref: "terminated_postcode_ref01",
+        srcdatavar: "terminated_postcode_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "terminated_postcode01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-terminated_postcode_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicTerminatedPostcodeFlow"
+}

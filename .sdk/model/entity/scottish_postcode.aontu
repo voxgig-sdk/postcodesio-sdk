@@ -1,0 +1,91 @@
+# Entity: scottish_postcode
+
+main: kit: entity: scottish_postcode: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    result: {
+      h: "Result"
+      n: "result"
+      r: true
+      sh: "Data for a given postcode"
+      t: "`$ARRAY`"
+    }
+    status: {
+      fo: "int32"
+      h: "Status"
+      n: "status"
+      r: true
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "scottish_postcode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /scotland/postcodes/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/scotland/postcodes/{postcode}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              postcode: "id"
+            }
+          }
+          s: [
+            {
+              lit: "scotland"
+            }
+            {
+              lit: "postcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

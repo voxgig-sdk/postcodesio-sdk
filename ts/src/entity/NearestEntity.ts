@@ -19,7 +19,6 @@ import type {
   NearestListMatch,
 } from '../PostcodesioTypes'
 
-// TODO: needs Entity superclass
 class NearestEntity extends PostcodesioEntityBase<Nearest> {
 
   constructor(client: PostcodesioSDK, entopts: any) {

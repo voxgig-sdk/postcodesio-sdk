@@ -1,0 +1,32 @@
+# BasicOutcodeFlow
+
+main: kit: flow: BasicOutcodeFlow:
+{
+  entity: "outcode",
+  kind: "basic",
+  name: "BasicOutcodeFlow",
+  step: [
+    {
+      i: {
+        ref: "outcode_ref01",
+        srcdatavar: "outcode_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "outcode01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-outcode_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicOutcodeFlow"
+}

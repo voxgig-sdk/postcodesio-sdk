@@ -96,15 +96,17 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "result",
+						"title": "Result",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Array of nearest postcodes sorted by distance",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "status",
-						"req": true,
+						"title": "Status",
 						"type": "`$INTEGER`",
+						"req": true,
+						"format": "int32",
 					},
 				},
 				"name": "nearest",
@@ -114,26 +116,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "SW1A 2AA",
-											"kind": "param",
-											"name": "postcode_id",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/postcodes/{postcode}/nearest",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"postcode": "postcode_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "postcodes",
@@ -145,19 +130,36 @@ func MakeConfig() map[string]any {
 										"lit": "nearest",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"postcode_id",
+								"parts": []any{
+									"postcodes",
+									"{postcode_id}",
+									"nearest",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"postcode": "postcode_id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"postcodes",
-									"{postcode_id}",
-									"nearest",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "postcode_id",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "SW1A 2AA",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"postcode_id",
+									},
 								},
 							},
 						},
@@ -166,7 +168,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"postcode",
+							"$.main.kit.entity.postcode",
 						},
 					},
 				},
@@ -175,6 +177,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 				},
@@ -189,26 +192,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "SW1A",
-											"kind": "param",
-											"name": "id",
-											"orig": "outcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/outcodes/{outcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"outcode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "outcodes",
@@ -217,18 +203,35 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"outcodes",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"outcode": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"outcodes",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "outcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "SW1A",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -242,134 +245,156 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "code",
+						"title": "Code",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Unique identifier for the place record (persistent except for Section of Named/Numbered Roads)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "country",
+						"title": "Country",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Country within Great Britain (England, Scotland, or Wales)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "county_unitary",
+						"title": "County Unitary",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "County, Unitary Authority or Greater London Authority that contains this place",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "county_unitary_type",
+						"title": "County Unitary Type",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Type of administrative unit (e.g., County, UnitaryAuthority)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "district_borough",
+						"title": "District Borough",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "District, Metropolitan District or London Borough containing this place",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "district_borough_type",
-						"short": "Type of district/borough administrative unit",
+						"title": "District Borough Type",
 						"type": "`$STRING`",
+						"short": "Type of district/borough administrative unit",
 					},
 					map[string]any{
 						"name": "eastings",
+						"title": "Eastings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "latitude",
+						"title": "Latitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "WGS84 latitude coordinate",
-						"type": "`$NUMBER`",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "local_type",
+						"title": "Local Type",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Ordnance Survey classification (City, Town, Village, Hamlet, etc.)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "longitude",
+						"title": "Longitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "WGS84 longitude coordinate",
-						"type": "`$NUMBER`",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "max_eastings",
+						"title": "Max Eastings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Eastern edge of the place's bounding box (Minimum Bounding Rectangle)",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "max_northings",
+						"title": "Max Northings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Northern edge of the place's bounding box (Minimum Bounding Rectangle)",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "min_eastings",
+						"title": "Min Eastings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Western edge of the place's bounding box (Minimum Bounding Rectangle)",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "min_northings",
+						"title": "Min Northings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Southern edge of the place's bounding box (Minimum Bounding Rectangle)",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "name_1",
+						"title": "Name 1",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Official name of the place (preserves original format, e.g., \"The Pennines\" not \"Pennines, The\")",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name_1_lang",
+						"title": "Name 1 Lang",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Language code for name_1 (cym=Welsh, eng=English, gla=Scottish Gaelic)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name_2",
+						"title": "Name 2",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Alternative name in a different language",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name_2_lang",
+						"title": "Name 2 Lang",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Language code for name_2 (cym=Welsh, eng=English, gla=Scottish Gaelic)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "northings",
+						"title": "Northings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Ordnance Survey grid reference Northing (1m resolution, not available for Channel Islands/Isle of Man)",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "outcode",
+						"title": "Outcode",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Postcode district (first part of the postcode)",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "region",
+						"title": "Region",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "European Region (formerly Government Office Region) containing this place",
-						"type": "`$STRING`",
 					},
 				},
 				"id": map[string]any{
@@ -383,7 +408,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/places",
@@ -392,14 +416,16 @@ func MakeConfig() map[string]any {
 										"lit": "places",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"places",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"places",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -408,25 +434,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "code",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/places/{code}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"code": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "places",
@@ -435,22 +445,37 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"places",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"code": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"places",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "code",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/random/places",
@@ -462,15 +487,17 @@ func MakeConfig() map[string]any {
 										"lit": "places",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.result`",
-								},
 								"parts": []any{
 									"random",
 									"places",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.result`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -483,257 +510,302 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "admin_county",
+						"title": "Admin County",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The administrative county for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "admin_district",
+						"title": "Admin District",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The administrative district or unitary authority for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "admin_ward",
+						"title": "Admin Ward",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The electoral/administrative ward for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "bua",
-						"short": "The Built-up Area (2022) for this postcode.",
+						"title": "Bua",
 						"type": "`$STRING`",
+						"short": "The Built-up Area (2022) for this postcode.",
 					},
 					map[string]any{
 						"name": "cancer_alliance",
-						"short": "The Cancer Alliance for this postcode.",
+						"title": "Cancer Alliance",
 						"type": "`$STRING`",
+						"short": "The Cancer Alliance for this postcode.",
 					},
 					map[string]any{
 						"name": "ccg",
+						"title": "Ccg",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "NHS Clinical Commissioning Group responsible for planning healthcare services in England.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "ced",
+						"title": "Ced",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The county electoral division for English postcodes.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "codes",
+						"title": "Codes",
+						"type": "`$OBJECT`",
 						"req": true,
 						"short": "Contains the GSS (Government Statistical Service) codes for administrative areas.",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "country",
+						"title": "Country",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The UK constituent country for this postcode (England, Scotland, Wales, Northern Ireland, Channel Islands, or Isle of Man).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "date_of_introduction",
-						"short": "The date the postcode was introduced in YYYYMM format.",
+						"title": "Date Of Introduction",
 						"type": "`$STRING`",
+						"short": "The date the postcode was introduced in YYYYMM format.",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "eastings",
+						"title": "Eastings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "The OS grid reference easting (X-coordinate) to 1 metre resolution.",
-						"type": "`$INTEGER`",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "european_electoral_region",
+						"title": "European Electoral Region",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The European Electoral Region for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "icb",
-						"short": "The NHS Integrated Care Board responsible for healthcare planning in this area.",
+						"title": "Icb",
 						"type": "`$STRING`",
+						"short": "The NHS Integrated Care Board responsible for healthcare planning in this area.",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "incode",
+						"title": "Incode",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The second part of a postcode after the space (always 3 characters).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "latitude",
+						"title": "Latitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "WGS84 latitude coordinate (north-south position).",
-						"type": "`$NUMBER`",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "lep1",
-						"short": "The primary Local Enterprise Partnership for this postcode.",
+						"title": "Lep1",
 						"type": "`$STRING`",
+						"short": "The primary Local Enterprise Partnership for this postcode.",
 					},
 					map[string]any{
 						"name": "lep2",
-						"short": "The secondary Local Enterprise Partnership for this postcode, if it falls within overlapping LEP areas.",
+						"title": "Lep2",
 						"type": "`$STRING`",
+						"short": "The secondary Local Enterprise Partnership for this postcode, if it falls within overlapping LEP areas.",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "longitude",
+						"title": "Longitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "WGS84 longitude coordinate (east-west position).",
-						"type": "`$NUMBER`",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "lsoa",
+						"title": "Lsoa",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "2021 Census LSOA code (smaller statistical area, typically 1,000-1,500 residents).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "lsoa11",
-						"short": "2011 Census LSOA code.",
+						"title": "Lsoa11",
 						"type": "`$STRING`",
+						"short": "2011 Census LSOA code.",
 					},
 					map[string]any{
 						"name": "lsoa21",
-						"short": "2021 Census LSOA code.",
+						"title": "Lsoa21",
 						"type": "`$STRING`",
+						"short": "2021 Census LSOA code.",
 					},
 					map[string]any{
 						"name": "msoa",
+						"title": "Msoa",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "2021 Census MSOA code (mid-size statistical area, typically 5,000-7,000 residents).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "msoa11",
-						"short": "2011 Census MSOA code.",
+						"title": "Msoa11",
 						"type": "`$STRING`",
+						"short": "2011 Census MSOA code.",
 					},
 					map[string]any{
 						"name": "msoa21",
-						"short": "2021 Census MSOA code.",
+						"title": "Msoa21",
 						"type": "`$STRING`",
+						"short": "2021 Census MSOA code.",
 					},
 					map[string]any{
 						"name": "national_park",
-						"short": "The National Park this postcode falls within, if any.",
+						"title": "National Park",
 						"type": "`$STRING`",
+						"short": "The National Park this postcode falls within, if any.",
 					},
 					map[string]any{
 						"name": "nhs_ha",
+						"title": "Nhs Ha",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The NHS health authority area for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "nhs_region",
-						"short": "The NHS England Region for this postcode.",
+						"title": "Nhs Region",
 						"type": "`$STRING`",
+						"short": "The NHS England Region for this postcode.",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "northings",
+						"title": "Northings",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "The OS grid reference northing (Y-coordinate) to 1 metre resolution.",
-						"type": "`$INTEGER`",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "nuts",
+						"title": "Nuts",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Statistical geography code for international comparisons (formerly NUTS - Nomenclature of Units for Territorial Statistics).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "oa21",
-						"short": "2021 Census Output Area code - the smallest census geography.",
+						"title": "Oa21",
 						"type": "`$STRING`",
+						"short": "2021 Census Output Area code - the smallest census geography.",
 					},
 					map[string]any{
 						"name": "outcode",
+						"title": "Outcode",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The first part of a postcode before the space (2-4 characters).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "parish",
+						"title": "Parish",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The civil parish (England) or community (Wales) for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "parliamentary_constituency",
+						"title": "Parliamentary Constituency",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The UK Parliamentary constituency for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "parliamentary_constituency_2024",
-						"short": "The UK Parliamentary constituency for this postcode based on July 2024 boundaries.",
+						"title": "Parliamentary Constituency 2024",
 						"type": "`$STRING`",
+						"short": "The UK Parliamentary constituency for this postcode based on July 2024 boundaries.",
 					},
 					map[string]any{
 						"name": "pfa",
-						"short": "The police force area for this postcode.",
+						"title": "Pfa",
 						"type": "`$STRING`",
+						"short": "The police force area for this postcode.",
 					},
 					map[string]any{
 						"name": "postcode",
+						"title": "Postcode",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "UK postcode format: 2-4 character outward code, a space, and a 3-character inward code (e.g., SW1A 2AA).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "primary_care_trust",
+						"title": "Primary Care Trust",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The healthcare administrative area for this postcode.",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "quality",
+						"title": "Quality",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Positional Quality Indicator (1-9).",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "region",
+						"title": "Region",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "The regional designation for this postcode (formerly Government Office Regions or GORs).",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "result",
+						"title": "Result",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Array containing detailed location information for the requested postcode or nearest postcodes",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "ruc11",
-						"short": "The 2011 Census Rural-Urban Classification for this postcode.",
+						"title": "Ruc11",
 						"type": "`$STRING`",
+						"short": "The 2011 Census Rural-Urban Classification for this postcode.",
 					},
 					map[string]any{
 						"name": "ruc21",
-						"short": "The 2021 Census Rural-Urban Classification for this postcode.",
+						"title": "Ruc21",
 						"type": "`$STRING`",
+						"short": "The 2021 Census Rural-Urban Classification for this postcode.",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "status",
-						"req": true,
+						"title": "Status",
 						"type": "`$INTEGER`",
+						"req": true,
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "ttwa",
-						"short": "The Travel to Work Area for this postcode.",
+						"title": "Ttwa",
 						"type": "`$STRING`",
+						"short": "The Travel to Work Area for this postcode.",
 					},
 				},
 				"id": map[string]any{
@@ -747,7 +819,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/postcodes",
@@ -756,14 +827,16 @@ func MakeConfig() map[string]any {
 										"lit": "postcodes",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"postcodes",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"postcodes",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -772,65 +845,73 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "postcode",
-											"kind": "query",
-											"name": "filter",
-											"orig": "filter",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 51.50354,
-											"kind": "query",
-											"name": "latitude",
-											"orig": "latitude",
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"example": 3,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": -0.127695,
-											"kind": "query",
-											"name": "longitude",
-											"orig": "longitude",
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"example": "SW1A 2AA",
-											"kind": "query",
-											"name": "query",
-											"orig": "query",
-											"type": "`$ANY`",
-										},
-										map[string]any{
-											"example": 500,
-											"kind": "query",
-											"name": "radius",
-											"orig": "radius",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "true",
-											"kind": "query",
-											"name": "widesearch",
-											"orig": "widesearch",
-											"type": "`$BOOLEAN`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/postcodes",
 								"segments": []any{
 									map[string]any{
 										"lit": "postcodes",
+									},
+								},
+								"parts": []any{
+									"postcodes",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.result`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "filter",
+											"orig": "filter",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "postcode",
+										},
+										map[string]any{
+											"name": "latitude",
+											"orig": "latitude",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"example": 51.50354,
+										},
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 3,
+										},
+										map[string]any{
+											"name": "longitude",
+											"orig": "longitude",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"example": -0.127695,
+										},
+										map[string]any{
+											"name": "query",
+											"orig": "query",
+											"type": "`$ANY`",
+											"kind": "query",
+											"example": "SW1A 2AA",
+										},
+										map[string]any{
+											"name": "radius",
+											"orig": "radius",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 500,
+										},
+										map[string]any{
+											"name": "widesearch",
+											"orig": "widesearch",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": "true",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -844,13 +925,6 @@ func MakeConfig() map[string]any {
 										"widesearch",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.result`",
-								},
-								"parts": []any{
-									"postcodes",
-								},
 							},
 						},
 					},
@@ -859,26 +933,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "SW1A 2AA",
-											"kind": "param",
-											"name": "id",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/postcodes/{postcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"postcode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "postcodes",
@@ -887,32 +944,38 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"postcodes",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"postcode": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"postcodes",
-									"{id}",
-								},
-							},
-							map[string]any{
 								"args": map[string]any{
-									"query": []any{
+									"params": []any{
 										map[string]any{
-											"example": "SW1A",
-											"kind": "query",
-											"name": "outcode",
-											"orig": "outcode",
+											"name": "id",
+											"orig": "postcode",
 											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "SW1A 2AA",
 										},
 									},
 								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
+								},
+							},
+							map[string]any{
 								"kind": "http",
 								"method": "GET",
 								"orig": "/random/postcodes",
@@ -924,18 +987,30 @@ func MakeConfig() map[string]any {
 										"lit": "postcodes",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"outcode",
-									},
+								"parts": []any{
+									"random",
+									"postcodes",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.result`",
 								},
-								"parts": []any{
-									"random",
-									"postcodes",
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "outcode",
+											"orig": "outcode",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "SW1A",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"outcode",
+									},
 								},
 							},
 						},
@@ -949,19 +1024,22 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "result",
+						"title": "Result",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Data for a given postcode",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "status",
-						"req": true,
+						"title": "Status",
 						"type": "`$INTEGER`",
+						"req": true,
+						"format": "int32",
 					},
 				},
 				"id": map[string]any{
@@ -975,25 +1053,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/scotland/postcodes/{postcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"postcode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "scotland",
@@ -1005,19 +1067,35 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"scotland",
+									"postcodes",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"postcode": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"scotland",
-									"postcodes",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -1031,19 +1109,22 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "result",
+						"title": "Result",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Data for a given postcode",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "status",
-						"req": true,
+						"title": "Status",
 						"type": "`$INTEGER`",
+						"req": true,
+						"format": "int32",
 					},
 				},
 				"id": map[string]any{
@@ -1057,25 +1138,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "postcode",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/terminated_postcodes/{postcode}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"postcode": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "terminated_postcodes",
@@ -1084,18 +1149,34 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"terminated_postcodes",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"postcode": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"terminated_postcodes",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "postcode",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},

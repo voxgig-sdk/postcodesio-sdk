@@ -1,0 +1,75 @@
+# Entity: outcode
+
+main: kit: entity: outcode: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "outcode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /outcodes/{outcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "SW1A"
+                k: "param"
+                n: "id"
+                or: "outcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/outcodes/{outcode}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              outcode: "id"
+            }
+          }
+          s: [
+            {
+              lit: "outcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

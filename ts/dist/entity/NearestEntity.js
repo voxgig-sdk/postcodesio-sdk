@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NearestEntity = void 0;
 const PostcodesioEntityBase_1 = require("../PostcodesioEntityBase");
-// TODO: needs Entity superclass
 class NearestEntity extends PostcodesioEntityBase_1.PostcodesioEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

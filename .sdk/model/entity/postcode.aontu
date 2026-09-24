@@ -1,0 +1,542 @@
+# Entity: postcode
+
+main: kit: entity: postcode: {
+
+  alias: field: {}
+
+  fields: {
+    admin_county: {
+      h: "Admin County"
+      n: "admin_county"
+      r: true
+      sh: "The administrative county for this postcode."
+      t: "`$STRING`"
+    }
+    admin_district: {
+      h: "Admin District"
+      n: "admin_district"
+      r: true
+      sh: "The administrative district or unitary authority for this postcode."
+      t: "`$STRING`"
+    }
+    admin_ward: {
+      h: "Admin Ward"
+      n: "admin_ward"
+      r: true
+      sh: "The electoral/administrative ward for this postcode."
+      t: "`$STRING`"
+    }
+    bua: {
+      h: "Bua"
+      n: "bua"
+      r: false
+      sh: "The Built-up Area (2022) for this postcode."
+      t: "`$STRING`"
+    }
+    cancer_alliance: {
+      h: "Cancer Alliance"
+      n: "cancer_alliance"
+      r: false
+      sh: "The Cancer Alliance for this postcode."
+      t: "`$STRING`"
+    }
+    ccg: {
+      h: "Ccg"
+      n: "ccg"
+      r: true
+      sh: "NHS Clinical Commissioning Group responsible for planning healthcare services in England."
+      t: "`$STRING`"
+    }
+    ced: {
+      h: "Ced"
+      n: "ced"
+      r: true
+      sh: "The county electoral division for English postcodes."
+      t: "`$STRING`"
+    }
+    codes: {
+      h: "Codes"
+      n: "codes"
+      r: true
+      sh: "Contains the GSS (Government Statistical Service) codes for administrative areas."
+      t: "`$OBJECT`"
+    }
+    country: {
+      h: "Country"
+      n: "country"
+      r: true
+      sh: "The UK constituent country for this postcode (England, Scotland, Wales, Northern Ireland, Channel Islands, or Isle of Man)."
+      t: "`$STRING`"
+    }
+    date_of_introduction: {
+      h: "Date Of Introduction"
+      n: "date_of_introduction"
+      r: false
+      sh: "The date the postcode was introduced in YYYYMM format."
+      t: "`$STRING`"
+    }
+    eastings: {
+      fo: "int32"
+      h: "Eastings"
+      n: "eastings"
+      r: true
+      sh: "The OS grid reference easting (X-coordinate) to 1 metre resolution."
+      t: "`$INTEGER`"
+    }
+    european_electoral_region: {
+      h: "European Electoral Region"
+      n: "european_electoral_region"
+      r: true
+      sh: "The European Electoral Region for this postcode."
+      t: "`$STRING`"
+    }
+    icb: {
+      h: "Icb"
+      n: "icb"
+      r: false
+      sh: "The NHS Integrated Care Board responsible for healthcare planning in this area."
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    incode: {
+      h: "Incode"
+      n: "incode"
+      r: true
+      sh: "The second part of a postcode after the space (always 3 characters)."
+      t: "`$STRING`"
+    }
+    latitude: {
+      fo: "double"
+      h: "Latitude"
+      n: "latitude"
+      r: true
+      sh: "WGS84 latitude coordinate (north-south position)."
+      t: "`$NUMBER`"
+    }
+    lep1: {
+      h: "Lep1"
+      n: "lep1"
+      r: false
+      sh: "The primary Local Enterprise Partnership for this postcode."
+      t: "`$STRING`"
+    }
+    lep2: {
+      h: "Lep2"
+      n: "lep2"
+      r: false
+      sh: "The secondary Local Enterprise Partnership for this postcode, if it falls within overlapping LEP areas."
+      t: "`$STRING`"
+    }
+    longitude: {
+      fo: "double"
+      h: "Longitude"
+      n: "longitude"
+      r: true
+      sh: "WGS84 longitude coordinate (east-west position)."
+      t: "`$NUMBER`"
+    }
+    lsoa: {
+      h: "Lsoa"
+      n: "lsoa"
+      r: true
+      sh: "2021 Census LSOA code (smaller statistical area, typically 1,000-1,500 residents)."
+      t: "`$STRING`"
+    }
+    lsoa11: {
+      h: "Lsoa11"
+      n: "lsoa11"
+      r: false
+      sh: "2011 Census LSOA code."
+      t: "`$STRING`"
+    }
+    lsoa21: {
+      h: "Lsoa21"
+      n: "lsoa21"
+      r: false
+      sh: "2021 Census LSOA code."
+      t: "`$STRING`"
+    }
+    msoa: {
+      h: "Msoa"
+      n: "msoa"
+      r: true
+      sh: "2021 Census MSOA code (mid-size statistical area, typically 5,000-7,000 residents)."
+      t: "`$STRING`"
+    }
+    msoa11: {
+      h: "Msoa11"
+      n: "msoa11"
+      r: false
+      sh: "2011 Census MSOA code."
+      t: "`$STRING`"
+    }
+    msoa21: {
+      h: "Msoa21"
+      n: "msoa21"
+      r: false
+      sh: "2021 Census MSOA code."
+      t: "`$STRING`"
+    }
+    national_park: {
+      h: "National Park"
+      n: "national_park"
+      r: false
+      sh: "The National Park this postcode falls within, if any."
+      t: "`$STRING`"
+    }
+    nhs_ha: {
+      h: "Nhs Ha"
+      n: "nhs_ha"
+      r: true
+      sh: "The NHS health authority area for this postcode."
+      t: "`$STRING`"
+    }
+    nhs_region: {
+      h: "Nhs Region"
+      n: "nhs_region"
+      r: false
+      sh: "The NHS England Region for this postcode."
+      t: "`$STRING`"
+    }
+    northings: {
+      fo: "int32"
+      h: "Northings"
+      n: "northings"
+      r: true
+      sh: "The OS grid reference northing (Y-coordinate) to 1 metre resolution."
+      t: "`$INTEGER`"
+    }
+    nuts: {
+      h: "Nuts"
+      n: "nuts"
+      r: true
+      sh: "Statistical geography code for international comparisons (formerly NUTS - Nomenclature of Units for Territorial Statistics)."
+      t: "`$STRING`"
+    }
+    oa21: {
+      h: "Oa21"
+      n: "oa21"
+      r: false
+      sh: "2021 Census Output Area code - the smallest census geography."
+      t: "`$STRING`"
+    }
+    outcode: {
+      h: "Outcode"
+      n: "outcode"
+      r: true
+      sh: "The first part of a postcode before the space (2-4 characters)."
+      t: "`$STRING`"
+    }
+    parish: {
+      h: "Parish"
+      n: "parish"
+      r: true
+      sh: "The civil parish (England) or community (Wales) for this postcode."
+      t: "`$STRING`"
+    }
+    parliamentary_constituency: {
+      h: "Parliamentary Constituency"
+      n: "parliamentary_constituency"
+      r: true
+      sh: "The UK Parliamentary constituency for this postcode."
+      t: "`$STRING`"
+    }
+    parliamentary_constituency_2024: {
+      h: "Parliamentary Constituency 2024"
+      n: "parliamentary_constituency_2024"
+      r: false
+      sh: "The UK Parliamentary constituency for this postcode based on July 2024 boundaries."
+      t: "`$STRING`"
+    }
+    pfa: {
+      h: "Pfa"
+      n: "pfa"
+      r: false
+      sh: "The police force area for this postcode."
+      t: "`$STRING`"
+    }
+    postcode: {
+      h: "Postcode"
+      n: "postcode"
+      r: true
+      sh: "UK postcode format: 2-4 character outward code, a space, and a 3-character inward code (e.g., SW1A 2AA)."
+      t: "`$STRING`"
+    }
+    primary_care_trust: {
+      h: "Primary Care Trust"
+      n: "primary_care_trust"
+      r: true
+      sh: "The healthcare administrative area for this postcode."
+      t: "`$STRING`"
+    }
+    quality: {
+      h: "Quality"
+      n: "quality"
+      r: true
+      sh: "Positional Quality Indicator (1-9)."
+      t: "`$INTEGER`"
+    }
+    region: {
+      h: "Region"
+      n: "region"
+      r: true
+      sh: "The regional designation for this postcode (formerly Government Office Regions or GORs)."
+      t: "`$STRING`"
+    }
+    result: {
+      h: "Result"
+      n: "result"
+      r: true
+      sh: "Array containing detailed location information for the requested postcode or nearest postcodes"
+      t: "`$ARRAY`"
+    }
+    ruc11: {
+      h: "Ruc11"
+      n: "ruc11"
+      r: false
+      sh: "The 2011 Census Rural-Urban Classification for this postcode."
+      t: "`$STRING`"
+    }
+    ruc21: {
+      h: "Ruc21"
+      n: "ruc21"
+      r: false
+      sh: "The 2021 Census Rural-Urban Classification for this postcode."
+      t: "`$STRING`"
+    }
+    status: {
+      fo: "int32"
+      h: "Status"
+      n: "status"
+      r: true
+      t: "`$INTEGER`"
+    }
+    ttwa: {
+      h: "Ttwa"
+      n: "ttwa"
+      r: false
+      sh: "The Travel to Work Area for this postcode."
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "postcode"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /postcodes"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/postcodes"
+          s: [
+            {
+              lit: "postcodes"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /postcodes"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "postcode"
+                k: "query"
+                n: "filter"
+                or: "filter"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 51.50354
+                k: "query"
+                n: "latitude"
+                or: "latitude"
+                r: false
+                t: "`$NUMBER`"
+              }
+              {
+                ex: 3
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: -0.127695
+                k: "query"
+                n: "longitude"
+                or: "longitude"
+                r: false
+                t: "`$NUMBER`"
+              }
+              {
+                ex: "SW1A 2AA"
+                k: "query"
+                n: "query"
+                or: "query"
+                r: false
+                t: "`$ANY`"
+              }
+              {
+                ex: 500
+                k: "query"
+                n: "radius"
+                or: "radius"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "true"
+                k: "query"
+                n: "widesearch"
+                or: "widesearch"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/postcodes"
+          q: {
+            exist: [
+              "filter"
+              "latitude"
+              "limit"
+              "longitude"
+              "query"
+              "radius"
+              "widesearch"
+            ]
+          }
+          s: [
+            {
+              lit: "postcodes"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /postcodes/{postcode}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "SW1A 2AA"
+                k: "param"
+                n: "id"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/postcodes/{postcode}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              postcode: "id"
+            }
+          }
+          s: [
+            {
+              lit: "postcodes"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+        {
+          co: {
+            id: "GET /random/postcodes"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "SW1A"
+                k: "query"
+                n: "outcode"
+                or: "outcode"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/random/postcodes"
+          q: {
+            exist: [
+              "outcode"
+            ]
+          }
+          s: [
+            {
+              lit: "random"
+            }
+            {
+              lit: "postcodes"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

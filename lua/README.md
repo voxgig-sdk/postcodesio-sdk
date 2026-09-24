@@ -43,7 +43,7 @@ local nearests, err = client:Nearest():list()
 if err then error(err) end
 
 for _, item in ipairs(nearests) do
-  print(item["result"])
+  print(item)
 end
 ```
 

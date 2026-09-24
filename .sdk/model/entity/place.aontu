@@ -1,0 +1,267 @@
+# Entity: place
+
+main: kit: entity: place: {
+
+  alias: field: {}
+
+  fields: {
+    code: {
+      h: "Code"
+      n: "code"
+      r: true
+      sh: "Unique identifier for the place record (persistent except for Section of Named/Numbered Roads)"
+      t: "`$STRING`"
+    }
+    country: {
+      h: "Country"
+      n: "country"
+      r: true
+      sh: "Country within Great Britain (England, Scotland, or Wales)"
+      t: "`$STRING`"
+    }
+    county_unitary: {
+      h: "County Unitary"
+      n: "county_unitary"
+      r: true
+      sh: "County, Unitary Authority or Greater London Authority that contains this place"
+      t: "`$STRING`"
+    }
+    county_unitary_type: {
+      h: "County Unitary Type"
+      n: "county_unitary_type"
+      r: true
+      sh: "Type of administrative unit (e.g., County, UnitaryAuthority)"
+      t: "`$STRING`"
+    }
+    district_borough: {
+      h: "District Borough"
+      n: "district_borough"
+      r: true
+      sh: "District, Metropolitan District or London Borough containing this place"
+      t: "`$STRING`"
+    }
+    district_borough_type: {
+      h: "District Borough Type"
+      n: "district_borough_type"
+      r: false
+      sh: "Type of district/borough administrative unit"
+      t: "`$STRING`"
+    }
+    eastings: {
+      h: "Eastings"
+      n: "eastings"
+      r: true
+      sh: "Ordnance Survey grid reference Easting (1m resolution, not available for Channel Islands/Isle of Man)"
+      t: "`$INTEGER`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    latitude: {
+      fo: "double"
+      h: "Latitude"
+      n: "latitude"
+      r: true
+      sh: "WGS84 latitude coordinate"
+      t: "`$NUMBER`"
+    }
+    local_type: {
+      h: "Local Type"
+      n: "local_type"
+      r: true
+      sh: "Ordnance Survey classification (City, Town, Village, Hamlet, etc.)"
+      t: "`$STRING`"
+    }
+    longitude: {
+      fo: "double"
+      h: "Longitude"
+      n: "longitude"
+      r: true
+      sh: "WGS84 longitude coordinate"
+      t: "`$NUMBER`"
+    }
+    max_eastings: {
+      h: "Max Eastings"
+      n: "max_eastings"
+      r: true
+      sh: "Eastern edge of the place's bounding box (Minimum Bounding Rectangle)"
+      t: "`$INTEGER`"
+    }
+    max_northings: {
+      h: "Max Northings"
+      n: "max_northings"
+      r: true
+      sh: "Northern edge of the place's bounding box (Minimum Bounding Rectangle)"
+      t: "`$INTEGER`"
+    }
+    min_eastings: {
+      h: "Min Eastings"
+      n: "min_eastings"
+      r: true
+      sh: "Western edge of the place's bounding box (Minimum Bounding Rectangle)"
+      t: "`$INTEGER`"
+    }
+    min_northings: {
+      h: "Min Northings"
+      n: "min_northings"
+      r: true
+      sh: "Southern edge of the place's bounding box (Minimum Bounding Rectangle)"
+      t: "`$INTEGER`"
+    }
+    name_1: {
+      h: "Name 1"
+      n: "name_1"
+      r: true
+      sh: "Official name of the place (preserves original format, e.g., \"The Pennines\" not \"Pennines, The\")"
+      t: "`$STRING`"
+    }
+    name_1_lang: {
+      h: "Name 1 Lang"
+      n: "name_1_lang"
+      r: true
+      sh: "Language code for name_1 (cym=Welsh, eng=English, gla=Scottish Gaelic)"
+      t: "`$STRING`"
+    }
+    name_2: {
+      h: "Name 2"
+      n: "name_2"
+      r: true
+      sh: "Alternative name in a different language"
+      t: "`$STRING`"
+    }
+    name_2_lang: {
+      h: "Name 2 Lang"
+      n: "name_2_lang"
+      r: true
+      sh: "Language code for name_2 (cym=Welsh, eng=English, gla=Scottish Gaelic)"
+      t: "`$STRING`"
+    }
+    northings: {
+      h: "Northings"
+      n: "northings"
+      r: true
+      sh: "Ordnance Survey grid reference Northing (1m resolution, not available for Channel Islands/Isle of Man)"
+      t: "`$INTEGER`"
+    }
+    outcode: {
+      h: "Outcode"
+      n: "outcode"
+      r: true
+      sh: "Postcode district (first part of the postcode)"
+      t: "`$STRING`"
+    }
+    region: {
+      h: "Region"
+      n: "region"
+      r: true
+      sh: "European Region (formerly Government Office Region) containing this place"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "place"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /places"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/places"
+          s: [
+            {
+              lit: "places"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /places/{code}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "code"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/places/{code}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              code: "id"
+            }
+          }
+          s: [
+            {
+              lit: "places"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+        {
+          co: {
+            id: "GET /random/places"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/random/places"
+          s: [
+            {
+              lit: "random"
+            }
+            {
+              lit: "places"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

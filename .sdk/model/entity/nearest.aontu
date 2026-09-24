@@ -1,0 +1,84 @@
+# Entity: nearest
+
+main: kit: entity: nearest: {
+
+  alias: field: {}
+
+  fields: {
+    result: {
+      h: "Result"
+      n: "result"
+      r: true
+      sh: "Array of nearest postcodes sorted by distance"
+      t: "`$ARRAY`"
+    }
+    status: {
+      fo: "int32"
+      h: "Status"
+      n: "status"
+      r: true
+      t: "`$INTEGER`"
+    }
+  }
+
+  name: "nearest"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /postcodes/{postcode}/nearest"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "SW1A 2AA"
+                k: "param"
+                n: "postcode_id"
+                or: "postcode"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/postcodes/{postcode}/nearest"
+          q: {
+            exist: [
+              "postcode_id"
+            ]
+          }
+          r: {
+            param: {
+              postcode: "postcode_id"
+            }
+          }
+          s: [
+            {
+              lit: "postcodes"
+            }
+            {
+              var: "postcode_id"
+            }
+            {
+              lit: "nearest"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.result`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.postcode")]
+  ]
+
+}
