@@ -1,5 +1,5 @@
 {
-  "name": "voxgig-sdk/postcodesio",
+  "name": "voxgig-sdk/postcodesio-sdk",
   "description": "Unofficial generated PHP SDK for the API Reference - Postcodes.io public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
   "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "postcodesio"],
